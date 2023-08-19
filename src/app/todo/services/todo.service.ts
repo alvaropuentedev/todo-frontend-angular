@@ -12,7 +12,8 @@ export class TodoService {
 
   getItems(): Observable<Item[]> {
     //  return this.http.get<Item[]>('http://localhost:8080/api/todoitems');
-     return this.http.get<Item[]>('https://bruckecloud.asuscomm.com:8080/api/todoitems');
+
+    return this.http.get<Item[]>('https://bruckecloud.asuscomm.com:8080/api/todoitems');
   }
 
   getFetch() {
