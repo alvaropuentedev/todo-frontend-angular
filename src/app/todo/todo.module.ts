@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ItemListComponent } from './components/item-list/item-list.component';
 import { MainPageComponent } from './pages/main-page.component';
 import { AddItemComponent } from './components/add-item/add-item.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -17,7 +18,8 @@ import { AddItemComponent } from './components/add-item/add-item.component';
     MainPageComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ]
 })
 export class TodoModule { }

@@ -1,9 +1,12 @@
-<form action="" method="post">
+<form (ngSubmit)="submitForm()">
 
-  <input type="text" placeholder="Añade un item">
+  <input type="text"
+    [(ngModel)]="item.description"
+    name="itemDescription"
+    placeholder="Añade un item" required>
 
   <button type="submit">
-    Añadir
+    Agregar
   </button>
 
 </form>
