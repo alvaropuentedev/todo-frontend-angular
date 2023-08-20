@@ -11,7 +11,7 @@ export class TodoService {
   constructor( private http: HttpClient) { }
 
   getItems(): Observable<Item[]> {
-     return this.http.get<Item[]>('todo-backend-expressjs.vercel.app:3000/api/items');
+     return this.http.get<Item[]>('todo-backend-expressjs.vercel.app/api/items');
   }
 
   getItemById( id: number ): Observable<Item> {
