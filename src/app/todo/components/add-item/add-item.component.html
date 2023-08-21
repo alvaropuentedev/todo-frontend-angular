@@ -1,10 +1,14 @@
-<div>
-  <form (ngSubmit)="submitForm()" class="flex lg:w-10 mt-4 justify-center">
-      <input autofocus type="text"
-      [(ngModel)]="item.description"
-      name="itemDescription" class="w-80 border-b-2 border-gray-500 text-black focus:outline-none" placeholder="Añadir Item">
-      <button class="ml-3 cursor-pointer" type="submit">
-        <!-- <img src="../../../../assets/add-to-basket.png" alt="Icono" class="h-6 w-6"> -->
-      </button>
-  </form>
+<div class="flex justify-center">
+  <div class="max-sm:fixed max-sm:bottom-0 mt-4 font-sans">
+    <div>
+      <form (ngSubmit)="submitForm()" class="flex lg:w-10 mt-4 justify-center">
+        <input autofocus type="text"
+        [(ngModel)]="item.description"
+        name="itemDescription" class="w-80 border-b-2 border-gray-500 text-black focus:outline-none" placeholder="Añadir Item">
+        <button class="ml-3 cursor-pointer" type="submit">
+          <!-- <img src="../../../../assets/add-to-basket.png" alt="Icono" class="h-6 w-6"> -->
+        </button>
+      </form>
+    </div>
+  </div>
 </div>
