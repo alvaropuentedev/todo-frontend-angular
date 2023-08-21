@@ -4,7 +4,7 @@
       <form (ngSubmit)="submitForm()" class="flex lg:w-10 mt-4 justify-center">
         <input autofocus type="text"
         [(ngModel)]="item.description"
-        name="itemDescription" class="w-80 border-b-2 border-gray-500 text-black focus:outline-none" placeholder="Añadir Item">
+        name="itemDescription" class="w-80 max-sm:h-16 border-b-2 border-gray-500 text-black focus:outline-none" placeholder="Añadir Item">
         <button class="ml-3 cursor-pointer" type="submit">
           <!-- <img src="../../../../assets/add-to-basket.png" alt="Icono" class="h-6 w-6"> -->
         </button>
