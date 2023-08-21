@@ -22,11 +22,7 @@ export class TodoService {
     return this.http.post<Item>('https://todo-backend-expressjs.vercel.app/api/items', item);
   }
 
-  deleteItem( id: number): Observable<boolean> {
-    return this.http.delete(`https://todo-backend-expressjs.vercel.app/api/items/${id}`)
-      .pipe(
-        catchError( err => of(false) ),
-        map( resp => true )
-      );
+  deleteItem( id: number): Observable<Item> {
+    return this.http.delete<Item>(`https://todo-backend-expressjs.vercel.app/api/items/${id}`)
   }
 }

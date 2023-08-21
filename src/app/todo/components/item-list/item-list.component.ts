@@ -9,18 +9,30 @@ import { Item } from '../../interfaces/item.interfaces';
 })
 export class ItemListComponent implements OnInit{
 
-  public description: any = '';
+  public description: string = '';
   public items: Item[] = [];
-  idItem: number = 2;
-
+  public item: Item = {
+    id_item: 0,
+    description: ''
+  };
   constructor(private todoService: TodoService) {}
 
   ngOnInit(): void {
     this.todoService.getItems()
-      .subscribe(data => this.items = data)
+    .subscribe(data => this.items = data)
 
-    this.todoService.getItemById(this.idItem)
-      .subscribe(items => this.description = items);
+
+
+    // this.todoService.getItemById(this.idItem!)
+    //   .subscribe(items => this.description = items);
+
   }
+  deleteItem(idItem: number) {
+    this.todoService.deleteItem(idItem)
+      .subscribe(() => {
+        this.todoService.getItems()
+            .subscribe(items => this.items = items);
 
+    });
+  }
 }

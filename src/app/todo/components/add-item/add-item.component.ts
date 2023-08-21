@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
 import { Item } from '../../interfaces/item.interfaces';
 
@@ -9,10 +9,8 @@ import { Item } from '../../interfaces/item.interfaces';
 })
 export class AddItemComponent {
 
-  @Output()
-  public onNewItem: EventEmitter<Item> = new EventEmitter;
-
   public item: Item = {
+    id_item: 0,
     description: ''
   };
 

@@ -1,6 +1,4 @@
 export interface Item {
-
-  idItem?:      number;
+  id_item:      number;
   description: string;
-
 }
