@@ -23,6 +23,9 @@ export class ItemListComponent implements OnInit{
 
   audio: HTMLAudioElement;
   ngOnInit(): void {
+    setTimeout(() => {
+      location.reload();
+    }, 30000); // 30 minutos * 60 segundos * 1000 ms 1800000
     this.todoService.getItems()
     .subscribe(data => this.items = data)
 
