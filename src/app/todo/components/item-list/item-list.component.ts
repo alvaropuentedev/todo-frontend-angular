@@ -1,3 +1,4 @@
+import { AddItemComponent } from './../add-item/add-item.component';
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
 import { Item } from '../../interfaces/item.interfaces';
@@ -15,8 +16,12 @@ export class ItemListComponent implements OnInit{
     id_item: 0,
     description: ''
   };
-  constructor(private todoService: TodoService) {}
+  constructor(private todoService: TodoService) {
+     this.audio = new Audio();
+     this.audio.src = '../../../../assets/LetitgoDeleteSound.mp3';
+  }
 
+  audio: HTMLAudioElement;
   ngOnInit(): void {
     this.todoService.getItems()
     .subscribe(data => this.items = data)
@@ -27,12 +32,13 @@ export class ItemListComponent implements OnInit{
     //   .subscribe(items => this.description = items);
 
   }
+
   deleteItem(idItem: number) {
     this.todoService.deleteItem(idItem)
       .subscribe(() => {
         this.todoService.getItems()
             .subscribe(items => this.items = items);
-
+        this.audio.play();
     });
   }
 }
