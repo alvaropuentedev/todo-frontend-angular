@@ -1,4 +1,3 @@
-import { AddItemComponent } from './../add-item/add-item.component';
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
 import { Item } from '../../interfaces/item.interfaces';
@@ -23,17 +22,21 @@ export class ItemListComponent implements OnInit{
 
   audio: HTMLAudioElement;
   ngOnInit(): void {
-    setTimeout(() => {
-      location.reload();
-    }, 60000); // 30 minutos * 60 segundos * 1000 ms 1800000
-    this.todoService.getItems()
-    .subscribe(data => this.items = data)
+    this.loadItems();
 
 
 
     // this.todoService.getItemById(this.idItem!)
     //   .subscribe(items => this.description = items);
 
+  }
+
+  loadItems() {
+    setTimeout(() => {
+      location.reload();
+    }, 60000); // 30 minutos * 60 segundos * 1000 ms 1800000
+    this.todoService.getItems()
+    .subscribe(data => this.items = data)
   }
 
   deleteItem(idItem: number) {

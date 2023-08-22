@@ -11,18 +11,18 @@ export class TodoService {
   constructor( private http: HttpClient) { }
 
   getItems(): Observable<Item[]> {
-     return this.http.get<Item[]>('https://todo-backend-expressjs.vercel.app/api/items');
+     return this.http.get<Item[]>('https://todo-backend-springboot-production.up.railway.app/api/todoitems');
   }
 
   getItemById( id: number ): Observable<Item> {
-    return this.http.get<Item>(`https://todo-backend-expressjs.vercel.app/api/items/${id}`);
+    return this.http.get<Item>(`https://todo-backend-springboot-production.up.railway.app/api/todoitems/${id}`);
   }
 
   addItem( item: Item ): Observable<Item> {
-    return this.http.post<Item>('https://todo-backend-expressjs.vercel.app/api/items', item);
+    return this.http.post<Item>('https://todo-backend-springboot-production.up.railway.app/api/todoitems', item);
   }
 
   deleteItem( id: number): Observable<Item> {
-    return this.http.delete<Item>(`https://todo-backend-expressjs.vercel.app/api/items/${id}`)
+    return this.http.delete<Item>(`https://todo-backend-springboot-production.up.railway.app/api/todoitems/${id}`)
   }
 }
