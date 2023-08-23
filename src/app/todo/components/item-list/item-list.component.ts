@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
 import { Item } from '../../interfaces/item.interfaces';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'todo-item-list',
@@ -17,7 +18,7 @@ export class ItemListComponent implements OnInit{
   };
   constructor(private todoService: TodoService) {
      this.audio = new Audio();
-     this.audio.src = '../../../../assets/LetitgoDeleteSound.mp3';
+     this.audio.src = '../../../../assets/audio/LetitgoDeleteSound.mp3';
   }
 
   audio: HTMLAudioElement;
@@ -42,6 +43,12 @@ export class ItemListComponent implements OnInit{
   deleteItem(idItem: number) {
     this.todoService.deleteItem(idItem)
       .subscribe(() => {
+        Swal.fire({
+          icon: 'success',
+          width: '50%',
+          timer: 1000,
+          showConfirmButton: false
+        })
         this.todoService.getItems()
             .subscribe(items => this.items = items);
         this.audio.play();

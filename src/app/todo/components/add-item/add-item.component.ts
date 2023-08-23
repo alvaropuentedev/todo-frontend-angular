@@ -17,12 +17,12 @@ export class AddItemComponent {
   constructor(private todoService: TodoService) {}
 
   submitForm():void{
-
     if ( this.item.description.length === 0) return;
-      this.todoService.addItem(this.item).subscribe(response => {
-        window.location.reload();
-    });
-    this.item.description = '';
+      this.todoService.addItem(this.item)
+        .subscribe(response => {
+          window.location.reload();
+        });
+      this.item.description = '';
   }
 
 }
