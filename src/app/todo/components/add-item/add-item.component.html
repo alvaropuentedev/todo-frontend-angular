@@ -1,10 +1,12 @@
-<form (ngSubmit)="submitForm()" class="flex max-sm:w-scree max-sm:fixed max-sm:bottom-0 mt-4 justify-center">
-  <input autofocus type="text"
-  [(ngModel)]="item.description"
-  name="itemDescription" class="w-50 max-sm:w-screen max-sm:bg-gray-50
-    max-sm:p-8 max-sm:h-20 border-b-2 max-sm:border-b-4
-    border-gray-500 text-black focus:outline-none" placeholder="Añadir Item"/>
-  <!-- <button class="hidden ml-3 cursor-pointer" type="submit"> -->
-    <!-- <img src="../../../../assets/add-to-basket.png" alt="Icono" class="h-6 w-6"> -->
-  <!-- </button> -->
-</form>
+<div class="max-sm:w-screen max-sm:h-16 max-sm:fixed max-sm:bottom-0  max-sm:bg-gray-50">
+  <form (ngSubmit)="submitForm()" class="flex mt-4 max-sm:mt-2 justify-center">
+    <input autofocus type="text"
+    [(ngModel)]="item.description"
+    name="itemDescription" class="w-50 max-sm:w-72 max-sm:h-12 max-sm:rounded-md max-sm:bg-gray-200
+      max-sm:p-4
+      border-gray-500 text-black focus:outline-none" placeholder="Añadir Item"/>
+    <!-- <button class="hidden ml-3 cursor-pointer" type="submit"> -->
+      <!-- <img src="../../../../assets/add-to-basket.png" alt="Icono" class="h-6 w-6"> -->
+    <!-- </button> -->
+  </form>
+</div>

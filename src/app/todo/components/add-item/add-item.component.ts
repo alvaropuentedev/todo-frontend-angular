@@ -14,15 +14,15 @@ export class AddItemComponent {
     description: ''
   };
 
-  constructor(private todoService: TodoService) {}
+  constructor(private todoService: TodoService) { }
 
-  submitForm():void{
-    if ( this.item.description.length === 0) return;
-      this.todoService.addItem(this.item)
-        .subscribe(response => {
-          window.location.reload();
-        });
-      this.item.description = '';
+  submitForm(): void {
+    if (this.item.description.length === 0) return;
+    this.todoService.addItem(this.item)
+      .subscribe(response => {
+        window.location.reload();
+      });
+    this.item.description = '';
   }
 
 }
