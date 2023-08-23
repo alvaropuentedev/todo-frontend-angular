@@ -7,22 +7,23 @@ import { Observable, catchError, map, of } from 'rxjs';
   providedIn: 'root'
 })
 export class TodoService {
+  private apiUrl: string = 'https://todo-backend-springboot-production.up.railway.app/api/todoitems'
 
   constructor( private http: HttpClient) { }
 
   getItems(): Observable<Item[]> {
-     return this.http.get<Item[]>('https://todo-backend-springboot-production.up.railway.app/api/todoitems');
+     return this.http.get<Item[]>(this.apiUrl);
   }
 
   getItemById( id: number ): Observable<Item> {
-    return this.http.get<Item>(`https://todo-backend-springboot-production.up.railway.app/api/todoitems/${id}`);
+    return this.http.get<Item>(`${ this.apiUrl }/${id}`);
   }
 
   addItem( item: Item ): Observable<Item> {
-    return this.http.post<Item>('https://todo-backend-springboot-production.up.railway.app/api/todoitems', item);
+    return this.http.post<Item>(this.apiUrl, item);
   }
 
   deleteItem( id: number): Observable<Item> {
-    return this.http.delete<Item>(`https://todo-backend-springboot-production.up.railway.app/api/todoitems/${id}`)
+    return this.http.delete<Item>(`${ this.apiUrl }/${id}`)
   }
 }
