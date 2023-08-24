@@ -4,7 +4,11 @@ module.exports = {
     "./src/**/*.{html,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+    colors: {
+      'todo-custom-color': '#fc657e'
+    },
+    },
   },
   plugins: [],
 }

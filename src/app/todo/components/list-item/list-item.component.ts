@@ -5,8 +5,8 @@ import Swal from 'sweetalert2'
 
 @Component({
   selector: 'todo-item-list',
-  templateUrl: './item-list.component.html',
-  styleUrls: ['./item-list.component.css']
+  templateUrl: './list-item.component.html',
+  styleUrls: ['./list-item.component.css']
 })
 export class ItemListComponent implements OnInit{
 

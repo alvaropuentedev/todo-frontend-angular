@@ -6,10 +6,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { TodoModule } from './todo/todo.module';
 
 import { AppComponent } from './app.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
