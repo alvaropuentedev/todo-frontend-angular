@@ -8,7 +8,7 @@ import { Observable, catchError, map, of } from 'rxjs';
 })
 export class TodoService {
   // private apiUrl: string = 'https://todo-backend-springboot-production.up.railway.app/api/todoitems'
-  private apiUrl: string = 'https://todo-backend-expressjs.vercel.app//api/todoitems'
+  private apiUrl: string = 'https://todo-backend-expressjs.vercel.app/api/todoitems'
 
   constructor( private http: HttpClient) { }
 
