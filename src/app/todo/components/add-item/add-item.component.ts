@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
 import { Item } from '../../interfaces/item.interfaces';
+import { ItemListComponent } from '../list-item/list-item.component';
 
 @Component({
   selector: 'todo-add-item',
@@ -9,20 +10,29 @@ import { Item } from '../../interfaces/item.interfaces';
 })
 export class AddItemComponent {
 
-  public item: Item = {
-    id_item: 0,
-    description: ''
-  };
+  public itemDescription: string = ''
+
 
   constructor(private todoService: TodoService) { }
 
   submitForm(): void {
-    if (this.item.description.length === 0) return;
-    this.todoService.addItem(this.item)
-      .subscribe(response => {
-        window.location.reload();
+    if (this.itemDescription.length === 0) return;
+    const items: Item = {
+      items: [
+        {
+          id_item: 0,
+          description: this.itemDescription
+        }
+      ]
+    };
+    console.log(this.itemDescription)
+    this.todoService.addItem(items)
+      .subscribe(( response: Item ) => {
+        console.log(items)
+        console.log(response)
+        // window.location.reload();
       });
-    this.item.description = '';
+     this.itemDescription = '';
   }
 
 }

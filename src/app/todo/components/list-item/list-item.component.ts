@@ -10,12 +10,7 @@ import Swal from 'sweetalert2'
 })
 export class ItemListComponent implements OnInit{
 
-  public description: string = '';
-  public items: Item[] = [];
-  public item: Item = {
-    id_item: 0,
-    description: ''
-  };
+  public items: Item = { items: [] };
   constructor(private todoService: TodoService) {
      this.audio = new Audio();
      this.audio.src = '../../../../assets/audio/LetitgoDeleteSound.mp3';
@@ -37,7 +32,11 @@ export class ItemListComponent implements OnInit{
       location.reload();
     }, 60000); // 30 minutos * 60 segundos * 1000 ms 1800000
     this.todoService.getItems()
-    .subscribe(data => this.items = data)
+    .subscribe((data: Item) => {
+      this.items = data;
+      console.log(this.items)
+
+    })
   }
 
   deleteItem(idItem: number) {
