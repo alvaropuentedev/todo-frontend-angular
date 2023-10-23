@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Item } from '../interfaces/item.interfaces';
+import { Item } from '../interfaces/item.interface';
 import { Observable, catchError, map, of } from 'rxjs';
 
 @Injectable({
@@ -22,9 +22,8 @@ export class TodoService {
     return this.http.get<Item>(`${ this.apiUrl }/${id}`);
   }
 
-  addItem( items: Item ): Observable<Item> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<Item>(this.apiUrl, items, { headers });
+  addItem( data: any  ): Observable<any> {
+    return this.http.post(this.apiUrl, data);
   }
 
   deleteItem( id: number): Observable<Item> {

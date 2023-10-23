@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
-import { Item } from '../../interfaces/item.interfaces';
+import { Item } from '../../interfaces/item.interface';
 import Swal from 'sweetalert2'
 
 @Component({
