@@ -10,6 +10,7 @@ import Swal from 'sweetalert2'
 })
 export class ItemListComponent implements OnInit{
 
+  public loading: boolean = true;
   public items: Item = { items: [] };
   constructor(private todoService: TodoService) {
      this.audio = new Audio();
@@ -34,6 +35,7 @@ export class ItemListComponent implements OnInit{
     this.todoService.getItems()
     .subscribe((data: Item) => {
       this.items = data;
+      this.loading = false;
       console.log(this.items)
 
     })

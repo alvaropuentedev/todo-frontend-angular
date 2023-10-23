@@ -1,5 +1,8 @@
 <div class="mt-10 flex m-auto justify-center w-screen">
   <ul class=" block mb-16 w-80">
+    <p class="text-center" *ngIf="loading">
+       Loading...
+    </p>
     <ng-container *ngFor="let item of items.items">
       <li class="p-2 rounded-lg">
           <div class="flex align-middle flex-row justify-between">
