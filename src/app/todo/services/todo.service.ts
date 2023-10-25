@@ -1,15 +1,15 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Item } from '../interfaces/item.interface';
-import { Observable, catchError, map, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
-  // private apiUrl: string = 'https://todo-backend-springboot-production.up.railway.app/api/todoitems'
+  private apiUrl: string = 'https://todo-backend-springboot-production.up.railway.app/api/todoitems'
   // private apiUrl: string = 'https://todo-backend-expressjs.vercel.app/api/items'
-  private apiUrl: string = 'https://alvaropuentedev-todobackend-springboot.onrender.com/api/todoitems'
+  // private apiUrl: string = 'https://alvaropuentedev-todobackend-springboot.onrender.com/api/todoitems'
 
 
   constructor( private http: HttpClient) { }

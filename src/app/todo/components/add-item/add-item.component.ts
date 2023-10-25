@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
-import { Item } from '../../interfaces/item.interface';
-import { ItemListComponent } from '../list-item/list-item.component';
-import { AddItem } from '../../interfaces/addItem.interface';
+import { AddItem } from '../../interfaces/add-Item.interface';
 
 @Component({
   selector: 'todo-add-item',
