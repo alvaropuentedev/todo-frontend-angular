@@ -29,9 +29,9 @@ export class ItemListComponent implements OnInit{
   }
 
   loadItems() {
-    // setTimeout(() => {
-    //   location.reload();
-    // }, 60000); // 30 minutos * 60 segundos * 1000 ms 1800000
+    setTimeout(() => {
+      location.reload();
+    }, 60000); // 30 minutos * 60 segundos * 1000 ms 1800000
     this.todoService.getItems()
     .subscribe((data: Item[]) => {
       this.items = data;
