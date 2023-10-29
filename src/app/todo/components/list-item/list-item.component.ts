@@ -11,7 +11,7 @@ import Swal from 'sweetalert2'
 export class ItemListComponent implements OnInit{
 
   public loading: boolean = true;
-  public items: Item = { items: [] };
+  public items: Item[] = [];
   constructor(private todoService: TodoService) {
      this.audio = new Audio();
      this.audio.src = '../../../../assets/audio/LetitgoDeleteSound.mp3';
@@ -29,15 +29,13 @@ export class ItemListComponent implements OnInit{
   }
 
   loadItems() {
-    setTimeout(() => {
-      location.reload();
-    }, 60000); // 30 minutos * 60 segundos * 1000 ms 1800000
+    // setTimeout(() => {
+    //   location.reload();
+    // }, 60000); // 30 minutos * 60 segundos * 1000 ms 1800000
     this.todoService.getItems()
-    .subscribe((data: Item) => {
+    .subscribe((data: Item[]) => {
       this.items = data;
       this.loading = false;
-      console.log(this.items)
-
     })
   }
 

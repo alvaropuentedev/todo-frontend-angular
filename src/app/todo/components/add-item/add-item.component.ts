@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
-import { AddItem } from '../../interfaces/add-Item.interface';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Item } from '../../interfaces/item.interface';
 
 @Component({
   selector: 'todo-add-item',
@@ -9,20 +10,24 @@ import { AddItem } from '../../interfaces/add-Item.interface';
 })
 export class AddItemComponent {
 
-  public item: AddItem = {
+  public item: Item = {
     id_item: 0,
     description: ''
   };
 
-  constructor(private todoService: TodoService) { }
+  public addItemForm: FormGroup = this.fb.group({
+    description: [ '', Validators.required ]
+  })
+
+  constructor(private todoService: TodoService, private fb: FormBuilder) { }
 
   submitForm(): void {
-    if (this.item.description.length === 0) return;
+    console.log(this.addItemForm.value)
+    this.item = this.addItemForm.value
     this.todoService.addItem(this.item)
       .subscribe(res => {
-        window.location.reload();
+        this.addItemForm.reset();
       });
-    this.item.description = '';
   }
 
 }
