@@ -22,16 +22,12 @@ export class ItemListComponent implements OnInit{
     this.loadItems();
 
 
-
     // this.todoService.getItemById(this.idItem!)
     //   .subscribe(items => this.description = items);
 
   }
 
   loadItems() {
-    setTimeout(() => {
-      location.reload();
-    }, 60000); // 30 minutos * 60 segundos * 1000 ms 1800000
     this.todoService.getItems()
     .subscribe((data: Item[]) => {
       this.items = data;

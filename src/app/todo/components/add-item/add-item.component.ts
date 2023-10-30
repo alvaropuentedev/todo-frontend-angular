@@ -22,7 +22,6 @@ export class AddItemComponent {
   constructor(private todoService: TodoService, private fb: FormBuilder) { }
 
   submitForm(): void {
-    console.log(this.addItemForm.value)
     this.item = this.addItemForm.value
     this.todoService.addItem(this.item)
       .subscribe(res => {

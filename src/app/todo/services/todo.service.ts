@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Item } from '../interfaces/item.interface';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, interval, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +48,9 @@ export class TodoService {
     private fetchItems() {
       this.http.get<Item[]>(this.apiUrl).subscribe(items => {
         this.itemsSubject.next(items);
+        interval(30000).subscribe(() =>
+        this.fetchItems()
+        );
       });
     }
 }
