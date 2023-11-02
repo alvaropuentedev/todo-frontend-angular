@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Item } from '../../interfaces/item.interface';
 
 @Component({
-  selector: 'todo-add-item',
+  selector: 'app-todo-add-item',
   templateUrl: './add-item.component.html',
   styleUrls: ['./add-item.component.css']
 })

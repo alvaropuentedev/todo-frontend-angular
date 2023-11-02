@@ -4,7 +4,7 @@ import { Item } from '../../interfaces/item.interface';
 import Swal from 'sweetalert2'
 
 @Component({
-  selector: 'todo-item-list',
+  selector: 'app-todo-item-list',
   templateUrl: './list-item.component.html',
   styleUrls: ['./list-item.component.css']
 })
