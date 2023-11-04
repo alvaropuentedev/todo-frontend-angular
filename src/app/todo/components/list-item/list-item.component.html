@@ -1,23 +1,29 @@
 <div class="mt-10 flex m-auto justify-center w-screen">
-  <ul class=" block mb-16 w-80">
-    <p class="text-center" *ngIf="loading">
-       Loading...
-    </p>
+  <ul class="block mb-16 w-80">
+    <p class="text-center" *ngIf="loading">Loading...</p>
     <ng-container *ngFor="let item of items">
       <li class="p-2 rounded-lg">
-          <div class="flex align-middle flex-row justify-between">
-              <div class="p-2">
-                  <p class="text-lg text-black mr-24">{{ item.description }}</p>
-              </div>
-              <button
-                  (click)="deleteItem(item.id_item)">
-                  <svg class="h-6 w-6 text-red-500"  viewBox="0 0 24 24"  fill="none"
-                    stroke="currentColor"  stroke-width="2"  stroke-linecap="round"
-                    stroke-linejoin="round">  <circle cx="12" cy="12" r="10" />
-                    <line x1="15" y1="9" x2="9" y2="15" />  <line x1="9" y1="9" x2="15" y2="15" /></svg>
-              </button>
+        <div class="flex align-middle flex-row justify-between">
+          <div class="p-2">
+            <p class="text-lg text-black mr-24">{{ item.description }}</p>
           </div>
-          <hr class="mt-2"/>
+          <button (click)="deleteItem(item.id_item)">
+            <svg
+              class="h-6 w-6 text-red-500"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <line x1="15" y1="9" x2="9" y2="15" />
+              <line x1="9" y1="9" x2="15" y2="15" />
+            </svg>
+          </button>
+        </div>
+        <hr class="mt-2" />
       </li>
     </ng-container>
   </ul>

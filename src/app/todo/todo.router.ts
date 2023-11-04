@@ -6,4 +6,4 @@ export const TODO_ROUTE: Routes = [
     path: 'todo/list',
     component: MainPageComponent
   }
-]
+];

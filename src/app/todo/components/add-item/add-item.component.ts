@@ -17,14 +17,14 @@ export class AddItemComponent {
 
   public addItemForm: FormGroup = this.fb.group({
     description: [ '', Validators.required ]
-  })
+  });
 
   constructor(private todoService: TodoService, private fb: FormBuilder) { }
 
   submitForm(): void {
-    this.item = this.addItemForm.value
+    this.item = this.addItemForm.value;
     this.todoService.addItem(this.item)
-      .subscribe(res => {
+      .subscribe(() => {
         this.addItemForm.reset();
       });
   }
