@@ -1,9 +1,9 @@
-import { Routes } from '@angular/router';
-import { MainPageComponent } from './pages/main-page.component';
+import { Route } from "@angular/router";
+import { MainPageComponent } from "./pages/main-page.component";
 
-export const TODO_ROUTE: Routes = [
+export default [
   {
-    path: 'todo/list',
+    path: '',
     component: MainPageComponent
   }
-];
+] as Route[];

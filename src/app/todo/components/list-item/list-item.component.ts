@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-todo-item-list',
+  standalone: true,
   templateUrl: './list-item.component.html',
   styleUrls: ['./list-item.component.css'],
 })
