@@ -3,4 +3,9 @@
   style="translate: -1rem;">
 </span>
 <app-todo-add-item></app-todo-add-item>
-<app-todo-item-list></app-todo-item-list>
+
+@defer {
+  <app-todo-item-list></app-todo-item-list>
+} @placeholder (minimum 2000ms) {
+  <strong class="mt-10 flex justify-center">Loading...</strong>
+}

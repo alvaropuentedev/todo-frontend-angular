@@ -1,32 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Item } from '../../interfaces/item.interface';
 
 @Component({
   selector: 'app-todo-add-item',
   templateUrl: './add-item.component.html',
-  styleUrls: ['./add-item.component.css']
+  styleUrls: ['./add-item.component.css'],
 })
 export class AddItemComponent {
+  private readonly todoService = inject(TodoService);
+  private readonly fb = inject(FormBuilder);
 
   public item: Item = {
     id_item: 0,
-    description: ''
+    description: ' ',
   };
 
-  public addItemForm: FormGroup = this.fb.group({
-    description: [ '', Validators.required ]
+  public addItemForm = this.fb.group({
+    description: [' ', Validators.required],
   });
 
-  constructor(private todoService: TodoService, private fb: FormBuilder) { }
+  constructor() {}
 
-  submitForm(): void {
-    this.item = this.addItemForm.value;
-    this.todoService.addItem(this.item)
-      .subscribe(() => {
+  submitForm() {
+    const description = this.addItemForm.value.description;
+    if (description !== null && description !== undefined) {
+      const items: Item = {
+        id_item: 0,
+        description: description,
+      };
+      this.todoService.addItem(items).subscribe(() => {
         this.addItemForm.reset();
       });
+    } else {
+      console.error('El campo de descripción es nulo o indefinido.');
+    }
   }
-
 }

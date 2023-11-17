@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Item } from '../interfaces/item.interface';
 import { BehaviorSubject, Observable, catchError, interval, map } from 'rxjs';
 
@@ -7,6 +7,9 @@ import { BehaviorSubject, Observable, catchError, interval, map } from 'rxjs';
   providedIn: 'root',
 })
 export class TodoService {
+
+  private readonly http = inject(HttpClient);
+
   private apiUrl =
     'https://todo-backend-springboot-production.up.railway.app/api/todoitems';
   // private apiUrl: string = 'https://todo-backend-expressjs.vercel.app/api/items'
@@ -15,9 +18,8 @@ export class TodoService {
     []
   );
 
-  constructor(private http: HttpClient) {
+  constructor() {
     this.fetchItems();
-    console.table(this.itemsSubject);
   }
 
   getItems(): Observable<Item[]> {
