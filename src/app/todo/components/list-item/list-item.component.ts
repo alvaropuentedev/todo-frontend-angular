@@ -1,15 +1,15 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { TodoService } from '../../services/todo.service';
+import { TodoService } from '../../../services/todo.service';
 import { Item } from '../../interfaces/item.interface';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-todo-item-list',
+  selector: 'app-todo-list-item',
   standalone: true,
   templateUrl: './list-item.component.html',
   styleUrls: ['./list-item.component.css'],
 })
-export class ItemListComponent implements OnInit {
+export class ListItemComponent implements OnInit {
 
   private readonly todoService = inject(TodoService);
   public loading = true;
