@@ -27,7 +27,7 @@ export class AddItemComponent {
 
   submitForm() {
     const description = this.addItemForm.value.description;
-    if (description !== null && description !== undefined) {
+    if (description && description.trim() !== '') {
       const items: Item = {
         id_item: 0,
         description: description,
@@ -36,7 +36,7 @@ export class AddItemComponent {
         this.addItemForm.reset();
       });
     } else {
-      console.error('El campo de descripción es nulo o indefinido.');
+      console.error('ERROR description is undefined or null');
     }
   }
 }

@@ -1,22 +1,29 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
+import { BehaviorSubject, firstValueFrom } from 'rxjs';
+import { LoginRequest } from '../auth/loginRequest.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   private http = inject(HttpClient);
   private baseUrl: string;
+
+  private isLoginSubject = new BehaviorSubject<boolean>(false);
+  isLogin$ = this.isLoginSubject.asObservable();
+
   constructor() {
     this.baseUrl = 'http://localhost:8080/auth';
   }
 
+  setLoginStatus(status: boolean) {
+    this.isLoginSubject.next(status);
+  }
 
-  login(formValue: unknown) {
+  login(formValue: LoginRequest) {
     return firstValueFrom(
-      this.http.post<unknown>(`${ this.baseUrl }/login`, formValue)
+      this.http.post<string>(`${this.baseUrl}/login`, formValue)
     );
   }
 }

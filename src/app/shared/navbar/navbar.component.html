@@ -1,9 +1,9 @@
 <nav class="bg-todo-custom-color flex justify-end items-center w-screen h-12">
   <ul class="mr-2 cursor-pointer">
     <li>
-      <a routerLink="auth/login">Log In</a>
-      <br>
-      <a routerLink="todo/list">Items</a>
+      @if ( isLogin ) {
+        <a [routerLink]="['auth/login']">Log Out</a>
+      }
     </li>
   </ul>
 </nav>
