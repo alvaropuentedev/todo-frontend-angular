@@ -9,7 +9,9 @@ import { Item } from '../../interfaces/item.interface';
   styleUrls: ['./list-item.component.css'],
 })
 export class ListItemComponent implements OnInit {
+
   private readonly todoService = inject(TodoService);
+
   public loading = true;
   public items: Item[] = [];
   public succes = false;
@@ -22,8 +24,6 @@ export class ListItemComponent implements OnInit {
   audio: HTMLAudioElement;
   ngOnInit(): void {
     this.loadItems();
-    // this.todoService.getItemById(this.idItem!)
-    //   .subscribe(items => this.description = items);
   }
 
   loadItems() {

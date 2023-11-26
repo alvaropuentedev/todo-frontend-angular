@@ -11,10 +11,12 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+
   private readonly authService = inject(AuthService);
   private readonly cookieService = inject(CookieService);
   private readonly router = inject(Router);
-  public isLogin?: boolean;
+
+  public isLogin!: boolean;
 
   constructor() { }
 
@@ -27,6 +29,7 @@ export class NavbarComponent implements OnInit {
 
   handleLoginStatus() {
     this.isLogin = false;
+    this.cookieService.delete('token', '/');
     this.router.navigate(['/auth/login']);
   }
 }
