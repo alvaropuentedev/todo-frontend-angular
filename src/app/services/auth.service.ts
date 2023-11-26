@@ -10,7 +10,7 @@ export class AuthService {
   private http = inject(HttpClient);
   private baseUrl: string;
 
-  private isLoginSubject = new BehaviorSubject<boolean>(false);
+  private isLoginSubject = new BehaviorSubject<boolean>(true);
   isLogin$ = this.isLoginSubject.asObservable();
 
   constructor() {

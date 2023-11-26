@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -11,14 +12,21 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NavbarComponent implements OnInit {
   private readonly authService = inject(AuthService);
-
-  public isLogin = false;
+  private readonly cookieService = inject(CookieService);
+  private readonly router = inject(Router);
+  public isLogin?: boolean;
 
   constructor() { }
+
 
   ngOnInit(): void {
     this.authService.isLogin$.subscribe((status) => {
       this.isLogin = status;
     });
+  }
+
+  handleLoginStatus() {
+    this.isLogin = false;
+    this.router.navigate(['/auth/login']);
   }
 }
