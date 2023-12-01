@@ -1,6 +1,14 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+import { LoginRegisterRequest } from '../interfaces/loginResgisterRequest.interface';
 
 @Component({
   selector: 'app-register',
@@ -11,14 +19,40 @@ import { RouterModule } from '@angular/router';
 })
 export class RegisterComponent {
   private readonly fb = inject(FormBuilder);
+  private readonly authService = inject(AuthService);
 
+  registerForm: FormGroup;
 
-  public registerForm = this.fb.group({
-    username: ['', Validators.required],
-    password: ['', Validators.required],
-    confirmPassword: ['', Validators.required],
-  });
+  constructor() {
+    this.registerForm = this.fb.group(
+      {
+        username: ['', Validators.required],
+        password: ['', Validators.required],
+        confirmPassword: ['', Validators.required],
+      },
+      { validator: this.passwordMatchValidator }
+    );
+  }
 
-  constructor() {}
-  submitForm() {}
+  passwordMatchValidator(
+    control: AbstractControl
+  ): { [key: string]: boolean } | null {
+    const password = control.get('password');
+    const confirmPassword = control.get('confirmPassword');
+
+    if (!password || !confirmPassword) {
+      return null;
+    }
+
+    return password.value === confirmPassword.value
+      ? null
+      : { passwordMismatch: true };
+  }
+  submitFormRegister() {
+    this.authService
+      .register(this.registerForm.value as LoginRegisterRequest)
+      .subscribe(() => {
+        console.log('User ADDED!!');
+      });
+  }
 }

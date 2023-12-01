@@ -2,13 +2,14 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { LoginRequest } from '../loginRequest.interface';
+import { LoginRegisterRequest } from '../interfaces/loginResgisterRequest.interface';
 import { CookieService } from 'ngx-cookie-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
@@ -18,6 +19,7 @@ export class LoginComponent {
   private readonly router = inject(Router);
   private readonly cookieService = inject(CookieService);
 
+  private user?: string;
 
   public loginForm = this.fb.group({
     username: ['', Validators.required],
@@ -28,20 +30,12 @@ export class LoginComponent {
     this.authService.setLoginStatus(false);
   }
 
-  async submitForm() {
-    try {
-      const response: string = await this.authService.login(
-        this.loginForm.value as LoginRequest
-      );
-      const jwtToken = response;
-      this.cookieService.set('token', jwtToken, 1);
-
-      this.router.navigate(['/todo/list']);
-      this.authService.setLoginStatus(true);
-    } catch (error) {
-      console.error(' Error login:', error);
-    }
+  submitFormLogin() {
+    this.authService.login(this.loginForm.value as LoginRegisterRequest).subscribe(
+      () => {
+        this.authService.setLoginStatus(true);
+        this.router.navigate(['/todo/list']);
+      }
+    );
   }
-
-
 }

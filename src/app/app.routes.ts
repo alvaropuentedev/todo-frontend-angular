@@ -7,7 +7,7 @@ export const routes: Routes = [
   },
   {
     path: 'auth',
-    loadChildren: () => import('./auth/auth.router').then(m => m.AUTH_ROUTE)
+    loadChildren: () => import('./auth/auth.routes').then(m => m.AUTH_ROUTE)
   },
   {
     path: 'todo',
