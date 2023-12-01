@@ -17,7 +17,6 @@ export class LoginComponent {
   private readonly fb = inject(FormBuilder);
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
-  private readonly cookieService = inject(CookieService);
 
   private user?: string;
 

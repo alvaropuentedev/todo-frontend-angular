@@ -1,12 +1,6 @@
 import { Component, inject } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoginRegisterRequest } from '../interfaces/loginResgisterRequest.interface';
 
@@ -20,39 +14,35 @@ import { LoginRegisterRequest } from '../interfaces/loginResgisterRequest.interf
 export class RegisterComponent {
   private readonly fb = inject(FormBuilder);
   private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
 
   registerForm: FormGroup;
 
   constructor() {
-    this.registerForm = this.fb.group(
-      {
-        username: ['', Validators.required],
-        password: ['', Validators.required],
-        confirmPassword: ['', Validators.required],
-      },
-      { validator: this.passwordMatchValidator }
-    );
+    this.registerForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+    });
   }
 
-  passwordMatchValidator(
-    control: AbstractControl
-  ): { [key: string]: boolean } | null {
-    const password = control.get('password');
-    const confirmPassword = control.get('confirmPassword');
-
-    if (!password || !confirmPassword) {
-      return null;
-    }
-
-    return password.value === confirmPassword.value
-      ? null
-      : { passwordMismatch: true };
-  }
   submitFormRegister() {
-    this.authService
-      .register(this.registerForm.value as LoginRegisterRequest)
-      .subscribe(() => {
+    const password = this.registerForm.get('password');
+    const passwordConfirm = this.registerForm.get('confirmPassword');
+    if (
+      password!.value !== '' &&
+      passwordConfirm!.value !== '' &&
+      password!.value !== null &&
+      passwordConfirm!.value !== null &&
+      password!.value === passwordConfirm!.value
+    ) {
+      this.authService.register(this.registerForm.value as LoginRegisterRequest).subscribe(() => {
         console.log('User ADDED!!');
+        this.router.navigate(['/auth/login']);
       });
+    } else {
+      console.error('Password Dont Match!');
+      this.registerForm.reset();
+    }
   }
 }
