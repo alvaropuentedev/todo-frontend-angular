@@ -22,7 +22,7 @@ export class AuthService {
 
   constructor() {
     // this.baseUrl = 'http://localhost:8080/auth';
-    this.baseUrl = 'todo-backend-springboot-production.up.railway.app/auth';
+    this.baseUrl = 'https://todo-backend-springboot-production.up.railway.app/auth';
   }
 
   get currentUser(): string | undefined {
