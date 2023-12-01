@@ -21,7 +21,8 @@ export class AuthService {
   public isLogin$ = this.isLoginSubject.asObservable();
 
   constructor() {
-    this.baseUrl = 'http://localhost:8080/auth';
+    // this.baseUrl = 'http://localhost:8080/auth';
+    this.baseUrl = 'todo-backend-springboot-production.up.railway.app/auth';
   }
 
   get currentUser(): string | undefined {
