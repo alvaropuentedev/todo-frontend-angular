@@ -28,6 +28,7 @@ export class AuthService {
 
     // ? is there token?
     (this.checkToken()) ? this.router.navigate(['/todo/list']): this.router.navigate(['/auth/login']);
+
   }
 
   get currentUser(): string | undefined {
