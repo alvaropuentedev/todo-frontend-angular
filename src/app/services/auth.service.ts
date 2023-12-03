@@ -47,7 +47,8 @@ export class AuthService {
   logout() {
     this.user = undefined;
     this.isLoginSubject.next(false);
-    this.cookieService.deleteAll();
+    this.cookieService.set('token', '');
+    this.cookieService.set('user', '');
   }
 
   public isAuthenticated(): boolean {
