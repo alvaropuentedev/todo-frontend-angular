@@ -5,14 +5,16 @@ import { LoginRegisterRequest } from '../auth/interfaces/loginResgisterRequest.i
 import { CookieService } from 'ngx-cookie-service';
 import { AuthResponse } from '../auth/interfaces/authResponse.interface';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private http = inject(HttpClient);
-  private cookieService = inject(CookieService);
-  private jwtHelper = inject(JwtHelperService);
+  private readonly http = inject(HttpClient);
+  private readonly cookieService = inject(CookieService);
+  private readonly jwtHelper = inject(JwtHelperService);
+  private readonly router = inject(Router);
 
   private baseUrl: string;
 
@@ -23,6 +25,9 @@ export class AuthService {
   constructor() {
     // this.baseUrl = 'http://localhost:8080/auth';
     this.baseUrl = 'https://todo-backend-springboot-production.up.railway.app/auth';
+
+    // ? is there token?
+    (this.checkToken()) ? this.router.navigate(['/todo/list']): this.router.navigate(['/auth/login']);
   }
 
   get currentUser(): string | undefined {
@@ -32,6 +37,10 @@ export class AuthService {
 
   setLoginStatus(status: boolean) {
     this.isLoginSubject.next(status);
+  }
+
+  checkToken() {
+    return this.cookieService.check('token');
   }
 
   login(formValue: LoginRegisterRequest): Observable<AuthResponse> {
