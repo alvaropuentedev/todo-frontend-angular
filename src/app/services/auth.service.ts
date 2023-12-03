@@ -39,8 +39,8 @@ export class AuthService {
       .post<AuthResponse>(`${this.baseUrl}/login`, formValue)
       .pipe(
         tap((user) => (this.user = user.username)),
-        tap((user) => this.cookieService.set('user', user.username)),
-        tap((token) => this.cookieService.set('token', token.token))
+        tap((user) => this.cookieService.set('user', user.username, {expires: 10})),
+        tap((token) => this.cookieService.set('token', token.token, {expires: 10}))
       );
   }
 
