@@ -20,6 +20,7 @@ export class AuthService {
 
   private isLoginSubject = new BehaviorSubject<boolean>(true);
   private user?: string;
+  private userToken?: string;
   public isLogin$ = this.isLoginSubject.asObservable();
 
   constructor() {
@@ -27,8 +28,10 @@ export class AuthService {
     this.baseUrl = 'https://todo-backend-springboot-production.up.railway.app/auth';
 
     // ? is there token?
-    (this.checkToken()) ? this.router.navigate(['/todo/list']): this.router.navigate(['/auth/login']);
+    this.checkToken() ? this.router.navigate(['/todo/list']) : this.router.navigate(['/auth/login']);
 
+    this.userToken = localStorage.getItem('user') ?? undefined;
+    this.userToken ? this.user = this.userToken: this.user = undefined;
   }
 
   get currentUser(): string | undefined {
@@ -41,28 +44,27 @@ export class AuthService {
   }
 
   checkToken() {
-    return this.cookieService.check('token');
+    const token = localStorage.getItem('token');
+    return token ? true : false;
   }
 
   login(formValue: LoginRegisterRequest): Observable<AuthResponse> {
-    return this.http
-      .post<AuthResponse>(`${this.baseUrl}/login`, formValue)
-      .pipe(
-        tap((user) => (this.user = user.username)),
-        tap((user) => this.cookieService.set('user', user.username, {expires: 10})),
-        tap((token) => this.cookieService.set('token', token.token, {expires: 10}))
-      );
+    return this.http.post<AuthResponse>(`${this.baseUrl}/login`, formValue).pipe(
+      tap(user => (this.user = user.username)),
+      tap(user => localStorage.setItem('user', user.username)),
+      tap(token => localStorage.setItem('token', token.token))
+    );
   }
 
   logout() {
     this.user = undefined;
     this.isLoginSubject.next(false);
-    this.cookieService.delete('token');
-    this.cookieService.delete('user');
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
   }
 
   public isAuthenticated(): boolean {
-    const token = this.cookieService.get('token');
+    const token = localStorage.getItem('token');
     // Check whether the token is expired and return
     // true or false
     return !this.jwtHelper.isTokenExpired(token);
