@@ -6,7 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { AuthResponse } from '../auth/interfaces/authResponse.interface';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environments';
+import { enviroment } from 'src/environments/environments';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,7 @@ export class AuthService {
   private readonly cookieService = inject(CookieService);
   private readonly jwtHelper = inject(JwtHelperService);
   private readonly router = inject(Router);
-  private readonly baseUrl: string = environment.baseUrl;
+  private readonly baseUrl: string = enviroment.base_url;
 
   private isLoginSubject = new BehaviorSubject<boolean>(true);
   private user?: string;

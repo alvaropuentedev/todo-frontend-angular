@@ -2,14 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Item } from '../todo/interfaces/item.interface';
 import { BehaviorSubject, Observable, catchError, interval, map } from 'rxjs';
-import { environment } from 'src/environments/environments';
+import { enviroment } from 'src/environments/environments';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoService {
   private readonly http = inject(HttpClient);
-  private readonly baseUrl: string = environment.baseUrl;
+  private readonly baseUrl: string = enviroment.base_url;
 
   private itemsSubject: BehaviorSubject<Item[]> = new BehaviorSubject<Item[]>([]);
 
