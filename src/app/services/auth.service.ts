@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { AuthResponse } from '../auth/interfaces/authResponse.interface';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environments';
 
 @Injectable({
   providedIn: 'root',
@@ -15,8 +16,7 @@ export class AuthService {
   private readonly cookieService = inject(CookieService);
   private readonly jwtHelper = inject(JwtHelperService);
   private readonly router = inject(Router);
-
-  private baseUrl: string;
+  private readonly baseUrl: string = environment.baseUrl;
 
   private isLoginSubject = new BehaviorSubject<boolean>(true);
   private user?: string;
@@ -24,8 +24,6 @@ export class AuthService {
   public isLogin$ = this.isLoginSubject.asObservable();
 
   constructor() {
-    // this.baseUrl = 'http://localhost:8080/auth';
-    this.baseUrl = 'https://todo-backend-springboot-production.up.railway.app/auth';
 
     // ? is there token?
     this.checkToken() ? this.router.navigate(['/todo/list']) : this.router.navigate(['/auth/login']);
@@ -49,7 +47,7 @@ export class AuthService {
   }
 
   login(formValue: LoginRegisterRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.baseUrl}/login`, formValue).pipe(
+    return this.http.post<AuthResponse>(`${this.baseUrl}/auth/login`, formValue).pipe(
       tap(user => (this.user = user.username)),
       tap(user => localStorage.setItem('user', user.username)),
       tap(token => localStorage.setItem('token', token.token))
@@ -71,7 +69,7 @@ export class AuthService {
   }
 
   register(formValue: LoginRegisterRequest) {
-    return this.http.post(`${this.baseUrl}/register`, formValue);
+    return this.http.post(`${this.baseUrl}/auth/register`, formValue);
   }
   // login(username: string, password: string): Observable<User> {
   //   return this.http.put<User>(`${this.baseUrl}/login`, { username, password }).pipe(
