@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { LoginRegisterRequest } from '../interfaces/loginResgisterRequest.interface';
+import { LoginRegisterRequest } from '../interfaces/login-request.interface';
 
 @Component({
   selector: 'app-register',

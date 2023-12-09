@@ -1,9 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { LoginRegisterRequest } from '../interfaces/loginResgisterRequest.interface';
-import { CookieService } from 'ngx-cookie-service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -18,23 +16,35 @@ export class LoginComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 
-  private user?: string;
+  public buttonLogin = false;
+  public showAlert = false;
 
-  public loginForm = this.fb.group({
+  public loginForm: FormGroup = this.fb.group({
     username: ['', Validators.required],
     password: ['', Validators.required],
   });
 
-  constructor() {
-    this.authService.setLoginStatus(false);
-  }
+  constructor() { }
 
   submitFormLogin() {
-    this.authService.login(this.loginForm.value as LoginRegisterRequest).subscribe(
-      () => {
+    this.buttonLogin = true;
+    const { username, password } = this.loginForm.value;
+    this.authService.login(username, password).subscribe({
+      next: () => {
         this.authService.setLoginStatus(true);
-        this.router.navigate(['/todo/list']);
+        this.router.navigateByUrl('/todo/list');
+        this.buttonLogin = false;
+      },
+      error: () => {
+        this.buttonLogin = false;
+        this.showAlert = true;
+        setTimeout( () => {
+          this.showAlert = false;
+        }, 3000);
+
       }
+    }
+
     );
   }
 }

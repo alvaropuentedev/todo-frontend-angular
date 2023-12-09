@@ -1,8 +1,8 @@
 <nav class="bg-todo-custom-color flex justify-end items-center w-screen h-12">
-    <span class="translate-y-[-0.2rem] font-bold font-mono">{{ user }}</span>
+  @if (isLogin) {
+    <span class="translate-y-[-0.2rem] font-bold font-mono">{{ user() }}</span>
   <ul class="mr-2 cursor-pointer">
     <li>
-      @if ( isLogin ) { @defer () {
         <button (click)="logout()">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -19,9 +19,7 @@
           />
         </svg>
       </button>
-      } @placeholder (minimum 2000ms){
-      <p></p>
-      } }
     </li>
   </ul>
+}
 </nav>

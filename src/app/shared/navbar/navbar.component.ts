@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -13,11 +12,10 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NavbarComponent implements OnInit {
   private readonly authService = inject(AuthService);
-  public readonly cookieService = inject(CookieService);
   private readonly router = inject(Router);
 
   public isLogin!: boolean;
-  // TODO Check
+  public user = computed( () => this.authService.currentUser() );
 
   constructor() { }
 
@@ -25,9 +23,6 @@ export class NavbarComponent implements OnInit {
     this.authService.isLogin$.subscribe((status) => {
       this.isLogin = status;
     });
-  }
-  get user():string | undefined {
-    return this.authService.currentUser;
   }
 
   logout() {

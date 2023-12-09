@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { isAuthenticatedGuard } from './auth/guards/is-authenticated.guard';
 
 export const routes: Routes = [
   {
@@ -7,10 +8,11 @@ export const routes: Routes = [
   },
   {
     path: 'auth',
-    loadChildren: () => import('./auth/auth.routes').then(m => m.AUTH_ROUTE)
+    loadChildren: () => import('./auth/auth.routes').then(m => m.AUTH_ROUTE),
   },
   {
     path: 'todo',
-    loadChildren: () => import('./todo/todo.routes').then(m => m.TODO_ROUTES)
+    loadChildren: () => import('./todo/todo.routes').then(m => m.TODO_ROUTES),
+    canActivate: [ isAuthenticatedGuard ]
   },
 ];
