@@ -6,7 +6,7 @@ import { Item } from '../../interfaces/item.interface';
 @Component({
   selector: 'app-todo-add-item',
   standalone: true,
-  imports: [ ReactiveFormsModule ],
+  imports: [ReactiveFormsModule],
   templateUrl: './add-item.component.html',
   styleUrls: ['./add-item.component.css'],
 })
@@ -32,8 +32,13 @@ export class AddItemComponent {
         id_item: 0,
         description: description,
       };
-      this.todoService.addItem(items).subscribe(() => {
-        this.addItemForm.reset();
+      this.todoService.addItem(items).subscribe({
+        next: () => {
+          this.addItemForm.reset();
+        },
+        error: () => {
+          console.error('Duplicate description');
+        },
       });
     } else {
       console.error('ERROR description is undefined or null');
