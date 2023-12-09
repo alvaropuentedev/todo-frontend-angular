@@ -31,7 +31,6 @@ export class LoginComponent {
     const { username, password } = this.loginForm.value;
     this.authService.login(username, password).subscribe({
       next: () => {
-        this.authService.setLoginStatus(true);
         this.router.navigateByUrl('/todo/list');
         this.buttonLogin = false;
       },

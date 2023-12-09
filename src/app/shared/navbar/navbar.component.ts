@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, computed, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -10,23 +10,16 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 
-  public isLogin!: boolean;
   public user = computed( () => this.authService.currentUser() );
+  public userStatus = computed( () => this.authService.authStatus() );
 
   constructor() { }
 
-  ngOnInit(): void {
-    this.authService.isLogin$.subscribe((status) => {
-      this.isLogin = status;
-    });
-  }
-
   logout() {
     this.authService.logout();
-    this.router.navigate(['/auth/login']);
   }
 }

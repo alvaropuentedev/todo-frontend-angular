@@ -1,5 +1,5 @@
 <nav class="bg-todo-custom-color flex justify-end items-center w-screen h-12">
-  @if (isLogin) {
+  @if ( userStatus() === 'authenticated') {
     <span class="translate-y-[-0.2rem] font-bold font-mono">{{ user() }}</span>
   <ul class="mr-2 cursor-pointer">
     <li>
