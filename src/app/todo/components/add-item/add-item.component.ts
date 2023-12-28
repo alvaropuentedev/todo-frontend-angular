@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { TodoService } from '../../../services/todo.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Item } from '../../interfaces/item.interface';
+import { Item } from 'src/app/interfaces';
 
 @Component({
   selector: 'app-todo-add-item',

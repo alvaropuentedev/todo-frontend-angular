@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Item } from '../todo/interfaces/item.interface';
 import { BehaviorSubject, Observable, catchError, interval, map, startWith, switchMap } from 'rxjs';
 import { enviroment } from 'src/environments/environments';
+import { Item } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',

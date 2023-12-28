@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
-import { LoginRegisterRequest } from '../auth/interfaces/login-request.interface';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { enviroment } from 'src/environments/environments';
-import { User, AuthStatus, LoginResponse } from '../auth/interfaces';
 import { Router } from '@angular/router';
+import { User, AuthStatus, LoginResponse, LoginRegisterRequest } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
