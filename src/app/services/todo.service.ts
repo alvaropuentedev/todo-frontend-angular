@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Item } from '../todo/interfaces/item.interface';
-import { BehaviorSubject, Observable, catchError, interval, map } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, interval, map, startWith, switchMap } from 'rxjs';
 import { enviroment } from 'src/environments/environments';
 
 @Injectable({
@@ -9,6 +9,7 @@ import { enviroment } from 'src/environments/environments';
 })
 export class TodoService {
   private readonly http = inject(HttpClient);
+  // private readonly baseUrl: string = 'http://localhost:8080';
   private readonly baseUrl: string = enviroment.base_url;
 
   private itemsSubject: BehaviorSubject<Item[]> = new BehaviorSubject<Item[]>([]);
@@ -48,11 +49,21 @@ export class TodoService {
       })
     );
   }
-  // Método para cargar la lista de elementos al inicializar el servicio
+
   private fetchItems() {
-    this.http.get<Item[]>(`${this.baseUrl}/api/todoitems`).subscribe(items => {
-      this.itemsSubject.next(items);
-      interval(30000).subscribe(() => this.fetchItems());
-    });
+    // Create an observable that emits a value every 30 seconds
+    const fetchInterval$ = interval(30000);
+    // Combine the immediate first load and then updates every 30 seconds
+    fetchInterval$
+      .pipe(
+        // Emit an initial value of 0 for the immediate first load
+        startWith(0),
+        // Make call HTTP GET to the URL `${this.baseUrl}/api/todoitems`
+        switchMap(() => this.http.get<Item[]>(`${this.baseUrl}/api/todoitems`))
+      )
+      .subscribe(items => {
+        // When the data is received, emit it through the "itemsSubject" object
+        this.itemsSubject.next(items);
+      });
   }
 }
