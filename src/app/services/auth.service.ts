@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, computed, inject, signal } from '@angular/core';
+import { Injectable, Signal, WritableSignal, computed, inject, signal } from '@angular/core';
 import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { enviroment } from 'src/environments/environments';
@@ -13,8 +13,8 @@ export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly jwtHelper = inject(JwtHelperService);
   private readonly router = inject(Router);
-  private readonly baseUrl: string = enviroment.base_url;
-  // baseUrl = 'http://localhost:8080';
+  // private readonly baseUrl: string = enviroment.base_url;
+  private readonly baseUrl: string = 'http://localhost:8080';
 
   private _currentUser = signal<User | null>(null);
   private _authStatus = signal<AuthStatus>(AuthStatus.checking);
@@ -24,6 +24,7 @@ export class AuthService {
   public authStatus = computed(() => this._authStatus());
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public user: any;
+  public userID: any;
 
   constructor() {
     this.checkTokenIsActive().subscribe();
@@ -34,8 +35,9 @@ export class AuthService {
     const body = { username, password };
 
     return this.http.post<LoginResponse>(url, body).pipe(
-      tap(({ username, token }) => {
+      tap(({ id_user, username, token }) => {
         this.user = username;
+        this.userID = id_user;
         this._currentUser.set(username);
         this._authStatus.set(AuthStatus.authenticated);
         localStorage.setItem('token', token);

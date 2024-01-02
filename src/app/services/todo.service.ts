@@ -1,21 +1,24 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable, Signal, computed, inject } from '@angular/core';
 import { BehaviorSubject, Observable, catchError, interval, map, startWith, switchMap } from 'rxjs';
 import { enviroment } from 'src/environments/environments';
-import { Item } from '../interfaces';
+import { Item, User } from '../interfaces';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoService {
   private readonly http = inject(HttpClient);
-  // private readonly baseUrl: string = 'http://localhost:8080';
-  private readonly baseUrl: string = enviroment.base_url;
+  private readonly authService = inject(AuthService);
+  // private readonly baseUrl: string = enviroment.base_url;
+  private readonly baseUrl: string = 'http://localhost:8080';
 
   private itemsSubject: BehaviorSubject<Item[]> = new BehaviorSubject<Item[]>([]);
+  private currentUserID = this.authService.userID;
 
   constructor() {
-    this.fetchItems();
+    this.fetchItems(this.currentUserID);
   }
 
   getItems(): Observable<Item[]> {
@@ -44,13 +47,13 @@ export class TodoService {
     return this.http.delete<Item>(`${this.baseUrl}/api/todoitems/${id}`).pipe(
       map(() => {
         const currentItems = this.itemsSubject.value;
-        const updatedItems = currentItems.filter(item => item.id_item !== id);
+        const updatedItems = currentItems.filter(item => item.item_id !== id);
         this.itemsSubject.next(updatedItems);
       })
     );
   }
 
-  private fetchItems() {
+  private fetchItems(userId: any) {
     // Create an observable that emits a value every 30 seconds
     const fetchInterval$ = interval(30000);
     // Combine the immediate first load and then updates every 30 seconds
@@ -59,7 +62,7 @@ export class TodoService {
         // Emit an initial value of 0 for the immediate first load
         startWith(0),
         // Make call HTTP GET to the URL `${this.baseUrl}/api/todoitems`
-        switchMap(() => this.http.get<Item[]>(`${this.baseUrl}/api/todoitems`))
+        switchMap(() => this.http.get<Item[]>(`${this.baseUrl}/api/user/${userId}/items`))
       )
       .subscribe(items => {
         // When the data is received, emit it through the "itemsSubject" object

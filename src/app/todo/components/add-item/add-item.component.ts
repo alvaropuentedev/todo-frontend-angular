@@ -15,7 +15,7 @@ export class AddItemComponent {
   private readonly fb = inject(FormBuilder);
 
   public item: Item = {
-    id_item: 0,
+    item_id: 0,
     description: ' ',
   };
 
@@ -29,7 +29,7 @@ export class AddItemComponent {
     const description = this.addItemForm.value.description;
     if (description && description.trim() !== '') {
       const items: Item = {
-        id_item: 0,
+        item_id: 0,
         description: description,
       };
       this.todoService.addItem(items).subscribe({
