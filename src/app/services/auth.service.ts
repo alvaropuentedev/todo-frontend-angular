@@ -27,6 +27,7 @@ export class AuthService {
   public authStatus = computed(() => this._authStatus());
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public user: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public userID: any;
 
   constructor() {
@@ -72,6 +73,7 @@ export class AuthService {
     this.userID = userID;
     const checkToken = this.jwtHelper.isTokenExpired(token);
 
+    // If token is not expired user continue logged
     if (!checkToken) {
       this._currentUserID.set(this.userID);
       this._currentUser.set(this.user);
