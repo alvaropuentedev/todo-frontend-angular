@@ -2,7 +2,7 @@ import { Component, OnInit, computed, inject } from '@angular/core';
 import { TodoService } from '../../../services/todo.service';
 import { Item } from 'src/app/interfaces';
 import { AuthService } from 'src/app/services/auth.service';
-import { interval, startWith, switchMap } from 'rxjs';
+import { Subscription, interval, startWith, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-todo-list-item',
@@ -14,6 +14,8 @@ export class ListItemComponent implements OnInit {
   private readonly todoService = inject(TodoService);
   private readonly authService = inject(AuthService);
 
+  private loadItemListEvent: Subscription;
+
   public loading = true;
   public items: Item[] = [];
   public succes = false;
@@ -21,6 +23,11 @@ export class ListItemComponent implements OnInit {
   public userID = computed(() => this.authService.currentUserID());
 
   constructor() {
+    this.loadItemListEvent = this.todoService.getNewLoadItemListEvent().subscribe({
+      next: () => {
+        this.loadItems();
+      },
+    });
     this.audio = new Audio();
     this.audio.src = '../../../../assets/audio/LetitgoDeleteSound.mp3';
   }
@@ -50,12 +57,9 @@ export class ListItemComponent implements OnInit {
       });
   }
 
-  deleteItem(idItem: number, itemDescription: string) {
-    this.todoService.deleteItem(idItem).subscribe(() => {
-      this.todoService.getItemsByUserId(this.userID()).subscribe(items => {
-        this.items = items;
-        this.itemDescription = itemDescription;
-      });
+  deleteItem(item_id: number) {
+    this.todoService.deleteItem(this.userID(), item_id).subscribe(() => {
+      this.loadItems();
       this.handleSucces();
       this.audio.play();
     });

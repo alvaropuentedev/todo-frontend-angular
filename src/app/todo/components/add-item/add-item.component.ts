@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { TodoService } from '../../../services/todo.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Item } from 'src/app/interfaces';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-todo-add-item',
@@ -11,11 +12,14 @@ import { Item } from 'src/app/interfaces';
   styleUrls: ['./add-item.component.css'],
 })
 export class AddItemComponent {
-  private readonly todoService = inject(TodoService);
-  private readonly fb = inject(FormBuilder);
+  private readonly todoService  = inject(TodoService);
+  private readonly fb           = inject(FormBuilder);
+  private readonly authService  = inject(AuthService);
+
+  public userID = computed(() => this.authService.currentUserID());
 
   public item: Item = {
-    item_id: 0,
+    id: 0,
     description: ' ',
   };
 
@@ -28,13 +32,14 @@ export class AddItemComponent {
   submitForm() {
     const description = this.addItemForm.value.description;
     if (description && description.trim() !== '') {
-      const items: Item = {
-        item_id: 0,
+      const item: Item = {
+        id: 0,
         description: description,
       };
-      this.todoService.addItem(items).subscribe({
+      this.todoService.addItem(this.userID(), item).subscribe({
         next: () => {
           this.addItemForm.reset();
+          this.sharedLoad();
         },
         error: () => {
           console.error('Duplicate description');
@@ -43,5 +48,9 @@ export class AddItemComponent {
     } else {
       console.error('ERROR description is undefined or null');
     }
+  }
+
+  sharedLoad() {
+    this.todoService.sendNewLoadItemListEvent();
   }
 }
