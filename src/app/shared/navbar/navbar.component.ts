@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -12,7 +11,6 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NavbarComponent {
   private readonly authService = inject(AuthService);
-  private readonly router = inject(Router);
 
   public user = computed( () => this.authService.currentUser() );
   public userStatus = computed( () => this.authService.authStatus() );

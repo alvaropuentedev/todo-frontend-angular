@@ -1,32 +1,23 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, Signal, computed, inject } from '@angular/core';
-import { BehaviorSubject, Observable, catchError, interval, map, startWith, switchMap } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
+import { BehaviorSubject, Observable, catchError, map } from 'rxjs';
 import { enviroment } from 'src/environments/environments';
-import { Item, User } from '../interfaces';
-import { AuthService } from './auth.service';
+import { Item } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoService {
   private readonly http = inject(HttpClient);
-  private readonly authService = inject(AuthService);
   // private readonly baseUrl: string = enviroment.base_url;
   private readonly baseUrl: string = 'http://localhost:8080';
 
   private itemsSubject: BehaviorSubject<Item[]> = new BehaviorSubject<Item[]>([]);
-  private currentUserID = this.authService.userID;
 
-  constructor() {
-    this.fetchItems(this.currentUserID);
-  }
+  constructor() {}
 
-  getItems(): Observable<Item[]> {
-    return this.itemsSubject.asObservable();
-  }
-
-  getItemById(id: number): Observable<Item> {
-    return this.http.get<Item>(`${this.baseUrl}/api/todoitems/${id}`);
+  getItemsByUserId(userID: number): Observable<Item[]> {
+    return this.http.get<Item[]>(`${this.baseUrl}/api/user/${userID}/items`);
   }
 
   addItem(data: Item): Observable<Item> {
@@ -53,20 +44,4 @@ export class TodoService {
     );
   }
 
-  private fetchItems(userId: any) {
-    // Create an observable that emits a value every 30 seconds
-    const fetchInterval$ = interval(30000);
-    // Combine the immediate first load and then updates every 30 seconds
-    fetchInterval$
-      .pipe(
-        // Emit an initial value of 0 for the immediate first load
-        startWith(0),
-        // Make call HTTP GET to the URL `${this.baseUrl}/api/todoitems`
-        switchMap(() => this.http.get<Item[]>(`${this.baseUrl}/api/user/${userId}/items`))
-      )
-      .subscribe(items => {
-        // When the data is received, emit it through the "itemsSubject" object
-        this.itemsSubject.next(items);
-      });
-  }
 }
