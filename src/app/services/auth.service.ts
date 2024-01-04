@@ -79,6 +79,7 @@ export class AuthService {
       this._currentUserID.set(this.userID);
       this._currentUser.set(this.user);
       this._authStatus.set(AuthStatus.authenticated);
+      this.router.navigateByUrl('/todo/list');
       return of(true);
     }
     this.logout();

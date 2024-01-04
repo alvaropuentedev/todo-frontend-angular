@@ -20,7 +20,7 @@ export class TodoService {
   getItemsByUserId(userID: number): Observable<Item[]> {
     return this.http.get<Item[]>(`${this.baseUrl}/api/user/${userID}/items`);
   }
-
+  // TODO quitar el map
   addItem(usserID: number, body: Item): Observable<Item> {
     return this.http.post<Item>(`${this.baseUrl}/api/user/${usserID}/items`, body).pipe(
       map((item: Item) => {
@@ -35,7 +35,7 @@ export class TodoService {
     );
   }
 
-  deleteItem(userID: number, itemID: number): Observable<unknown> {
+  deleteItemByUserandItemId(userID: number, itemID: number): Observable<unknown> {
     return this.http.delete<Item>(`${this.baseUrl}/api/user/${userID}/items/${itemID}`);
   }
 
@@ -46,5 +46,4 @@ export class TodoService {
   sendNewLoadItemListEvent() {
     return this.itemListSubject.next(null);
   }
-
 }

@@ -58,7 +58,7 @@ export class ListItemComponent implements OnInit {
   }
 
   deleteItem(item_id: number) {
-    this.todoService.deleteItem(this.userID(), item_id).subscribe(() => {
+    this.todoService.deleteItemByUserandItemId(this.userID(), item_id).subscribe(() => {
       this.loadItems();
       this.handleSucces();
       this.audio.play();
