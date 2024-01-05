@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { EventEmitter, Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, catchError, map } from 'rxjs';
 import { enviroment } from 'src/environments/environments';
 import { Item } from '../interfaces';
@@ -39,11 +39,7 @@ export class TodoService {
     return this.http.delete<Item>(`${this.baseUrl}/api/user/${userID}/items/${itemID}`);
   }
 
-  getNewLoadItemListEvent() {
-    return this.itemListSubject.asObservable();
-  }
-
-  sendNewLoadItemListEvent() {
-    return this.itemListSubject.next(null);
+  onsharedLoad(sharedLoadEventToEmit: EventEmitter<void>) {
+    sharedLoadEventToEmit.emit();
   }
 }

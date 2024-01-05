@@ -1,8 +1,7 @@
-import { Component, OnInit, computed, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, computed, inject } from '@angular/core';
 import { TodoService } from '../../../services/todo.service';
 import { Item } from 'src/app/interfaces';
 import { AuthService } from 'src/app/services/auth.service';
-import { Subscription, interval, startWith, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-todo-list-item',
@@ -10,56 +9,27 @@ import { Subscription, interval, startWith, switchMap } from 'rxjs';
   templateUrl: './list-item.component.html',
   styleUrls: ['./list-item.component.css'],
 })
-export class ListItemComponent implements OnInit {
+export class ListItemComponent {
   private readonly todoService = inject(TodoService);
   private readonly authService = inject(AuthService);
 
-  private loadItemListEvent: Subscription;
+  @Input() loading = true;
+  @Input() items: Item[] = [];
+  @Output() sharedLoadEvent = new EventEmitter<void>();
 
-  public loading = true;
-  public items: Item[] = [];
   public succes = false;
   public itemDescription = '';
-  public userID = computed(() => this.authService.currentUserID());
+  private userID = computed(() => this.authService.currentUserID());
+  private audio: HTMLAudioElement;
 
   constructor() {
-    this.loadItemListEvent = this.todoService.getNewLoadItemListEvent().subscribe({
-      next: () => {
-        this.loadItems();
-      },
-    });
     this.audio = new Audio();
     this.audio.src = '../../../../assets/audio/LetitgoDeleteSound.mp3';
   }
 
-  audio: HTMLAudioElement;
-  ngOnInit(): void {
-    this.loadItems();
-  }
-
-  loadItems() {
-    // Create an observable that emits a value every 30 seconds
-    const fetchInterval$ = interval(30000);
-    // Combine the immediate first load and then updates every 30 seconds
-
-    fetchInterval$
-      .pipe(
-        // Emit an initial value of 0 for the immediate first load
-        startWith(0),
-        // Make call HTTP GET to the URL `${this.baseUrl}/api/user/${userId}/items`
-        switchMap(() => this.todoService.getItemsByUserId(this.userID()))
-      )
-      .subscribe({
-        next: itemsList => {
-          this.items = itemsList;
-          this.loading = false;
-        },
-      });
-  }
-
   deleteItem(item_id: number) {
     this.todoService.deleteItemByUserandItemId(this.userID(), item_id).subscribe(() => {
-      this.loadItems();
+      this.todoService.onsharedLoad(this.sharedLoadEvent);
       this.handleSucces();
       this.audio.play();
     });

@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, EventEmitter, Output, computed, inject } from '@angular/core';
 import { TodoService } from '../../../services/todo.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Item } from 'src/app/interfaces';
@@ -16,6 +16,7 @@ export class AddItemComponent {
   private readonly fb           = inject(FormBuilder);
   private readonly authService  = inject(AuthService);
 
+  @Output() sharedLoadEvent = new EventEmitter<void>();
   public userID = computed(() => this.authService.currentUserID());
 
   public item: Item = {
@@ -39,7 +40,7 @@ export class AddItemComponent {
       this.todoService.addItem(this.userID(), item).subscribe({
         next: () => {
           this.addItemForm.reset();
-          this.sharedLoad();
+          this.todoService.onsharedLoad(this.sharedLoadEvent);
         },
         error: () => {
           console.error('Duplicate description');
@@ -48,9 +49,5 @@ export class AddItemComponent {
     } else {
       console.error('ERROR description is undefined or null');
     }
-  }
-
-  sharedLoad() {
-    this.todoService.sendNewLoadItemListEvent();
   }
 }
