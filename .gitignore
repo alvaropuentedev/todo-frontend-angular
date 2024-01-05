@@ -2,6 +2,7 @@
 
 .env
 src/environments/environments.ts
+.README.md
 
 # Compiled output
 /dist
