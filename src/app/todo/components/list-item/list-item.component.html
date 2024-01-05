@@ -1,32 +1,26 @@
-<div class="bg-base-100 mt-10 flex m-auto justify-center w-screen">
-  <ul class="block mb-16 w-80">
-    @for (item of items; track item.id) {
-      <li class="p-2 rounded-lg">
-        <div class="flex align-middle flex-row justify-between">
-          <div class="p-2">
-            <p class="text-lg text-black mr-24">{{ item.description }}</p>
-          </div>
-          <button (click)="deleteItem(item.id, item.description)">
-            <svg
-            class="h-6 w-6 text-red-500"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            >
-            <circle cx="12" cy="12" r="10" />
-            <line x1="15" y1="9" x2="9" y2="15" />
-            <line x1="9" y1="9" x2="15" y2="15" />
-          </svg>
-        </button>
-      </div>
-      <hr class="mt-2" />
-    </li>
-  }
-</ul>
+@for (item of items; track item.id) {
+<div class="card flex justify-content-center mt-4">
+  <p-card [style]="{ width: '35vh' }" class=" w-full justify-center flex">
+    <div class="flex justify-between">
+      <strong> {{ item.description.toLocaleUpperCase() }} </strong>
+      <button (click)="deleteItem(item.id, item.description)">
+        <svg
+          class="h-6 w-6 text-red-500"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="15" y1="9" x2="9" y2="15" />
+          <line x1="9" y1="9" x2="15" y2="15" />
+        </svg>
+      </button>
+    </div>
+  </p-card>
 </div>
+}
 <div class="card flex justify-content-center gap-2">
   <p-toast position="center" key="toastSucces" [style]="{ width: '40vh' }"></p-toast>
 </div>

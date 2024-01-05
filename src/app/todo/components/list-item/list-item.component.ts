@@ -5,11 +5,12 @@ import { AuthService } from 'src/app/services/auth.service';
 
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-todo-list-item',
   standalone: true,
-  imports: [ToastModule],
+  imports: [ToastModule, CardModule],
   providers: [MessageService],
   templateUrl: './list-item.component.html',
   styleUrls: ['./list-item.component.css'],
