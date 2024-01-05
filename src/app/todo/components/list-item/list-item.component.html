@@ -1,33 +1,13 @@
-@if (succes) {
-<div class="toast toast-top toast-center absolute translate-y-60">
-  <div class="alert bg-[#e5f8f0]">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="stroke-current shrink-0 h-6 w-6"
-      fill="none"
-      viewBox="0 0 24 24"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-      />
-    </svg>
-    <span>{{ itemDescription }} completado!</span>
-  </div>
-</div>
-}
 <div class="bg-base-100 mt-10 flex m-auto justify-center w-screen">
   <ul class="block mb-16 w-80">
     @for (item of items; track item.id) {
-    <li class="p-2 rounded-lg">
-      <div class="flex align-middle flex-row justify-between">
-        <div class="p-2">
-          <p class="text-lg text-black mr-24">{{ item.description }}</p>
-        </div>
-        <button (click)="deleteItem(item.id, item.description)">
-          <svg
+      <li class="p-2 rounded-lg">
+        <div class="flex align-middle flex-row justify-between">
+          <div class="p-2">
+            <p class="text-lg text-black mr-24">{{ item.description }}</p>
+          </div>
+          <button (click)="deleteItem(item.id, item.description)">
+            <svg
             class="h-6 w-6 text-red-500"
             viewBox="0 0 24 24"
             fill="none"
@@ -35,7 +15,7 @@
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
-          >
+            >
             <circle cx="12" cy="12" r="10" />
             <line x1="15" y1="9" x2="9" y2="15" />
             <line x1="9" y1="9" x2="15" y2="15" />
@@ -44,6 +24,9 @@
       </div>
       <hr class="mt-2" />
     </li>
-    }
-  </ul>
+  }
+</ul>
+</div>
+<div class="card flex justify-content-center gap-2">
+  <p-toast position="center" key="toastSucces"></p-toast>
 </div>

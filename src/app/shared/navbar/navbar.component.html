@@ -1,7 +1,7 @@
 <nav class="bg-todo-custom-color flex justify-end items-center w-screen h-12">
   @if ( userStatus() === 'authenticated') {
+  <strong class="translate-y-[-0.2rem] font-bold font-mono mr-2">{{ user() }}</strong>
   <p-menu #menu [model]="menuOptions" [popup]="true"></p-menu>
-  <!-- <span class="translate-y-[-0.2rem] font-bold font-mono mr-2">{{ user() }}</span> -->
   <p-avatar
     (click)="menu.toggle($event)"
     icon="pi pi-user"

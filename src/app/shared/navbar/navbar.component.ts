@@ -26,7 +26,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.menuOptions = [
       {
-        label: `${this.user()}`,
+        label: 'Options',
         items: [
           {
             label: 'Logout',
