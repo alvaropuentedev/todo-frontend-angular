@@ -26,7 +26,7 @@
         <div class="p-2">
           <p class="text-lg text-black mr-24">{{ item.description }}</p>
         </div>
-        <button (click)="deleteItem(item.id)">
+        <button (click)="deleteItem(item.id, item.description)">
           <svg
             class="h-6 w-6 text-red-500"
             viewBox="0 0 24 24"

@@ -27,8 +27,9 @@ export class ListItemComponent {
     this.audio.src = '../../../../assets/audio/LetitgoDeleteSound.mp3';
   }
 
-  deleteItem(item_id: number) {
+  deleteItem(item_id: number, description: string) {
     this.todoService.deleteItemByUserandItemId(this.userID(), item_id).subscribe(() => {
+      this.itemDescription = description;
       this.todoService.onsharedLoad(this.sharedLoadEvent);
       this.handleSucces();
       this.audio.play();
