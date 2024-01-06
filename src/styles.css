@@ -14,6 +14,11 @@
     width: 40vh;
   }
 }
+@media only screen and (min-width: 700px) and (max-width: 800px) {
+  .customCard {
+    width: 90vh;
+  }
+}
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .customCard {
     width: 65vh;
