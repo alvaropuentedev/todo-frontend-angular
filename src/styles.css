@@ -9,6 +9,17 @@
 }
 
 
+@font-face {
+  font-family: 'Roboto-regular';
+  src: url('./assets/fonts/Roboto/Roboto-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: normal;
+}
+
+.roboto  {
+  font-family: 'Roboto-regular', sans-serif;
+}
+
 @media screen and ( max-width: 768px) {
   .customCard {
     width: 40vh;
