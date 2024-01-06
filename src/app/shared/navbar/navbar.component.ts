@@ -5,12 +5,13 @@ import { AuthService } from 'src/app/services/auth.service';
 import { AvatarModule } from 'primeng/avatar';
 import { MenuModule } from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
-import { SpeedDialModule } from 'primeng/speeddial';
+import { SidebarModule } from 'primeng/sidebar';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, AvatarModule, MenuModule, SpeedDialModule],
+  imports: [CommonModule, AvatarModule, MenuModule, SidebarModule, ButtonModule],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
@@ -21,6 +22,7 @@ export class NavbarComponent implements OnInit {
   public userStatus = computed(() => this.authService.authStatus());
 
   menuOptions: MenuItem[] | null = [];
+  sidebarVisible: boolean = false;
 
   constructor() {}
 
@@ -36,6 +38,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
+    this.sidebarVisible = false;
     this.authService.logout();
   }
 }

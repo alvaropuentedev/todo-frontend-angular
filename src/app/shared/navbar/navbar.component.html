@@ -1,15 +1,41 @@
 <nav class="bg-todo-custom-color flex items-center justify-end w-screen h-12">
   @if ( userStatus() === 'authenticated') {
-    <div class="flex gap-2 translate-x-[-2.5rem]">
-      <strong class="">{{ user() }}</strong>
-      <p-speedDial [style]="{translate: '0 -4px'}" hideIcon="pi pi-times" [model]="menuOptions" direction="down" showIcon="pi pi-user"></p-speedDial>
+  <div class="flex gap-2 items-center">
     <!-- <p-menu #menu [model]="menuOptions" [popup]="true"></p-menu> -->
-    <!-- <p-avatar
-      (click)="menu.toggle($event)"
+    <strong>{{ user() }}</strong>
+    <p-avatar
+      (click)="sidebarVisible = true"
       icon="pi pi-user"
       styleClass="mr-2 cursor-pointer"
       [style]="{ 'background-color': '#000', color: '#ffffff' }"
-      shape="circle"></p-avatar> -->
+      shape="circle"></p-avatar>
   </div>
+  <p-sidebar [(visible)]="sidebarVisible">
+    <ng-template pTemplate="header">
+      <div class="flex items-center">
+        <span class="text-black font-extrabold text-center">{{ user() }}</span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="content">
+      <ul>
+        <li>
+          <a class="cursor-pointer">
+          <i class="pi pi-cog mr-2"></i>
+          <span> Settings </span>
+          </a>
+        </li>
+      </ul>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <ul>
+        <li>
+          <a (click)="logout()" class="text-black cursor-pointer">
+            <i class="pi pi-sign-out mr-2"></i>
+            <span> LogOut </span>
+          </a>
+        </li>
+      </ul>
+    </ng-template>
+  </p-sidebar>
   }
 </nav>
