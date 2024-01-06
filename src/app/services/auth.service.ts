@@ -4,7 +4,6 @@ import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { User, AuthStatus, LoginResponse, LoginRegisterRequest } from '../interfaces';
-import { TodoService } from './todo.service';
 import { enviroment } from 'src/environments/environments';
 
 @Injectable({
@@ -14,7 +13,6 @@ export class AuthService {
   private readonly http         = inject(HttpClient);
   private readonly jwtHelper    = inject(JwtHelperService);
   private readonly router       = inject(Router);
-  private readonly todoService  = inject(TodoService);
   private readonly baseUrl: string = enviroment.base_url;
   // private readonly baseUrl: string = 'http://localhost:8080';
 
