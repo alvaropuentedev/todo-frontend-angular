@@ -1,8 +1,41 @@
-@import "primeng/resources/themes/lara-light-blue/theme.css";
-@import "primeng/resources/primeng.css";
-@import '../node_modules/primeicons/primeicons.css';
 /* You can add global styles to this file, and also import other style files */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@layer tailwind-base, primeng, tailwind-utilities;
+@layer tailwind-base {
+  @tailwind base;
+}
+@layer tailwind-utilities {
+    @tailwind components;
+    @tailwind utilities;
+}
 
+
+@media screen and ( max-width: 768px) {
+  .customCard {
+    width: 40vh;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .customCard {
+    width: 65vh;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  /* Styles for screens with a width of 768px to 1023px, typically tablets and small devices in vertical mode. */
+  .customCard {
+    width: 55vh;
+  }
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1199px) {
+  /* Styles for screens with a width of 1024px to 1199px, typically tablets and medium-sized devices */
+  .customCard {
+    width: 65vh;
+  }
+}
+
+@media screen and ( min-width: 1200px) {
+  .customCard {
+    width: 65vh;
+  }
+}

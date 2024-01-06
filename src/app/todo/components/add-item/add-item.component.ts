@@ -4,10 +4,14 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Item } from 'src/app/interfaces';
 import { AuthService } from 'src/app/services/auth.service';
 
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+
 @Component({
   selector: 'app-todo-add-item',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ButtonModule, DialogModule, InputTextModule],
   templateUrl: './add-item.component.html',
   styleUrls: ['./add-item.component.css'],
 })
@@ -28,7 +32,13 @@ export class AddItemComponent {
     description: [' ', Validators.required],
   });
 
+  public showModal = false;
+
   constructor() {}
+
+  showDialog() {
+    this.showModal = true;
+  }
 
   submitForm() {
     const description = this.addItemForm.value.description;
@@ -41,9 +51,11 @@ export class AddItemComponent {
         next: () => {
           this.addItemForm.reset();
           this.todoService.onsharedLoad(this.sharedLoadEvent);
+          this.showModal = false;
         },
         error: () => {
           console.error('Duplicate description');
+          this.showModal = false;
         },
       });
     } else {

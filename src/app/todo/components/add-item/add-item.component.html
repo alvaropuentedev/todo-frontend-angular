@@ -1,12 +1,27 @@
-<div class="max-sm:w-screen max-sm:h-16 max-sm:fixed max-sm:bottom-0  max-sm:bg-gray-50">
-  <form [formGroup]="addItemForm" (ngSubmit)="submitForm()" class="flex mt-4 max-sm:mt-2 justify-center">
-    <input type="text"
-    formControlName="description"
-    name="itemDescription" class="w-50 max-sm:w-72 max-sm:h-12 max-sm:rounded-md  max-sm:bg-gray-200
-      max-sm:p-4 lg:border-b-2 sm:border-b-2
-      border-gray-500 text-black focus:outline-none" placeholder="Añadir Item"/>
-    <!-- <button class="hidden ml-3 cursor-pointer" type="submit"> -->
-      <!-- <img src="../../../../assets/add-to-basket.png" alt="Icono" class="h-6 w-6"> -->
-    <!-- </button> -->
-  </form>
-</div>
+<p-dialog
+  header="Añadir Item"
+  [(visible)]="showModal"
+  [modal]="true"
+  [breakpoints]="{ '960px': '39vw', '760px': '72vw', '400px': '77vw', '360px': '82vw' }"
+  [style]="{ width: 'fit-content' }"
+  [draggable]="false"
+  [resizable]="false">
+  <div class="mt-2">
+    <form [formGroup]="addItemForm" (ngSubmit)="submitForm()">
+      <input pInputText type="text" formControlName="description" placeholder="Añadir Item" />
+    </form>
+  </div>
+  <div class="flex justify-center mt-2">
+    <p-button (click)="submitForm()" label="Añadir" icon="pi pi-plus" size="small"></p-button>
+  </div>
+</p-dialog>
+<p-button
+  class="fixed z-10
+  inset-y-[40rem] inset-x-[18rem]
+  md:inset-y-[50rem] md:inset-x-[40rem]
+  lg:inset-y-[40rem] lg:inset-x-[50rem]
+  xl:inset-y-[45rem] xl:inset-x-[65rem]"
+  (click)="showDialog()"
+  icon="pi pi-plus"
+  [rounded]="true">
+</p-button>

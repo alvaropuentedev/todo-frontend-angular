@@ -1,6 +1,6 @@
 @for (item of items; track item.id) {
 <div class="card flex justify-content-center mt-4">
-  <p-card [style]="{ width: '35vh' }" class=" w-full justify-center flex">
+  <p-card styleClass="customCard" class=" w-full justify-center flex mb-3">
     <div class="flex justify-between">
       <strong> {{ item.description.toLocaleUpperCase() }} </strong>
       <button (click)="deleteItem(item.id, item.description)">
