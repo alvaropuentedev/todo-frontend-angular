@@ -1,6 +1,6 @@
 <nav class="bg-todo-custom-color flex items-center justify-end w-screen h-12">
   @if ( userStatus() === 'authenticated') {
-    <div class="flex gap-2 translate-x-[-3.5rem]">
+    <div class="flex gap-2 translate-x-[-2.5rem]">
       <strong class="">{{ user() }}</strong>
       <p-speedDial [style]="{translate: '0 -4px'}" hideIcon="pi pi-times" [model]="menuOptions" direction="down" showIcon="pi pi-user"></p-speedDial>
     <!-- <p-menu #menu [model]="menuOptions" [popup]="true"></p-menu> -->
