@@ -1,14 +1,15 @@
-<nav class="bg-todo-custom-color flex justify-end items-center w-screen h-12">
+<nav class="bg-todo-custom-color flex items-center justify-end w-screen h-12">
   @if ( userStatus() === 'authenticated') {
-  <section class="items-end flex">
-    <strong class="translate-y-[-0.2rem] font-bold font-mono mr-2 flex">{{ user() }}</strong>
-    <p-menu #menu [model]="menuOptions" [popup]="true"></p-menu>
-    <p-avatar
+    <div class="flex gap-2 translate-x-[-3.5rem]">
+      <strong class="">{{ user() }}</strong>
+      <p-speedDial [style]="{translate: '0 -4px'}" hideIcon="pi pi-times" [model]="menuOptions" direction="down" showIcon="pi pi-user"></p-speedDial>
+    <!-- <p-menu #menu [model]="menuOptions" [popup]="true"></p-menu> -->
+    <!-- <p-avatar
       (click)="menu.toggle($event)"
       icon="pi pi-user"
       styleClass="mr-2 cursor-pointer"
       [style]="{ 'background-color': '#000', color: '#ffffff' }"
-      shape="circle"></p-avatar>
-  </section>
+      shape="circle"></p-avatar> -->
+  </div>
   }
 </nav>

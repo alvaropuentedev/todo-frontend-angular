@@ -55,3 +55,11 @@
     width: 65vh;
   }
 }
+
+  /* Button user avatar */
+.p-speeddial-button	{
+  display: flex;
+  align-self: center;
+  width: 2rem;
+  height: 2rem;
+}
