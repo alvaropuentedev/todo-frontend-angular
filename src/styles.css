@@ -55,3 +55,8 @@
     width: 65vh;
   }
 }
+
+/* Make text uppercase */
+.upper{
+  text-transform: uppercase;
+}

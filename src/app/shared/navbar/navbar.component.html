@@ -2,7 +2,7 @@
   @if ( userStatus() === 'authenticated') {
   <div class="flex gap-2 items-center">
     <!-- <p-menu #menu [model]="menuOptions" [popup]="true"></p-menu> -->
-    <strong>{{ user() }}</strong>
+    <strong class="upper">{{ user() }}</strong>
     <p-avatar
       (click)="sidebarVisible = true"
       icon="pi pi-user"
@@ -13,7 +13,7 @@
   <p-sidebar [(visible)]="sidebarVisible">
     <ng-template pTemplate="header">
       <div class="flex items-center">
-        <span class="text-black font-extrabold text-center">{{ user() }}</span>
+        <span class=" upper text-black font-extrabold text-center">{{ user() }}</span>
       </div>
     </ng-template>
     <ng-template pTemplate="content">
