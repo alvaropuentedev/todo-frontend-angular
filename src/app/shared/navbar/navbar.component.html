@@ -5,7 +5,7 @@
     <strong class="upper">{{ user() }}</strong>
     <p-avatar
       (click)="sidebarVisible = true"
-      icon="pi pi-user"
+      image="../../../assets/img/logo1.jpg"
       styleClass="mr-2 cursor-pointer"
       [style]="{ 'background-color': '#000', color: '#ffffff' }"
       shape="circle"></p-avatar>
@@ -13,6 +13,12 @@
   <p-sidebar [(visible)]="sidebarVisible">
     <ng-template pTemplate="header">
       <div class="flex items-center">
+        <p-avatar
+        (click)="sidebarVisible = true"
+        image="../../../assets/img/logo1.jpg"
+        styleClass="mr-2 cursor-pointer"
+        [style]="{ 'background-color': '#000', color: '#ffffff' }"
+        shape="circle"></p-avatar>
         <span class=" upper text-black font-extrabold text-center">{{ user() }}</span>
       </div>
     </ng-template>
