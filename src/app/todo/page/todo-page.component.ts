@@ -20,9 +20,15 @@ export class TodoPageComponent implements OnInit {
   public loading = true;
   public items: Item[] = [];
   public userID = computed(() => this.authService.currentUserID());
+  public currentDate: Date;
+
+  constructor() {
+    this.currentDate = new Date();
+  }
 
   ngOnInit(): void {
     this.loadItems();
+    this.getCurrentDate();
   }
 
   loadItems() {
@@ -43,5 +49,9 @@ export class TodoPageComponent implements OnInit {
           this.loading = false;
         },
       });
+  }
+
+  getCurrentDate() {
+    console.log(this.currentDate.getDay());
   }
 }
