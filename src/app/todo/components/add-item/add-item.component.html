@@ -1,7 +1,7 @@
 <p-dialog header="Añadir Item" [(visible)]="showModal" [modal]="true" [draggable]="false" [resizable]="false" [dismissableMask]="true">
   <div class="mt-2">
     <form [formGroup]="addItemForm" (ngSubmit)="submitForm()">
-      <input pInputText type="text" formControlName="description" placeholder="Añadir Item" />
+      <input pInputText type="text" formControlName="description" placeholder="Añadir Item" autofocus/>
     </form>
   </div>
   <div class="flex justify-center mt-2">
