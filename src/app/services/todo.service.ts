@@ -15,15 +15,15 @@ export class TodoService {
   constructor() {}
 
   getItemsByUserId(userID: number): Observable<Item[]> {
-    return this.http.get<Item[]>(`${this.baseUrl}/api/user/${userID}/items`);
+    return this.http.get<Item[]>(`${this.baseUrl}/user/${userID}/items`);
   }
 
   addItem(usserID: number, body: Item): Observable<Item> {
-    return this.http.post<Item>(`${this.baseUrl}/api/user/${usserID}/items`, body);
+    return this.http.post<Item>(`${this.baseUrl}/user/${usserID}/items`, body);
   }
 
   deleteItemByUserandItemId(userID: number, itemID: number): Observable<unknown> {
-    return this.http.delete<Item>(`${this.baseUrl}/api/user/${userID}/items/${itemID}`);
+    return this.http.delete<Item>(`${this.baseUrl}/user/${userID}/items/${itemID}`);
   }
 
   onsharedLoad(sharedLoadEventToEmit: EventEmitter<void>) {
