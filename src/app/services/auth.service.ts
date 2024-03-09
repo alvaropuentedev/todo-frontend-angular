@@ -13,8 +13,8 @@ export class AuthService {
   private readonly http         = inject(HttpClient);
   private readonly jwtHelper    = inject(JwtHelperService);
   private readonly router       = inject(Router);
-  private readonly baseUrl: string = enviroment.base_url;
-  // private readonly baseUrl: string = 'http://localhost:8080';
+  // private readonly baseUrl: string = enviroment.base_url;
+  private readonly baseUrl: string = 'http://localhost:8080/apitodo';
 
   private _currentUser = signal<User | null>(null);
   private _currentUserID = signal(0);

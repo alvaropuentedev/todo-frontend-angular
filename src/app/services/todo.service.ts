@@ -1,29 +1,43 @@
 import { HttpClient } from '@angular/common/http';
-import { EventEmitter, Injectable, inject } from '@angular/core';
+import { EventEmitter, Injectable, inject, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { enviroment } from 'src/environments/environments';
 import { Item } from '../interfaces';
+import { List } from '../interfaces/list.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoService {
   private readonly http = inject(HttpClient);
-  private readonly baseUrl: string = enviroment.base_url;
-  // private readonly baseUrl: string = 'http://localhost:8080';
+  // private readonly baseUrl: string = enviroment.base_url;
+  private readonly baseUrl: string = 'http://localhost:8080/apitodo';
+  
+  public $list_id = signal(0);
+  public $showAddButton = signal(false);
 
+ 
   constructor() {}
 
-  getItemsByUserId(userID: number): Observable<Item[]> {
-    return this.http.get<Item[]>(`${this.baseUrl}/user/${userID}/items`);
+  setListId(listId: number) {
+    this.$list_id.set(listId);
   }
 
-  addItem(usserID: number, body: Item): Observable<Item> {
-    return this.http.post<Item>(`${this.baseUrl}/user/${usserID}/items`, body);
+  getItemsByListId(list_id: number): Observable<Item[]> {
+    return this.http.get<Item[]>(`${this.baseUrl}/list/${list_id}/items`);
   }
 
-  deleteItemByUserandItemId(userID: number, itemID: number): Observable<unknown> {
-    return this.http.delete<Item>(`${this.baseUrl}/user/${userID}/items/${itemID}`);
+  // GET lists
+  getListByUserId(userID: number): Observable<List[]> {
+    return this.http.get<List[]>(`${this.baseUrl}/user/${userID}/lists`);
+  }
+
+  addItem(list_id: number, body: Item): Observable<Item> {
+    return this.http.post<Item>(`${this.baseUrl}/list/${list_id}/items`, body);
+  }
+
+  deleteItemByUserandItemId(item_id: number): Observable<unknown> {
+    return this.http.delete<Item>(`${this.baseUrl}/item/${item_id}`);
   }
 
   onsharedLoad(sharedLoadEventToEmit: EventEmitter<void>) {

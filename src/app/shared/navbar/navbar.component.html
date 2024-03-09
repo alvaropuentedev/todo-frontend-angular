@@ -3,31 +3,33 @@
   <div class="flex gap-2 items-center">
     <!-- <p-menu #menu [model]="menuOptions" [popup]="true"></p-menu> -->
     <strong class="upper">{{ user() }}</strong>
-    <p-avatar
-      (click)="sidebarVisible = true"
-      image="../../../assets/img/logo1.jpg"
-      styleClass="mr-2 cursor-pointer"
-      [style]="{ 'background-color': '#000', color: '#ffffff' }"
-      shape="circle"></p-avatar>
+    <p-avatar (click)="sidebarVisible = true" image="../../../assets/img/logo1.jpg" styleClass="mr-2 cursor-pointer"
+      [style]="{ 'background-color': '#000', color: '#ffffff' }" shape="circle"></p-avatar>
   </div>
   <p-sidebar [(visible)]="sidebarVisible">
     <ng-template pTemplate="header">
       <div class="flex items-center">
-        <p-avatar
-        (click)="sidebarVisible = true"
-        image="../../../assets/img/logo1.jpg"
-        styleClass="mr-2 cursor-pointer"
-        [style]="{ 'background-color': '#000', color: '#ffffff' }"
-        shape="circle"></p-avatar>
+        <p-avatar (click)="sidebarVisible = true" image="../../../assets/img/logo1.jpg" styleClass="mr-2 cursor-pointer"
+          [style]="{ 'background-color': '#000', color: '#ffffff' }" shape="circle"></p-avatar>
         <span class=" upper text-black font-extrabold text-center">{{ user() }}</span>
       </div>
     </ng-template>
     <ng-template pTemplate="content">
+      <!-- LIST OF ITEMS -->
+      <ul class="list-disc mt-4 ml-8 mb-5">
+        @for (list of lists; track list.id) {
+        <li>
+          <button class="cursor-pointer" (click)="showItemsFromList(list.id)">
+            {{ list.listName | uppercase }}
+          </button>
+        </li>
+        }
+      </ul>
       <ul>
         <li>
           <a class="cursor-pointer">
-          <i class="pi pi-cog mr-2"></i>
-          <span> Settings </span>
+            <i class="pi pi-cog mr-2"></i>
+            <span> Settings </span>
           </a>
         </li>
       </ul>

@@ -6,11 +6,13 @@ import { Item } from 'src/app/interfaces';
 import { interval, startWith, switchMap } from 'rxjs';
 import { TodoService } from 'src/app/services/todo.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { List } from 'src/app/interfaces/list.interface';
+import { NavbarComponent } from 'src/app/shared/navbar/navbar.component';
 
 @Component({
   selector: 'app-todo-page',
   standalone: true,
-  imports: [AddItemComponent, ListItemComponent, RouterModule],
+  imports: [AddItemComponent, ListItemComponent, NavbarComponent, RouterModule],
   templateUrl: './todo-page.component.html',
 })
 export class TodoPageComponent implements OnInit {
@@ -21,6 +23,7 @@ export class TodoPageComponent implements OnInit {
   public items: Item[] = [];
   public userID = computed(() => this.authService.currentUserID());
   public currentDate: Date;
+  public list: List[] = [];
 
   constructor() {
     this.currentDate = new Date();
@@ -28,7 +31,15 @@ export class TodoPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadItems();
-    this.getCurrentDate();
+  }
+
+  loadLists() {
+    this.todoService.getListByUserId(this.userID())
+      .subscribe({
+        next: (list: List[]) => {
+          this.list = list;
+        }
+      });
   }
 
   loadItems() {
@@ -41,7 +52,7 @@ export class TodoPageComponent implements OnInit {
         // Emit an initial value of 0 for the immediate first load
         startWith(0),
         // Make call HTTP GET to the URL `${this.baseUrl}/api/user/${userId}/items`
-        switchMap(() => this.todoService.getItemsByUserId(this.userID()))
+        switchMap(() => this.todoService.getItemsByListId(this.todoService.$list_id()))
       )
       .subscribe({
         next: itemsList => {
@@ -51,7 +62,4 @@ export class TodoPageComponent implements OnInit {
       });
   }
 
-  getCurrentDate() {
-    console.log(this.currentDate.getDay());
-  }
 }

@@ -3,6 +3,10 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.8.
 
 ## Development server
+# IMPORTANT For local development
+  1.Change <base href="/todoapp/"> to <base href="/">
+  2.Find the file app.config.ts, comment the line { provide: APP_BASE_HREF, useValue: '/todoapp/' }
+  If dont do this when run the app do not find statics file like css...
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 

@@ -26,7 +26,7 @@ export class ListItemComponent {
 
   public succes = false;
   public itemDescription = '';
-  private userID = computed(() => this.authService.currentUserID());
+  private list_id = this.todoService.$list_id;
   private audio: HTMLAudioElement;
 
   constructor() {
@@ -35,7 +35,7 @@ export class ListItemComponent {
   }
 
   deleteItem(item_id: number, description: string) {
-    this.todoService.deleteItemByUserandItemId(this.userID(), item_id).subscribe(() => {
+    this.todoService.deleteItemByUserandItemId(item_id).subscribe(() => {
       this.itemDescription = description;
       this.todoService.onsharedLoad(this.sharedLoadEvent);
       this.showSuccessMessage();

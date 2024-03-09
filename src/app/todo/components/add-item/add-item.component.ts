@@ -22,6 +22,7 @@ export class AddItemComponent {
 
   @Output() sharedLoadEvent = new EventEmitter<void>();
   public userID = computed(() => this.authService.currentUserID());
+  public $showAddButton = this.todoService.$showAddButton;
 
   public item: Item = {
     id: 0,
@@ -47,7 +48,7 @@ export class AddItemComponent {
         id: 0,
         description: description,
       };
-      this.todoService.addItem(this.userID(), item).subscribe({
+      this.todoService.addItem(this.todoService.$list_id(), item).subscribe({
         next: () => {
           this.addItemForm.reset();
           this.todoService.onsharedLoad(this.sharedLoadEvent);

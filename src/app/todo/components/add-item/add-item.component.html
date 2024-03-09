@@ -8,5 +8,7 @@
     <p-button (click)="submitForm()" label="Añadir" icon="pi pi-plus" size="small"></p-button>
   </div>
 </p-dialog>
-<p-button class="fixed z-10 bottom-1 right-1" (click)="showDialog()" icon="pi pi-plus" [rounded]="true">
-</p-button>
+@if ($showAddButton()) {
+  <p-button class="fixed z-10 bottom-1 right-1" (click)="showDialog()" icon="pi pi-plus" [rounded]="true">
+  </p-button>
+}
