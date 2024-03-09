@@ -27,19 +27,20 @@ export class TodoService {
     return this.http.get<Item[]>(`${this.baseUrl}/list/${list_id}/items`);
   }
 
+  
+  addItem(list_id: number, body: Item): Observable<Item> {
+    return this.http.post<Item>(`${this.baseUrl}/list/${list_id}/items`, body);
+  }
+  
+  deleteItem(item_id: number): Observable<unknown> {
+    return this.http.delete<Item>(`${this.baseUrl}/item/${item_id}`);
+  }
+  
   // GET lists
   getListByUserId(userID: number): Observable<List[]> {
     return this.http.get<List[]>(`${this.baseUrl}/user/${userID}/lists`);
   }
-
-  addItem(list_id: number, body: Item): Observable<Item> {
-    return this.http.post<Item>(`${this.baseUrl}/list/${list_id}/items`, body);
-  }
-
-  deleteItemByUserandItemId(item_id: number): Observable<unknown> {
-    return this.http.delete<Item>(`${this.baseUrl}/item/${item_id}`);
-  }
-
+  
   onsharedLoad(sharedLoadEventToEmit: EventEmitter<void>) {
     sharedLoadEventToEmit.emit();
   }
