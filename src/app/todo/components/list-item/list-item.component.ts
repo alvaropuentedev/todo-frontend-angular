@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, Output, computed, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { TodoService } from '../../../services/todo.service';
 import { Item } from 'src/app/interfaces';
-import { AuthService } from 'src/app/services/auth.service';
 
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -17,8 +16,7 @@ import { CardModule } from 'primeng/card';
 })
 export class ListItemComponent {
   private readonly todoService = inject(TodoService);
-  private readonly authService = inject(AuthService);
-  public messageService = inject(MessageService);
+  private readonly messageService = inject(MessageService);
 
   @Input() loading = true;
   @Input() items: Item[] = [];
@@ -26,12 +24,11 @@ export class ListItemComponent {
 
   public succes = false;
   public itemDescription = '';
-  private list_id = this.todoService.$list_id;
   private audio: HTMLAudioElement;
 
   constructor() {
     this.audio = new Audio();
-    this.audio.src = '../../../../assets/audio/LetitgoDeleteSound.mp3';
+    this.audio.src = 'assets/audio/LetitgoDeleteSound.mp3';
   }
 
   deleteItem(item_id: number, description: string) {

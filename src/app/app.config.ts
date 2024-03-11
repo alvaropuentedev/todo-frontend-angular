@@ -17,6 +17,5 @@ export const appConfig: ApplicationConfig = {
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService,
     importProvidersFrom(BrowserAnimationsModule),
-    // { provide: APP_BASE_HREF, useValue: '/todoapp/' }
   ],
 };

@@ -10,8 +10,8 @@ import { List } from '../interfaces/list.interface';
 })
 export class TodoService {
   private readonly http = inject(HttpClient);
-  // private readonly baseUrl: string = enviroment.base_url;
-  private readonly baseUrl: string = 'http://localhost:8080/apitodo';
+  private readonly baseUrl: string = enviroment.base_url;
+  // private readonly baseUrl: string = 'http://localhost:8080/apitodo';
   
   public $list_id = signal(0);
   public $showAddButton = signal(false);
@@ -39,6 +39,14 @@ export class TodoService {
   // GET lists
   getListByUserId(userID: number): Observable<List[]> {
     return this.http.get<List[]>(`${this.baseUrl}/user/${userID}/lists`);
+  }
+
+  createListForUser(user_id: number, body: List): Observable<List> {
+    return this.http.post<List>(`${this.baseUrl}/user/${user_id}/list`, body);
+  }
+
+  deleteList(list_id: number): Observable<unknown> {
+    return this.http.delete<Item>(`${this.baseUrl}/list/${list_id}`);
   }
   
   onsharedLoad(sharedLoadEventToEmit: EventEmitter<void>) {

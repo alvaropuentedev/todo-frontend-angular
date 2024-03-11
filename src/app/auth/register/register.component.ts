@@ -29,6 +29,10 @@ export class RegisterComponent {
   submitFormRegister() {
     const password = this.registerForm.get('password');
     const passwordConfirm = this.registerForm.get('confirmPassword');
+    
+    // Transform the value of the username field to lowercase.
+    const username = this.registerForm.get('username')!.value.toLowerCase();
+    
     if (
       password!.value !== '' &&
       passwordConfirm!.value !== '' &&
@@ -36,7 +40,14 @@ export class RegisterComponent {
       passwordConfirm!.value !== null &&
       password!.value === passwordConfirm!.value
     ) {
-      this.authService.register(this.registerForm.value as LoginRegisterRequest).subscribe(() => {
+
+      // Use the transformed value for registration
+      const registerData: LoginRegisterRequest = {
+        username: username,
+        password: password?.value
+      };
+
+      this.authService.register(registerData).subscribe(() => {
         console.log('User ADDED!!');
         this.router.navigate(['/auth/login']);
       });

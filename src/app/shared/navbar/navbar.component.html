@@ -1,27 +1,56 @@
-<nav class="bg-todo-custom-color flex items-center justify-end w-screen h-12">
+<nav class="bg-todo-custom-color flex items-center justify-end w-full h-12">
   @if ( userStatus() === 'authenticated') {
   <div class="flex gap-2 items-center">
     <!-- <p-menu #menu [model]="menuOptions" [popup]="true"></p-menu> -->
     <strong class="upper">{{ user() }}</strong>
-    <p-avatar (click)="sidebarVisible = true" image="../../../assets/img/logo1.jpg" styleClass="mr-2 cursor-pointer"
+    <p-avatar (click)="sidebarVisible = true" image="assets/img/logo1.jpg" styleClass="mr-2 cursor-pointer"
       [style]="{ 'background-color': '#000', color: '#ffffff' }" shape="circle"></p-avatar>
   </div>
   <p-sidebar [(visible)]="sidebarVisible">
     <ng-template pTemplate="header">
       <div class="flex items-center">
-        <p-avatar (click)="sidebarVisible = true" image="../../../assets/img/logo1.jpg" styleClass="mr-2 cursor-pointer"
+        <p-avatar (click)="sidebarVisible = true" image="assets/img/logo1.jpg" styleClass="mr-2 cursor-pointer"
           [style]="{ 'background-color': '#000', color: '#ffffff' }" shape="circle"></p-avatar>
         <span class=" upper text-black font-extrabold text-center">{{ user() }}</span>
       </div>
     </ng-template>
     <ng-template pTemplate="content">
       <!-- LIST OF ITEMS -->
+      <ul>
+        <li>
+          <!-- CREATE NEW LIST BUTTON -->
+          <div class="flex justify-center">
+            <button (click)="showModalCreateList()" class="flex cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-6 h-6 mr-2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+              <span>
+                Nueva Lista
+              </span>
+            </button>
+          </div>
+        </li>
+      </ul>
       <ul class="list-disc mt-4 ml-8 mb-5">
         @for (list of lists; track list.id) {
         <li>
-          <button class="cursor-pointer" (click)="showItemsFromList(list.id)">
-            {{ list.listName | uppercase }}
-          </button>
+          <div class="flex justify-between mb-2">
+            <button
+              class="cursor-pointer relative inline text-xl font-medium before:bg-todo-custom-color
+                before:absolute before:-bottom-1 before:block before:h-[2px] before:w-full 
+                before:origin-bottom-right before:scale-x-0 before:transition before:duration-300
+                 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100"
+              (click)="showItemsFromList(list.id)">
+              {{ list.listName | uppercase }}
+            </button>
+            <button (click)="confirm($event, list.id, list.listName)">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-6 h-6 text-red-500">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+              </svg>
+            </button>
+          </div>
         </li>
         }
       </ul>
@@ -37,13 +66,52 @@
     <ng-template pTemplate="footer">
       <ul>
         <li>
-          <a (click)="logout()" class="text-black cursor-pointer">
+          <button (click)="logout()" class="text-black cursor-pointer">
             <i class="pi pi-sign-out mr-2"></i>
             <span> Sign out </span>
-          </a>
+          </button>
         </li>
       </ul>
     </ng-template>
   </p-sidebar>
   }
 </nav>
+
+<!-- *MODAL CREATE NEW LIST -->
+<p-dialog header="Nombre de la Lista" [(visible)]="showModal" [modal]="true" [draggable]="false" [resizable]="false"
+  [dismissableMask]="true">
+  <div class="mt-2">
+    <form [formGroup]="createNewListForm" (ngSubmit)="submitForm()">
+      <input pInputText type="text" formControlName="listName" placeholder="Nombre para la lista" autofocus />
+    </form>
+  </div>
+  <div class="flex justify-center mt-2">
+    <p-button (click)="submitForm()" label="Crear" icon="pi pi-plus" size="small"></p-button>
+  </div>
+</p-dialog>
+
+<!-- !MESSAGE LIST DELETED -->
+<div class="card flex justify-center">
+  <p-toast></p-toast>
+  <p-confirmDialog #cd>
+    <ng-template pTemplate="headless" let-message>
+      <div class="flex flex-col items-center p-5 bg-white shadow-md rounded-lg">
+        <div class="rounded-full bg-blue-500 flex justify-center items-center h-24 w-24 -mt-8">
+          <i class="pi pi-question text-5xl text-white"></i>
+        </div>
+        <span class="font-bold text-2xl block mb-2 mt-4">{{ message.header }}</span>
+        <p class="mb-0">{{ message.message }}</p>
+        <div class="flex items-center gap-2 mt-4">
+          <button pButton label="Aceptar" (click)="cd.accept()"
+            class="w-32 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"></button>
+          <button pButton label="Cancelar" (click)="cd.reject()"
+            class="w-32 border border-gray-300 hover:border-gray-500  text-white font-bold py-2 px-4 rounded"></button>
+        </div>
+      </div>
+    </ng-template>
+  </p-confirmDialog>
+</div>
+
+<div class="card flex justify-content-center gap-2">
+  <p-toast position="center" key="toastSucces" [style]="{ width: '40vh' }"></p-toast>
+</div>
