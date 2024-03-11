@@ -86,6 +86,12 @@ export class NavbarComponent implements OnInit {
       .subscribe({
         next: (list: List[]) => {
           this.lists = list;
+          if (this.todoService.$list_id() === 0) {
+            this.todoService.setListId(list[0].id);
+            this.todoService.$showAddButton.set(true);
+            this.todoService.$listTitle.set(list[0].listName);
+            this.todoService.onsharedLoad(this.sharedLoadEvent);
+          }
         }
       });
   }
@@ -160,6 +166,7 @@ export class NavbarComponent implements OnInit {
     this.sidebarVisible = false;
     this.todoService.deleteList(list_id).subscribe(() => {
       this.todoService.onsharedLoad(this.sharedLoadEvent);
+      this.todoService.$listTitle.set('');
       this.showListSuccessMessageDeleted(list_name);
       this.audio.play();
       this.loadLists();
