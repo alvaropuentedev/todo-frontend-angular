@@ -95,10 +95,11 @@ export class NavbarComponent implements OnInit {
     this.authService.logout();
   }
 
-  showItemsFromList(listId: number) {
+  showItemsFromList(list: List) {
     this.sidebarVisible = false;
     this.todoService.$showAddButton.set(true);
-    this.todoService.setListId(listId);
+    this.todoService.setListId(list.id);
+    this.todoService.$listTitle.set(list.listName);
     this.todoService.onsharedLoad(this.sharedLoadEvent);
   }
 

@@ -65,6 +65,7 @@ export class AuthService {
     localStorage.removeItem('id');
     this.todoService.setListId(0);
     this.todoService.$showAddButton.set(false);
+    this.todoService.$listTitle.set('');
     this.router.navigateByUrl('/auth/login');
   }
 

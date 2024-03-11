@@ -15,6 +15,7 @@ export class TodoService {
   
   public $list_id = signal(0);
   public $showAddButton = signal(false);
+  public $listTitle = signal('');
 
  
   constructor() {}

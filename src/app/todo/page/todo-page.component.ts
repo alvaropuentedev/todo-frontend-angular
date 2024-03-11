@@ -25,6 +25,8 @@ export class TodoPageComponent implements OnInit {
   public currentDate: Date;
   public list: List[] = [];
 
+  public $listSelectedTitle = this.todoService.$listTitle;
+
   constructor() {
     this.currentDate = new Date();
   }
