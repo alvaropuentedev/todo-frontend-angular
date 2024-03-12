@@ -26,11 +26,11 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  private readonly authService      = inject(AuthService);
-  private readonly todoService      = inject(TodoService);
-  private readonly messageService   = inject(MessageService);
-  private readonly fb               = inject(FormBuilder);
-  private confirmationService       = inject(ConfirmationService);
+  private readonly authService = inject(AuthService);
+  private readonly todoService = inject(TodoService);
+  private readonly messageService = inject(MessageService);
+  private readonly fb = inject(FormBuilder);
+  private confirmationService = inject(ConfirmationService);
 
   @Output() sharedLoadEvent = new EventEmitter<void>();
 
@@ -164,12 +164,16 @@ export class NavbarComponent implements OnInit {
    */
   deleteList(list_id: number, list_name: string) {
     this.sidebarVisible = false;
-    this.todoService.deleteList(list_id).subscribe(() => {
-      this.todoService.onsharedLoad(this.sharedLoadEvent);
-      this.todoService.$listTitle.set('');
-      this.showListSuccessMessageDeleted(list_name);
-      this.audio.play();
-      this.loadLists();
+    this.todoService.deleteList(list_id).subscribe({
+      next: () => {
+        this.showListSuccessMessageDeleted(list_name);
+        this.audio.play();
+        this.loadLists();
+        // Add a 2-second delay before reloading the page
+        setTimeout(() => {
+          location.reload();
+        }, 1700);
+      }
     });
   }
 
