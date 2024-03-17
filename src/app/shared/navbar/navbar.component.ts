@@ -36,12 +36,11 @@ export class NavbarComponent implements OnInit {
 
   public user = computed(() => this.authService.currentUser());
   public userStatus = computed(() => this.authService.authStatus());
-  public userID = computed(() => this.authService.currentUserID());
+  public user_id = computed(() => this.authService.currentUserID());
 
 
   public menuOptions: MenuItem[] | null = [];
   public sidebarVisible: boolean = false;
-  public user_id = computed(() => this.authService.currentUserID());
 
   public lists: List[] = [];
   public showModal = false;
@@ -82,7 +81,7 @@ export class NavbarComponent implements OnInit {
   }
 
   loadLists() {
-    this.todoService.getListByUserId(this.userID())
+    this.todoService.getListByUserId(this.user_id())
       .subscribe({
         next: (list: List[]) => {
           this.lists = list;
@@ -116,7 +115,7 @@ export class NavbarComponent implements OnInit {
   /**
    * FORM FOR CREATE LIST
    */
-  submitForm() {
+  submitCreateListForm() {
     const list_name = this.createNewListForm.value.listName;
     if (list_name && list_name.trim() !== '') {
       const list: List = {
@@ -138,7 +137,10 @@ export class NavbarComponent implements OnInit {
     } else {
       console.error('ERROR description is undefined or null');
     }
-    location.reload();
+    // Add a 2-second delay before reloading the page
+    setTimeout(() => {
+      location.reload();
+    }, 1000);
   }
 
   confirm(event: Event, list_id: number, list_name: string) {

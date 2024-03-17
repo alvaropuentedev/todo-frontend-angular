@@ -93,4 +93,9 @@ export class AuthService {
   register(formValue: LoginRegisterRequest) {
     return this.http.post(`${this.baseUrl}/auth/register`, formValue);
   }
+  
+  // USER
+  deleteUserByID(user_id: number): Observable<unknown> {
+    return this.http.delete<number>(`${this.baseUrl}/auth/user/${user_id}`);
+  }
 }
