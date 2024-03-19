@@ -11,10 +11,10 @@ import { TodoService } from './todo.service';
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly http         = inject(HttpClient);
-  private readonly jwtHelper    = inject(JwtHelperService);
-  private readonly router       = inject(Router);
-  private readonly todoService  = inject(TodoService);
+  private readonly http = inject(HttpClient);
+  private readonly jwtHelper = inject(JwtHelperService);
+  private readonly router = inject(Router);
+  private readonly todoService = inject(TodoService);
   private readonly baseUrl: string = enviroment.base_url;
   // private readonly baseUrl: string = 'http://localhost:8080/apitodo';
 
@@ -70,9 +70,9 @@ export class AuthService {
   }
 
   public checkTokenIsActive(): Observable<boolean> {
-    const token     = localStorage.getItem('token');
-    const user      = localStorage.getItem('user');
-    const userID    = localStorage.getItem('id');
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+    const userID = localStorage.getItem('id');
     this.user = user;
     this.userID = userID;
     const checkToken = this.jwtHelper.isTokenExpired(token);
@@ -93,7 +93,7 @@ export class AuthService {
   register(formValue: LoginRegisterRequest) {
     return this.http.post(`${this.baseUrl}/auth/register`, formValue);
   }
-  
+
   // USER
   deleteUserByID(user_id: number): Observable<unknown> {
     return this.http.delete<number>(`${this.baseUrl}/auth/user/${user_id}`);

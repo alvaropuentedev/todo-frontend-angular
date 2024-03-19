@@ -9,6 +9,5 @@ module.exports = {
       'todo-custom-color': '#fc657e'
     },
     },
-  },
-  plugins: [require("daisyui")],
+  }
 }

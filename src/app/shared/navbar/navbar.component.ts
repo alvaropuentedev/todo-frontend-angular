@@ -14,13 +14,23 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { User } from 'src/app/interfaces';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, AvatarModule, MenuModule,
-    SidebarModule, ButtonModule, ToastModule, ReactiveFormsModule,
-    DialogModule, InputTextModule, ConfirmDialogModule],
+  imports: [
+    CommonModule,
+    AvatarModule,
+    MenuModule,
+    SidebarModule,
+    ButtonModule,
+    ToastModule,
+    ReactiveFormsModule,
+    DialogModule,
+    InputTextModule,
+    ConfirmDialogModule,
+  ],
   providers: [MessageService, ConfirmationService],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
@@ -38,9 +48,9 @@ export class NavbarComponent implements OnInit {
   public userStatus = computed(() => this.authService.authStatus());
   public user_id = computed(() => this.authService.currentUserID());
 
-
   public menuOptions: MenuItem[] | null = [];
   public sidebarVisible: boolean = false;
+  public settingModalVisible = false;
 
   public lists: List[] = [];
   public showModal = false;
@@ -60,8 +70,8 @@ export class NavbarComponent implements OnInit {
   });
 
   /**
- * END FORM CREATE LIST
- */
+   * END FORM CREATE LIST
+   */
 
   constructor() {
     this.audio = new Audio();
@@ -81,18 +91,17 @@ export class NavbarComponent implements OnInit {
   }
 
   loadLists() {
-    this.todoService.getListByUserId(this.user_id())
-      .subscribe({
-        next: (list: List[]) => {
-          this.lists = list;
-          if (this.todoService.$list_id() === 0) {
-            this.todoService.setListId(list[0].id);
-            this.todoService.$showAddButton.set(true);
-            this.todoService.$listTitle.set(list[0].listName);
-            this.todoService.onsharedLoad(this.sharedLoadEvent);
-          }
+    this.todoService.getListByUserId(this.user_id()).subscribe({
+      next: (list: List[]) => {
+        this.lists = list;
+        if (this.todoService.$list_id() === 0) {
+          this.todoService.setListId(list[0].id);
+          this.todoService.$showAddButton.set(true);
+          this.todoService.$listTitle.set(list[0].listName);
+          this.todoService.onsharedLoad(this.sharedLoadEvent);
         }
-      });
+      },
+    });
   }
 
   logout() {
@@ -143,26 +152,26 @@ export class NavbarComponent implements OnInit {
     }, 1000);
   }
 
-  confirm(event: Event, list_id: number, list_name: string) {
+  confirmDeleteList(event: Event, list_id: number, list_name: string) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: `¿Borrar la lista "${list_name} "?`,
       icon: 'pi pi-info-circle',
-      acceptButtonStyleClass: "p-button-danger p-button-text",
-      rejectButtonStyleClass: "p-button-text p-button-text",
-      acceptIcon: "none",
-      rejectIcon: "none",
+      acceptButtonStyleClass: 'p-button-danger p-button-text',
+      rejectButtonStyleClass: 'p-button-text p-button-text',
+      acceptIcon: 'none',
+      rejectIcon: 'none',
 
       accept: () => {
         this.deleteList(list_id, list_name);
-      }
+      },
     });
   }
 
   /**
    * DELETE LIST
-   * @param list_id 
-   * @param list_name 
+   * @param list_id
+   * @param list_name
    */
   deleteList(list_id: number, list_name: string) {
     this.sidebarVisible = false;
@@ -175,7 +184,7 @@ export class NavbarComponent implements OnInit {
         setTimeout(() => {
           location.reload();
         }, 1700);
-      }
+      },
     });
   }
 
@@ -186,7 +195,47 @@ export class NavbarComponent implements OnInit {
     this.messageService.add({
       key: 'toastSucces',
       severity: 'success',
-      summary: `Lista "${list_name} " Eliminada!`
+      summary: `Lista "${list_name} " Eliminada!`,
+    });
+  }
+
+  /**
+   * DELETE USER COINFIRM
+   * @param event
+   */
+  confirmDeleteUser(event: Event) {
+    const user_name = this.user();
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: `¿Borrar usuario "${user_name} "?`,
+      icon: 'pi pi-info-circle',
+      acceptButtonStyleClass: 'p-button-danger p-button-text',
+      rejectButtonStyleClass: 'p-button-text p-button-text',
+      acceptIcon: 'none',
+      rejectIcon: 'none',
+
+      accept: () => {
+        if (user_name) {
+          this.deleteUser(user_name);
+        }
+      },
+    });
+  }
+
+  deleteUser(user_name: User) {
+    this.authService.deleteUserByID(this.user_id()).subscribe({
+      next: () => {
+        this.showUserSuccessMessageDeleted(user_name);
+        this.logout();
+      },
+    });
+  }
+
+  showUserSuccessMessageDeleted(user_name: User) {
+    this.messageService.add({
+      key: 'toastSucces',
+      severity: 'success',
+      summary: `Lista "${user_name} " Eliminada!`,
     });
   }
 }

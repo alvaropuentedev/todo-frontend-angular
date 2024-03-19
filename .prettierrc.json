@@ -8,5 +8,6 @@
   "trailingComma": "es5",
   "bracketSameLine": true,
   "printWidth": 110,
-  "endOfLine": "auto"
+  "endOfLine": "auto",
+  "plugins": ["prettier-plugin-tailwindcss"]
 }

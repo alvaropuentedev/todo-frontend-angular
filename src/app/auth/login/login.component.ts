@@ -37,7 +37,7 @@ export class LoginComponent {
       error: () => {
         this.buttonLogin = false;
         this.showAlert = true;
-        setTimeout( () => {
+        setTimeout(() => {
           this.showAlert = false;
         }, 3000);
 

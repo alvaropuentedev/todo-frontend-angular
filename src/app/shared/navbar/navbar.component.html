@@ -1,117 +1,161 @@
-<nav class="bg-todo-custom-color flex items-center justify-end w-full h-12">
-  @if ( userStatus() === 'authenticated') {
-  <div class="flex gap-2 items-center">
-    <!-- <p-menu #menu [model]="menuOptions" [popup]="true"></p-menu> -->
-    <strong class="upper">{{ user() }}</strong>
-    <p-avatar (click)="sidebarVisible = true" image="assets/img/logo1.jpg" styleClass="mr-2 cursor-pointer"
-      [style]="{ 'background-color': '#000', color: '#ffffff' }" shape="circle"></p-avatar>
-  </div>
-  <p-sidebar [(visible)]="sidebarVisible">
-    <ng-template pTemplate="header">
-      <div class="flex items-center">
-        <p-avatar (click)="sidebarVisible = true" image="assets/img/logo1.jpg" styleClass="mr-2 cursor-pointer"
-          [style]="{ 'background-color': '#000', color: '#ffffff' }" shape="circle"></p-avatar>
-        <span class=" upper text-black font-extrabold text-center">{{ user() }}</span>
-      </div>
-    </ng-template>
-    <ng-template pTemplate="content">
-      <!-- LIST OF ITEMS -->
-      <ul>
-        <li>
-          <!-- CREATE NEW LIST BUTTON -->
-          <div class="flex justify-center">
-            <button (click)="showModalCreateList()" class="flex cursor-pointer">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="w-6 h-6 mr-2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-              </svg>
-              <span>
-                Nueva Lista
-              </span>
+<nav class="flex h-12 w-full items-center justify-end bg-todo-custom-color">
+  @if (userStatus() === 'authenticated') {
+    <div class="flex items-center gap-2">
+      <!-- <p-menu #menu [model]="menuOptions" [popup]="true"></p-menu> -->
+      <strong class="upper">{{ user() }}</strong>
+      <p-avatar
+        (click)="sidebarVisible = true"
+        image="assets/img/logo1.jpg"
+        styleClass="mr-2 cursor-pointer"
+        [style]="{ 'background-color': '#000', color: '#ffffff' }"
+        shape="circle"></p-avatar>
+    </div>
+    <p-sidebar [(visible)]="sidebarVisible">
+      <ng-template pTemplate="header">
+        <div class="flex items-center">
+          <p-avatar
+            (click)="sidebarVisible = true"
+            image="assets/img/logo1.jpg"
+            styleClass="mr-2 cursor-pointer"
+            [style]="{ 'background-color': '#000', color: '#ffffff' }"
+            shape="circle"></p-avatar>
+          <span class="upper text-center font-extrabold text-black">{{ user() }}</span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="content">
+        <!-- LIST OF ITEMS -->
+        <ul>
+          <li>
+            <!-- CREATE NEW LIST BUTTON -->
+            <div class="flex justify-center">
+              <button (click)="showModalCreateList()" class="flex cursor-pointer">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="mr-2 h-6 w-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                <span> Nueva Lista </span>
+              </button>
+            </div>
+          </li>
+        </ul>
+        <ul class="mb-5 ml-8 mt-4 list-disc">
+          @for (list of lists; track list.id) {
+            <li>
+              <div class="mb-2 flex justify-between">
+                <button
+                  class="relative inline cursor-pointer text-xl font-medium before:absolute before:-bottom-1 before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:bg-todo-custom-color before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100"
+                  (click)="showItemsFromList(list)">
+                  {{ list.listName | uppercase }}
+                </button>
+                <button (click)="confirmDeleteList($event, list.id, list.listName)">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="h-6 w-6 text-red-500">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                  </svg>
+                </button>
+              </div>
+            </li>
+          }
+        </ul>
+        <ul>
+          <li>
+            <button (click)="settingModalVisible = true">
+              <a class="cursor-pointer">
+                <i class="pi pi-cog mr-2"></i>
+                <span> Settings </span>
+              </a>
             </button>
-          </div>
-        </li>
-      </ul>
-      <ul class="list-disc mt-4 ml-8 mb-5">
-        @for (list of lists; track list.id) {
-        <li>
-          <div class="flex justify-between mb-2">
-            <button
-              class="cursor-pointer relative inline text-xl font-medium before:bg-todo-custom-color
-                before:absolute before:-bottom-1 before:block before:h-[2px] before:w-full 
-                before:origin-bottom-right before:scale-x-0 before:transition before:duration-300
-                 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100"
-              (click)="showItemsFromList(list)">
-              {{ list.listName | uppercase }}
+          </li>
+        </ul>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <ul>
+          <li>
+            <button (click)="logout()" class="cursor-pointer text-black">
+              <i class="pi pi-sign-out mr-2"></i>
+              <span> Sign out </span>
             </button>
-            <button (click)="confirm($event, list.id, list.listName)">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="w-6 h-6 text-red-500">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
-              </svg>
-            </button>
-          </div>
-        </li>
-        }
-      </ul>
-      <ul>
-        <li>
-          <a class="cursor-pointer">
-            <i class="pi pi-cog mr-2"></i>
-            <span> Settings </span>
-          </a>
-        </li>
-      </ul>
-    </ng-template>
-    <ng-template pTemplate="footer">
-      <ul>
-        <li>
-          <button (click)="logout()" class="text-black cursor-pointer">
-            <i class="pi pi-sign-out mr-2"></i>
-            <span> Sign out </span>
-          </button>
-        </li>
-      </ul>
-    </ng-template>
-  </p-sidebar>
+          </li>
+        </ul>
+      </ng-template>
+    </p-sidebar>
   }
 </nav>
 
 <!-- *MODAL CREATE NEW LIST -->
-<p-dialog header="Nombre de la Lista" [(visible)]="showModal" [modal]="true" [draggable]="false" [resizable]="false"
+<p-dialog
+  header="Nombre de la Lista"
+  [(visible)]="showModal"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
   [dismissableMask]="true">
   <div class="mt-2">
     <form [formGroup]="createNewListForm" (ngSubmit)="submitCreateListForm()">
       <input pInputText type="text" formControlName="listName" placeholder="Nombre para la lista" autofocus />
     </form>
   </div>
-  <div class="flex justify-center mt-2">
+  <div class="mt-2 flex justify-center">
     <p-button (click)="submitCreateListForm()" label="Crear" icon="pi pi-plus" size="small"></p-button>
   </div>
 </p-dialog>
 
-<!-- !MESSAGE LIST DELETED -->
+<!-- *MODAL SETTING -->
+<p-dialog
+  header="SETTINGS"
+  [(visible)]="settingModalVisible"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [dismissableMask]="true">
+  <div class="mt-2"></div>
+  <div class="mt-2 flex justify-center">
+    <p-button
+      (click)="confirmDeleteUser($event)"
+      label="Borrar Usuario '{{ user() }}'"
+      icon="pi pi-minus"
+      size="small"></p-button>
+  </div>
+</p-dialog>
+
+<!-- !CONFIRMATION MESSAGE DELETED (LIST AND USER)-->
 <div class="card flex justify-center">
   <p-toast></p-toast>
   <p-confirmDialog #cd>
     <ng-template pTemplate="headless" let-message>
-      <div class="flex flex-col items-center p-5 bg-white shadow-md rounded-lg">
-        <div class="rounded-full bg-blue-500 flex justify-center items-center h-24 w-24 -mt-8">
+      <div class="flex flex-col items-center rounded-lg bg-white p-5 shadow-md">
+        <div class="-mt-8 flex h-24 w-24 items-center justify-center rounded-full bg-blue-500">
           <i class="pi pi-question text-5xl text-white"></i>
         </div>
-        <span class="font-bold text-2xl block mb-2 mt-4">{{ message.header }}</span>
+        <span class="mb-2 mt-4 block text-2xl font-bold">{{ message.header }}</span>
         <p class="mb-0">{{ message.message }}</p>
-        <div class="flex items-center gap-2 mt-4">
-          <button pButton label="Aceptar" (click)="cd.accept()"
-            class="w-32 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"></button>
-          <button pButton label="Cancelar" (click)="cd.reject()"
-            class="w-32 border border-gray-300 hover:border-gray-500  text-white font-bold py-2 px-4 rounded"></button>
+        <div class="mt-4 flex items-center gap-2">
+          <button
+            pButton
+            label="Aceptar"
+            (click)="cd.accept()"
+            class="w-32 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"> </button>
+          <button
+            pButton
+            label="Cancelar"
+            (click)="cd.reject()"
+            class="w-32 rounded border border-gray-300 px-4 py-2 font-bold text-white hover:border-gray-500"> </button>
         </div>
       </div>
     </ng-template>
   </p-confirmDialog>
 </div>
 
-<div class="card flex justify-content-center gap-2">
+<div class="justify-content-center card flex gap-2">
   <p-toast position="center" key="toastSucces" [style]="{ width: '40vh' }"></p-toast>
 </div>
