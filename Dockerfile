@@ -4,6 +4,10 @@ FROM node:20 as builder
 # Set the working directory
 WORKDIR /app
 
+# Setting env
+ARG BASE_URL
+ENV BASE_URL=$BASE_URL
+
 # Copy configuration files and project dependencies
 COPY package*.json ./
 RUN npm install
