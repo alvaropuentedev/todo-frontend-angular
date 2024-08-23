@@ -16,8 +16,8 @@
   <h3>{{ $listSelectedTitle().toLocaleUpperCase() }}</h3>
 </span>
 <app-todo-list-item [loading]="loading" [items]="items" (sharedLoadEvent)="loadItems()" />
-} @placeholder (minimum 2000ms) {
-<!-- component -->
+} @placeholder (minimum 500ms) {
+<!-- component SPINNER-->
 <div class="inset-0 fixed flex w-full h-full items-center justify-center duration-300 transition-opacity" style="z-index: 6000">
   <div class="flex-col">
       <svg viewBox="0 0 860.1 876.5">
