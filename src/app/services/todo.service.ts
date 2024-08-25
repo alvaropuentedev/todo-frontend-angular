@@ -13,15 +13,21 @@ export class TodoService {
   private readonly baseUrl: string = enviroment.base_url;
   // private readonly baseUrl: string = 'http://localhost:8080/apitodo';
 
-  public $list_id = signal(0);
   public $showAddButton = signal(false);
-  public $listTitle = signal('');
+
+  public listTitleFromStorage: string | null = localStorage.getItem('list_title');
+  public $listTitle = signal(this.listTitleFromStorage !== null ? this.listTitleFromStorage : '');
+
+  public listIdFromStorage: string | null = localStorage.getItem('list_id');
+  public listIdAsNumber: number = this.listIdFromStorage !== null ? Number(this.listIdFromStorage) : 0;
+  public $list_id = signal(this.listIdAsNumber);
 
 
   constructor() { }
 
   setListId(listId: number) {
     this.$list_id.set(listId);
+    localStorage.setItem('list_id', listId.toString());
   }
 
   getItemsByListId(list_id: number): Observable<Item[]> {

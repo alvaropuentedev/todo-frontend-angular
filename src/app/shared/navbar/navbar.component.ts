@@ -114,6 +114,7 @@ export class NavbarComponent implements OnInit {
     this.todoService.$showAddButton.set(true);
     this.todoService.setListId(list.id);
     this.todoService.$listTitle.set(list.listName);
+    localStorage.setItem('list_title', list.listName);
     this.todoService.onsharedLoad(this.sharedLoadEvent);
   }
 
