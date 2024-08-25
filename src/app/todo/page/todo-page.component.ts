@@ -60,6 +60,7 @@ export class TodoPageComponent implements OnInit {
         next: itemsList => {
           this.items = itemsList;
           this.loading = false;
+          this.todoService.$showAddButton.set(true);
         },
       });
   }
