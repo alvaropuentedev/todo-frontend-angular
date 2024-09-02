@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { EventEmitter, Injectable, inject, signal } from '@angular/core';
-import { Observable } from 'rxjs';
+import {catchError, Observable, of, throwError} from 'rxjs';
 import { enviroment } from 'src/environments/environments';
 import { Item } from '../interfaces';
 import { List } from '../interfaces/list.interface';
@@ -10,8 +10,8 @@ import { List } from '../interfaces/list.interface';
 })
 export class TodoService {
   private readonly http = inject(HttpClient);
-  private readonly baseUrl: string = enviroment.base_url;
-  // private readonly baseUrl: string = 'http://localhost:8080/apitodo';
+  // private readonly baseUrl: string = enviroment.base_url;
+  private readonly baseUrl: string = 'http://localhost:8080/apitodo';
 
   public $showAddButton = signal(false);
 
@@ -29,9 +29,23 @@ export class TodoService {
     this.$list_id.set(listId);
     localStorage.setItem('list_id', listId.toString());
   }
-
+  
   getItemsByListId(list_id: number): Observable<Item[]> {
-    return this.http.get<Item[]>(`${this.baseUrl}/list/${list_id}/items`);
+    return this.http.get<Item[]>(`${this.baseUrl}/list/${list_id}/items`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 404) {
+          // Handle 404 error
+          console.error(`List with id ${list_id} not found.`);
+          localStorage.removeItem('list_title');
+          localStorage.removeItem('list_id');
+          location.reload();
+          return of([]); // Return an empty array or handle as needed
+        } else {
+          // Handle other errors
+          return throwError(() => new Error('An error occurred'));
+        }
+      })
+    );
   }
 
 

@@ -98,6 +98,7 @@ export class NavbarComponent implements OnInit {
           this.todoService.setListId(list[0].id);
           this.todoService.$showAddButton.set(true);
           this.todoService.$listTitle.set(list[0].listName);
+          localStorage.setItem('list_title', list[0].listName);
           this.todoService.onsharedLoad(this.sharedLoadEvent);
         }
       },
@@ -181,7 +182,6 @@ export class NavbarComponent implements OnInit {
         this.showListSuccessMessageDeleted(list_name);
         this.audio.play();
         this.loadLists();
-        localStorage.setItem('list_title', 'Lista ' + list_name + ' eliminada');
         // Add a 2-second delay before reloading the page
         setTimeout(() => {
           location.reload();
