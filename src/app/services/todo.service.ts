@@ -10,8 +10,8 @@ import { List } from '../interfaces/list.interface';
 })
 export class TodoService {
   private readonly http = inject(HttpClient);
-  // private readonly baseUrl: string = enviroment.base_url;
-  private readonly baseUrl: string = 'http://localhost:8080/apitodo';
+  private readonly baseUrl: string = enviroment.base_url;
+  // private readonly baseUrl: string = 'http://localhost:8080/apitodo';
 
   public $showAddButton = signal(false);
 
@@ -29,7 +29,7 @@ export class TodoService {
     this.$list_id.set(listId);
     localStorage.setItem('list_id', listId.toString());
   }
-  
+
   getItemsByListId(list_id: number): Observable<Item[]> {
     return this.http.get<Item[]>(`${this.baseUrl}/list/${list_id}/items`).pipe(
       catchError((error: HttpErrorResponse) => {
