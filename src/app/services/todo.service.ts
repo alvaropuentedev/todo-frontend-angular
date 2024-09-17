@@ -53,6 +53,10 @@ export class TodoService {
     return this.http.post<Item>(`${this.baseUrl}/list/${list_id}/items`, body);
   }
 
+  updateItemDescription(list_id: number, item_id: number, body: Item): Observable<Item> {
+    return this.http.put<Item>(`${this.baseUrl}/list/${list_id}/${item_id}/items`, body);
+  }
+
   deleteItem(item_id: number): Observable<unknown> {
     return this.http.delete<Item>(`${this.baseUrl}/item/${item_id}`);
   }

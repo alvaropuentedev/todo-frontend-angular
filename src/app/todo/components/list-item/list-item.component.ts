@@ -5,11 +5,13 @@ import { Item } from 'src/app/interfaces';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { CardModule } from 'primeng/card';
+import { InputTextModule } from 'primeng/inputtext';
+import {FormControl, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-todo-list-item',
   standalone: true,
-  imports: [ToastModule, CardModule],
+  imports: [ToastModule, CardModule, ReactiveFormsModule, InputTextModule],
   providers: [MessageService],
   templateUrl: './list-item.component.html',
   styleUrls: ['./list-item.component.css'],
@@ -22,13 +24,30 @@ export class ListItemComponent {
   @Input() items: Item[] = [];
   @Output() sharedLoadEvent = new EventEmitter<void>();
 
-  public succes = false;
   public itemDescription = '';
   private audio: HTMLAudioElement;
+  public isEditing = false;
+  public editingItemId: number | null = null;
 
   constructor() {
     this.audio = new Audio();
     this.audio.src = 'assets/audio/LetitgoDeleteSound.mp3';
+  }
+
+  itemControl = new FormControl('');
+  editItem(item: Item) {
+    this.isEditing = true;
+    this.editingItemId = item.id;
+    this.itemControl.patchValue(item.description.toLocaleLowerCase());
+  }
+
+  updateItemDescription(item: Item) {
+    item.description = this.itemControl.value?.trim() ?? '';
+    this.todoService.updateItemDescription(this.todoService.$list_id(),item.id, item).subscribe({
+      next: () => {
+        this.isEditing = false;
+      }
+    });
   }
 
   deleteItem(item_id: number, description: string) {
