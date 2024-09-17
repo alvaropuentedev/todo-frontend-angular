@@ -4,8 +4,8 @@
       @if (isEditing && editingItemId === item.id) {
         <div class="flex justify-between">
           <strong>
-            <input type="text" id="editInput" [formControl]="itemControl" pInputText
-                   (blur)="updateItemDescription(item)"/>
+            <input #editInput type="text" id="editInput" [formControl]="itemControl" pInputText
+                   (blur)="updateItemDescription(item)" (keydown.enter)="updateItemDescription(item)" autofocus/>
           </strong>
           <button (click)="updateItemDescription(item)">
             <svg class="w-6 h-6 text-emerald-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"

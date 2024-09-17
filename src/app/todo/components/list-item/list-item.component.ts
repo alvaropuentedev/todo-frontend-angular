@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import {Component, EventEmitter, Input, Output, inject, ViewChild, ElementRef} from '@angular/core';
 import { TodoService } from '../../../services/todo.service';
 import { Item } from 'src/app/interfaces';
 
@@ -23,6 +23,7 @@ export class ListItemComponent {
   @Input() loading = true;
   @Input() items: Item[] = [];
   @Output() sharedLoadEvent = new EventEmitter<void>();
+  @ViewChild('editInput') editInput: ElementRef | undefined;
 
   public itemDescription = '';
   private audio: HTMLAudioElement;
@@ -38,6 +39,11 @@ export class ListItemComponent {
   editItem(item: Item) {
     this.isEditing = true;
     this.editingItemId = item.id;
+    setTimeout(() => {
+      if (this.editInput) {
+        this.editInput.nativeElement.focus();
+      }
+    }, 0);
     this.itemControl.patchValue(item.description.toLocaleLowerCase());
   }
 
