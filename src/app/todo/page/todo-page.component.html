@@ -2,6 +2,7 @@
 
 <app-todo-add-item (sharedLoadEvent)="loadItems()" />
 @defer {
+  @if ($listSelectedTitle()) {
   <span class="roboto text-4xl p-5 flex justify-center items-center gap-2">
     <svg class="h-8 w-8 text-teal-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
     fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -15,6 +16,9 @@
   </svg>
   <h3>{{ $listSelectedTitle().toLocaleUpperCase() }}</h3>
 </span>
+  } @else {
+    <h3 class="roboto upper font-bold text-center mt-4">No hay listas creadas</h3>
+  }
 <app-todo-list-item [loading]="loading" [items]="items" (sharedLoadEvent)="loadItems()" />
 } @placeholder (minimum 500ms) {
 <!-- component SPINNER-->

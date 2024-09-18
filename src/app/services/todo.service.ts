@@ -38,8 +38,7 @@ export class TodoService {
           console.error(`List with id ${list_id} not found.`);
           localStorage.removeItem('list_title');
           localStorage.removeItem('list_id');
-          location.reload();
-          return of([]); // Return an empty array or handle as needed
+          return of([]);
         } else {
           // Handle other errors
           return throwError(() => new Error('An error occurred'));
