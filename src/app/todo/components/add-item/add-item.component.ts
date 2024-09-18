@@ -46,7 +46,7 @@ export class AddItemComponent {
     if (description && description.trim() !== '') {
       const item: Item = {
         id: 0,
-        description: description,
+        description: description.toLocaleLowerCase().trim(),
       };
       this.todoService.addItem(this.todoService.$list_id(), item).subscribe({
         next: () => {

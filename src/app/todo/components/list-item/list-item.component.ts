@@ -44,11 +44,11 @@ export class ListItemComponent {
         this.editInput.nativeElement.focus();
       }
     }, 0);
-    this.itemControl.patchValue(item.description.toLocaleLowerCase());
+    this.itemControl.patchValue(item.description.toLocaleUpperCase());
   }
 
   updateItemDescription(item: Item) {
-    item.description = this.itemControl.value?.trim() ?? '';
+    item.description = this.itemControl.value?.trim().toLocaleLowerCase() ?? '';
     this.todoService.updateItemDescription(this.todoService.$list_id(),item.id, item).subscribe({
       next: () => {
         this.isEditing = false;
