@@ -1,11 +1,11 @@
 import {Component, EventEmitter, Input, Output, inject, ViewChild, ElementRef} from '@angular/core';
-import { TodoService } from '../../../services/todo.service';
-import { Item } from 'src/app/interfaces';
+import {TodoService} from '../../../services/todo.service';
+import {Item} from 'src/app/interfaces';
 
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
-import { CardModule } from 'primeng/card';
-import { InputTextModule } from 'primeng/inputtext';
+import {ToastModule} from 'primeng/toast';
+import {MessageService} from 'primeng/api';
+import {CardModule} from 'primeng/card';
+import {InputTextModule} from 'primeng/inputtext';
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
@@ -36,6 +36,7 @@ export class ListItemComponent {
   }
 
   itemControl = new FormControl('');
+
   editItem(item: Item) {
     this.isEditing = true;
     this.editingItemId = item.id;
@@ -48,12 +49,16 @@ export class ListItemComponent {
   }
 
   updateItemDescription(item: Item) {
-    item.description = this.itemControl.value?.trim().toLocaleLowerCase() ?? '';
-    this.todoService.updateItemDescription(this.todoService.$list_id(),item.id, item).subscribe({
-      next: () => {
-        this.isEditing = false;
-      }
-    });
+    if (item.description.trim().toLocaleLowerCase() != this.itemControl.value!.trim().toLocaleLowerCase() &&
+      this.itemControl.value!.trim().toLocaleLowerCase() != '') {
+      item.description = this.itemControl.value?.trim().toLocaleLowerCase() ?? '';
+      this.todoService.updateItemDescription(this.todoService.$list_id(), item.id, item).subscribe({
+        next: () => {
+          this.isEditing = false;
+        }
+      });
+    }
+    this.isEditing = false;
   }
 
   deleteItem(item_id: number, description: string) {
