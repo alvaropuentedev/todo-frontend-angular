@@ -79,8 +79,8 @@ export class ListItemComponent {
     });
   }
 
-  private pressTimers: { [key: string]: any } = {}; // Stores timers for each item ID
-  public progressMap: { [key: string]: number } = {}; // Stores progress for each item ID
+  private pressTimers: { [key: number]: any } = {}; // Stores timers for each item ID
+  public progressMap: { [key: number]: number } = {}; // Stores progress for each item ID
 
   startPress(item_id: number, description: string): void {
     this.progressMap[item_id] = 0; // Resets the progress for the specific item
