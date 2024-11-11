@@ -2,3 +2,8 @@
 #editInput {
   font-family: Roboto, sans-serif;
 }
+
+button:focus {
+  outline: none; /* Removes the focus outline (default blue border) */
+  -webkit-tap-highlight-color: transparent; /* Removes the tap highlight on touch devices (like mobile) */
+}

@@ -28,7 +28,7 @@
                     (touchstart)="startPress(item.id, item.description)"
                     (touchend)="cancelPress(item.id)"
                     (touchcancel)="cancelPress(item.id)">
-              <svg class="w-6 h-6 text-red-400 dark:text-white" aria-hidden="true"
+              <svg class="w-6 h-6 text-red-500 dark:text-white" aria-hidden="true"
                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                       stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/>
@@ -41,7 +41,7 @@
                 cx="18" cy="18" r="16"
                 stroke="currentColor" stroke-width="2" fill="none"/>
               <circle
-                class="text-red-300 transition-[stroke-dashoffset] duration-2000 ease-linear"
+                class="text-gray-500 transition-[stroke-dashoffset] duration-2000 ease-linear"
                 cx="18" cy="18" r="16"
                 stroke="currentColor" stroke-width="2" fill="none"
                 [attr.stroke-dasharray]="100" [attr.stroke-dashoffset]="progressMap[item.id]"/>
