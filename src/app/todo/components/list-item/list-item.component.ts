@@ -78,4 +78,29 @@ export class ListItemComponent {
       detail: this.itemDescription,
     });
   }
+
+  private pressTimers: { [key: string]: any } = {}; // Stores timers for each item ID
+  public progressMap: { [key: string]: number } = {}; // Stores progress for each item ID
+
+  startPress(item_id: number, description: string): void {
+    this.progressMap[item_id] = 0; // Resets the progress for the specific item
+    const duration = 1500; // Duration in milliseconds (1.5 seconds)
+    const startTime = Date.now();
+
+    this.pressTimers[item_id] = setInterval(() => {
+      const elapsed = Date.now() - startTime; // Calculate elapsed time
+      this.progressMap[item_id] = (elapsed / duration) * 100; // Update progress based on elapsed time
+
+      if (elapsed >= duration) {
+        clearInterval(this.pressTimers[item_id]); // Stop the timer once the duration is reached
+        this.deleteItem(item_id, description); // Call the delete item function when the duration is over
+      }
+    }, 16); // Approximate 60 FPS for smooth updates
+  }
+
+  cancelPress(item_id: number): void {
+    clearInterval(this.pressTimers[item_id]); // Stop the timer if the user cancels the press
+    this.progressMap[item_id] = 0; // Reset the progress for the specific item
+  }
+
 }
