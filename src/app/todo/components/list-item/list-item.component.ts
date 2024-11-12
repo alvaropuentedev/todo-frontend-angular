@@ -1,12 +1,12 @@
-import {Component, EventEmitter, Input, Output, inject, ViewChild, ElementRef} from '@angular/core';
-import {TodoService} from '../../../services/todo.service';
-import {Item} from 'src/app/interfaces';
+import { Component, EventEmitter, Input, Output, inject, ViewChild, ElementRef } from '@angular/core';
+import { TodoService } from '../../../services/todo.service';
+import { Item } from 'src/app/interfaces';
 
-import {ToastModule} from 'primeng/toast';
-import {MessageService} from 'primeng/api';
-import {CardModule} from 'primeng/card';
-import {InputTextModule} from 'primeng/inputtext';
-import {FormControl, ReactiveFormsModule} from "@angular/forms";
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { CardModule } from 'primeng/card';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-todo-list-item',
@@ -26,13 +26,16 @@ export class ListItemComponent {
   @ViewChild('editInput') editInput: ElementRef | undefined;
 
   public itemDescription = '';
-  private audio: HTMLAudioElement;
+  private audioDelete: HTMLAudioElement;
+  private audioChristmas: HTMLAudioElement;
   public isEditing = false;
   public editingItemId: number | null = null;
 
   constructor() {
-    this.audio = new Audio();
-    this.audio.src = 'assets/audio/LetitgoDeleteSound.mp3';
+    this.audioDelete = new Audio();
+    this.audioDelete.src = 'assets/audio/LetitgoDeleteSound.mp3';
+    this.audioChristmas = new Audio();
+    this.audioChristmas.src = 'assets/audio/Christmas_Tree.mp3';
   }
 
   itemControl = new FormControl('');
@@ -49,13 +52,15 @@ export class ListItemComponent {
   }
 
   updateItemDescription(item: Item) {
-    if (item.description.trim().toLocaleLowerCase() != this.itemControl.value!.trim().toLocaleLowerCase() &&
-      this.itemControl.value!.trim().toLocaleLowerCase() != '') {
+    if (
+      item.description.trim().toLocaleLowerCase() != this.itemControl.value!.trim().toLocaleLowerCase() &&
+      this.itemControl.value!.trim().toLocaleLowerCase() != ''
+    ) {
       item.description = this.itemControl.value?.trim().toLocaleLowerCase() ?? '';
       this.todoService.updateItemDescription(this.todoService.$list_id(), item.id, item).subscribe({
         next: () => {
           this.isEditing = false;
-        }
+        },
       });
     }
     this.isEditing = false;
@@ -66,7 +71,9 @@ export class ListItemComponent {
       this.itemDescription = description;
       this.todoService.onsharedLoad(this.sharedLoadEvent);
       this.showSuccessMessage();
-      this.audio.play();
+      setTimeout(() => {
+        this.audioDelete.play();
+      }, 1500);
     });
   }
 
@@ -81,14 +88,13 @@ export class ListItemComponent {
 
   private pressTimers: { [key: number]: any } = {}; // Stores timers for each item ID
   public progressMap: { [key: number]: number } = {}; // Stores progress for each item ID
-  public deleting:boolean = false;
   public deletingItemId: number | null = null;
 
   startPress(item_id: number, description: string): void {
-    this.deleting = true;
     this.deletingItemId = item_id;
+    this.audioChristmas.play();
     this.progressMap[item_id] = 0; // Resets the progress for the specific item
-    const duration = 1500; // Duration in milliseconds (1.5 seconds)
+    const duration = 1000; // Duration in milliseconds (0.5 seconds)
     const startTime = Date.now();
 
     this.pressTimers[item_id] = setInterval(() => {
@@ -103,10 +109,10 @@ export class ListItemComponent {
   }
 
   cancelPress(item_id: number): void {
-    this.deleting = false;
     this.deletingItemId = null;
+    this.audioChristmas.pause();
+    this.audioChristmas.currentTime = 0;
     clearInterval(this.pressTimers[item_id]); // Stop the timer if the user cancels the press
     this.progressMap[item_id] = 0; // Reset the progress for the specific item
   }
-
 }
