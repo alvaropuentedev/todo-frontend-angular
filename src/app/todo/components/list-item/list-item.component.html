@@ -20,6 +20,15 @@
       } @else {
         <div class="flex justify-between items-center relative">
           <strong (click)="editItem(item)" (keyup.enter)="editItem(item)" tabindex="0"> {{ item.description.toLocaleUpperCase() }} </strong>
+          @if (deleting && deletingItemId === item.id){
+            <!-- Progress bar at the top -->
+            <svg class="w-full h-max absolute" viewBox="0 0 100 2">
+              <!-- Background line (gray) -->
+              <line x1="0" y1="1" x2="100" y2="1" stroke="gray" stroke-width="2" class="text-gray-500" />
+              <!-- Progress line (blue) -->
+              <line x1="0" y1="1" [attr.x2]="progressMap[item.id]" y2="1" stroke="currentColor" stroke-width="2" class="text-blue-400 transition-[x2] duration-2000 ease-linear" />
+            </svg>
+          }
           <div class="relative flex items-center justify-center">
             <button class="z-10 bg-white p-2 rounded-full"
                     (mousedown)="startPress(item.id, item.description)"
@@ -34,18 +43,6 @@
                       stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/>
               </svg>
             </button>
-            <!-- Circle progress -->
-            <svg class="absolute w-12 h-12 transform -rotate-90" viewBox="0 0 36 36">
-              <circle
-                class="text-blue-400"
-                cx="18" cy="18" r="16"
-                stroke="currentColor" stroke-width="2" fill="none"/>
-              <circle
-                class="text-gray-500 transition-[stroke-dashoffset] duration-2000 ease-linear"
-                cx="18" cy="18" r="16"
-                stroke="currentColor" stroke-width="2" fill="none"
-                [attr.stroke-dasharray]="100" [attr.stroke-dashoffset]="progressMap[item.id]"/>
-            </svg>
           </div>
         </div>
       }

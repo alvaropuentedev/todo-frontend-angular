@@ -81,8 +81,12 @@ export class ListItemComponent {
 
   private pressTimers: { [key: number]: any } = {}; // Stores timers for each item ID
   public progressMap: { [key: number]: number } = {}; // Stores progress for each item ID
+  public deleting:boolean = false;
+  public deletingItemId: number | null = null;
 
   startPress(item_id: number, description: string): void {
+    this.deleting = true;
+    this.deletingItemId = item_id;
     this.progressMap[item_id] = 0; // Resets the progress for the specific item
     const duration = 1500; // Duration in milliseconds (1.5 seconds)
     const startTime = Date.now();
@@ -99,6 +103,8 @@ export class ListItemComponent {
   }
 
   cancelPress(item_id: number): void {
+    this.deleting = false;
+    this.deletingItemId = null;
     clearInterval(this.pressTimers[item_id]); // Stop the timer if the user cancels the press
     this.progressMap[item_id] = 0; // Reset the progress for the specific item
   }
