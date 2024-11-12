@@ -26,14 +26,11 @@ export class ListItemComponent {
   @ViewChild('editInput') editInput: ElementRef | undefined;
 
   public itemDescription = '';
-  private audioDelete: HTMLAudioElement;
   private audioChristmas: HTMLAudioElement;
   public isEditing = false;
   public editingItemId: number | null = null;
 
   constructor() {
-    this.audioDelete = new Audio();
-    this.audioDelete.src = 'assets/audio/LetitgoDeleteSound.mp3';
     this.audioChristmas = new Audio();
     this.audioChristmas.src = 'assets/audio/Christmas_Tree.mp3';
   }
@@ -43,11 +40,6 @@ export class ListItemComponent {
   editItem(item: Item) {
     this.isEditing = true;
     this.editingItemId = item.id;
-    setTimeout(() => {
-      if (this.editInput) {
-        this.editInput.nativeElement.focus();
-      }
-    }, 0);
     this.itemControl.patchValue(item.description.toLocaleUpperCase());
   }
 
@@ -71,9 +63,6 @@ export class ListItemComponent {
       this.itemDescription = description;
       this.todoService.onsharedLoad(this.sharedLoadEvent);
       this.showSuccessMessage();
-      setTimeout(() => {
-        this.audioDelete.play();
-      }, 1500);
     });
   }
 
@@ -93,6 +82,7 @@ export class ListItemComponent {
   startPress(item_id: number, description: string): void {
     this.deletingItemId = item_id;
     this.audioChristmas.play();
+    navigator.vibrate(200);
     this.progressMap[item_id] = 0; // Resets the progress for the specific item
     const duration = 1000; // Duration in milliseconds (0.5 seconds)
     const startTime = Date.now();
