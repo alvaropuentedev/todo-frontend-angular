@@ -84,7 +84,7 @@ export class ListItemComponent {
     this.audioChristmas.play();
     navigator.vibrate(200);
     this.progressMap[item_id] = 0; // Resets the progress for the specific item
-    const duration = 1000; // Duration in milliseconds (0.5 seconds)
+    const duration = 500; // Duration in milliseconds (0.5 seconds)
     const startTime = Date.now();
 
     this.pressTimers[item_id] = setInterval(() => {

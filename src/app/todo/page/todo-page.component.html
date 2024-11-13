@@ -1,10 +1,10 @@
 <app-navbar (sharedLoadEvent)="loadItems()" />
-
 <app-todo-add-item (sharedLoadEvent)="loadItems()" />
+<app-snowfall/>
 @defer {
   @if ($listSelectedTitle()) {
-  <span class="roboto text-4xl p-5 flex justify-center items-center gap-2">
-    <svg class="h-8 w-8 text-teal-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+  <span class="roboto text-4xl p-5 flex justify-center items-center gap-2 z-10">
+    <svg class="h-8 w-8 text-teal-500 z-10" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
     fill="none" stroke-linecap="round" stroke-linejoin="round">
     <path stroke="none" d="M0 0h24v24H0z" />
     <path d="M9 5H7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2V7a2 2 0 0 0 -2 -2h-2" />
@@ -14,12 +14,12 @@
     <line x1="9" y1="16" x2="9.01" y2="16" />
     <line x1="13" y1="16" x2="15" y2="16" />
   </svg>
-  <h3>{{ $listSelectedTitle().toLocaleUpperCase() }}</h3>
+  <h3 class="z-10">{{ $listSelectedTitle().toLocaleUpperCase() }}</h3>
 </span>
   } @else {
     <h3 class="roboto upper font-bold text-center mt-4">No hay listas creadas</h3>
   }
-<app-todo-list-item [loading]="loading" [items]="items" (sharedLoadEvent)="loadItems()" />
+<app-todo-list-item [loading]="loading" [items]="items" (sharedLoadEvent)="loadItems()"/>
 } @placeholder (minimum 500ms) {
 <!-- component SPINNER-->
 <div class="inset-0 fixed flex w-full h-full items-center justify-center duration-300 transition-opacity" style="z-index: 6000">

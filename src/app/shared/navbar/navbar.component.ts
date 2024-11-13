@@ -15,6 +15,8 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { User } from 'src/app/interfaces';
+import {routes} from "../../app.routes";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-navbar',
@@ -40,6 +42,7 @@ export class NavbarComponent implements OnInit {
   private readonly todoService = inject(TodoService);
   private readonly messageService = inject(MessageService);
   private readonly fb = inject(FormBuilder);
+  private readonly router = inject(Router);
   private confirmationService = inject(ConfirmationService);
 
   @Output() sharedLoadEvent = new EventEmitter<void>();
@@ -157,7 +160,7 @@ export class NavbarComponent implements OnInit {
   confirmDeleteList(event: Event, list_id: number, list_name: string) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: `¿Borrar la lista "${list_name} "?`,
+      message: `¿Eliminar la lista "${list_name} "?`,
       icon: 'pi pi-info-circle',
       acceptButtonStyleClass: 'p-button-danger p-button-text',
       rejectButtonStyleClass: 'p-button-text p-button-text',
@@ -182,6 +185,7 @@ export class NavbarComponent implements OnInit {
         this.showListSuccessMessageDeleted(list_name);
         this.audio.play();
         this.loadLists();
+        localStorage.setItem('list_title', 'Lista ' + list_name + ' eliminada');
         // Add a 2-second delay before reloading the page
         setTimeout(() => {
           location.reload();
@@ -209,7 +213,7 @@ export class NavbarComponent implements OnInit {
     const user_name = this.user();
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: `¿Borrar usuario "${user_name} "?`,
+      message: `¿Eliminar usuario "${user_name} "?`,
       icon: 'pi pi-info-circle',
       acceptButtonStyleClass: 'p-button-danger p-button-text',
       rejectButtonStyleClass: 'p-button-text p-button-text',
