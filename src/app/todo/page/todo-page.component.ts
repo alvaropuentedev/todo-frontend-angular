@@ -8,12 +8,12 @@ import { TodoService } from 'src/app/services/todo.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { List } from 'src/app/interfaces/list.interface';
 import { NavbarComponent } from 'src/app/shared/navbar/navbar.component';
-import {SnowFallComponent} from "../../shared/snow-fall/snow-fall.component";
+import {AutumnComponent} from "../../shared/autumn/autumn.component";
 
 @Component({
   selector: 'app-todo-page',
   standalone: true,
-  imports: [AddItemComponent, ListItemComponent, NavbarComponent, RouterModule, SnowFallComponent],
+  imports: [AddItemComponent, ListItemComponent, NavbarComponent, RouterModule, AutumnComponent],
   templateUrl: './todo-page.component.html',
 })
 export class TodoPageComponent implements OnInit {

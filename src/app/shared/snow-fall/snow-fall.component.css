@@ -51,3 +51,45 @@
     background-position: 500px 1000px, 400px 400px, 300px 300px
   }
 }
+
+.container {
+  width: max-content;
+  height: 100px;
+  right: 0;
+
+  img {
+    display: inline-block;
+    width: 100px;
+  }
+}
+
+.deer {
+  margin-top: 10px;
+  animation: slideAcross 20s linear infinite 300ms;
+}
+
+.santa {
+  margin-top: 10px;
+  animation: slideAcross 20s linear infinite 300ms;
+}
+
+@keyframes slideAcross {
+  0% {
+    transform: translateX(100vw); /* Fuera de la pantalla a la derecha (100% del ancho de la ventana) */
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(0); /* Centro de la pantalla */
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100vw); /* Fuera de la pantalla a la izquierda (100% del ancho de la ventana) */
+    opacity: 0;
+  }
+}

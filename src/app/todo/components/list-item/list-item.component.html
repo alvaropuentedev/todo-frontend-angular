@@ -1,10 +1,10 @@
 @for (item of items; track item.id) {
-  <div class="card flex justify-content-center mt-4">
-    <p-card styleClass="customCard roboto" class="w-full justify-center flex mb-3 z-10">
+  <div class="card flex justify-center items-center mt-4">
+    <p-card styleClass="customCard roboto" class="mb-3 z-10 w-max" [style]="{ background: '#fff6e7' }">
       @if (isEditing && editingItemId === item.id) {
-        <div class="flex justify-between">
+        <div class="flex justify-between items-center">
           <strong>
-            <input #editInput type="text" id="editInput" [formControl]="itemControl" pInputText
+            <input #editInput type="text" id="editInput" class="font-bold" [formControl]="itemControl" pInputText
                    (blur)="updateItemDescription(item)" (keydown.enter)="updateItemDescription(item)"/>
           </strong>
           <button (click)="updateItemDescription(item)">
