@@ -15,7 +15,6 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { User } from 'src/app/interfaces';
-import {routes} from "../../app.routes";
 import {Router} from "@angular/router";
 
 @Component({
