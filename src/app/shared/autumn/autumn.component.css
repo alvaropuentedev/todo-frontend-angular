@@ -136,7 +136,7 @@ body {background: #222;}
     opacity: 0;
   }
 }
-/* Cambia el color del icono cuando está en estado "on" */
+/* Change color when status is "on" */
 ::ng-deep .pi.pi-pause {
   color: #000 !important;
 }
