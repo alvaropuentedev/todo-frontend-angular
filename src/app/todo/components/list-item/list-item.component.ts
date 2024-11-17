@@ -94,7 +94,7 @@ export class ListItemComponent {
     this.audioChristmas.volume = 0.2;
     navigator.vibrate(200);
     this.progressMap[item_id] = 0; // Resets the progress for the specific item
-    const duration = 1000; // Duration in milliseconds (0.5 seconds)
+    const duration = 800; // Duration in milliseconds (0.5 seconds)
     const startTime = Date.now();
     this.applyStyles(item_id);
 
@@ -142,7 +142,7 @@ export class ListItemComponent {
       // Change to the next color (light green) after 400ms
       this.colorTimers[item_id] = setTimeout(() => {
         this.renderer.setStyle(cardElement, 'background-color', '#6FCF97');
-      }, 400);
+      }, 250);
 
       // Add additional optional styles
       this.renderer.setStyle(cardElement, 'border-radius', '25px');
