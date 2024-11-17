@@ -1,4 +1,13 @@
-import { Component, EventEmitter, Input, Output, inject, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  inject,
+  ViewChild,
+  ElementRef,
+  Renderer2,
+} from '@angular/core';
 import { TodoService } from '../../../services/todo.service';
 import { Item } from 'src/app/interfaces';
 
@@ -77,20 +86,21 @@ export class ListItemComponent {
 
   private pressTimers: { [key: number]: any } = {}; // Stores timers for each item ID
   public progressMap: { [key: number]: number } = {}; // Stores progress for each item ID
-  public deletingItemId: number | null = null;
+  private readonly renderer = inject(Renderer2);
+  private readonly el = inject(ElementRef);
 
   startPress(item_id: number, description: string): void {
-    this.deletingItemId = item_id;
     this.audioChristmas.play();
+    this.audioChristmas.volume = 0.2;
     navigator.vibrate(200);
     this.progressMap[item_id] = 0; // Resets the progress for the specific item
-    const duration = 500; // Duration in milliseconds (0.5 seconds)
+    const duration = 1000; // Duration in milliseconds (0.5 seconds)
     const startTime = Date.now();
+    this.applyStyles(item_id);
 
     this.pressTimers[item_id] = setInterval(() => {
       const elapsed = Date.now() - startTime; // Calculate elapsed time
       this.progressMap[item_id] = (elapsed / duration) * 100; // Update progress based on elapsed time
-
       if (elapsed >= duration) {
         clearInterval(this.pressTimers[item_id]); // Stop the timer once the duration is reached
         this.deleteItem(item_id, description); // Call the delete item function when the duration is over
@@ -99,10 +109,31 @@ export class ListItemComponent {
   }
 
   cancelPress(item_id: number): void {
-    this.deletingItemId = null;
     this.audioChristmas.pause();
     this.audioChristmas.currentTime = 0;
     clearInterval(this.pressTimers[item_id]); // Stop the timer if the user cancels the press
     this.progressMap[item_id] = 0; // Reset the progress for the specific item
+    this.removeStyles(item_id);
+  }
+
+  applyStyles(item_id: number): void {
+    const cardElement = this.el.nativeElement.querySelector(`#card-${item_id} .p-card`);
+    if (cardElement) {
+      // Add a 1.5-second transition for the background color
+      this.renderer.setStyle(cardElement, 'transition', 'background-color 1s ease');
+      this.renderer.setStyle(cardElement, 'border-radius', '25px');
+      this.renderer.setStyle(cardElement, 'border', '2px solid black');
+      this.renderer.setStyle(cardElement, 'background-color', '#FF4D4D'); // Initial color
+    }
+  }
+
+  removeStyles(item_id: number): void {
+    const cardElement = this.el.nativeElement.querySelector(`#card-${item_id} .p-card`);
+    if (cardElement) {
+      // Here you can restore the styles to their original values.
+      this.renderer.removeStyle(cardElement, 'border-radius');
+      this.renderer.removeStyle(cardElement, 'border');
+      this.renderer.removeStyle(cardElement, 'background-color');
+    }
   }
 }

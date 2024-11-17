@@ -1,4 +1,3 @@
-
 #editInput {
   font-family: Roboto, sans-serif;
 }
@@ -6,4 +5,10 @@
 button:focus {
   outline: none; /* Removes the focus outline (default blue border) */
   -webkit-tap-highlight-color: transparent; /* Removes the tap highlight on touch devices (like mobile) */
+}
+
+:host ::ng-deep .p-card {
+  border-radius: 25px;
+  border: 2px solid black;
+  background-color: #fff6e7;
 }
