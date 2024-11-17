@@ -111,29 +111,57 @@ export class ListItemComponent {
   cancelPress(item_id: number): void {
     this.audioChristmas.pause();
     this.audioChristmas.currentTime = 0;
-    clearInterval(this.pressTimers[item_id]); // Stop the timer if the user cancels the press
-    this.progressMap[item_id] = 0; // Reset the progress for the specific item
-    this.removeStyles(item_id);
+
+    // Stop the color transition timer
+    if (this.colorTimers[item_id]) {
+      clearTimeout(this.colorTimers[item_id]);
+      delete this.colorTimers[item_id];
+    }
+
+    // Restore the progress and initial styles
+    clearInterval(this.pressTimers[item_id]); // Stop the press timer
+    delete this.pressTimers[item_id]; // Remove the press timer from the map
+    this.progressMap[item_id] = 0; // Reset the progress value for this item
+    this.removeStyles(item_id); // Revert the card to its initial styles
   }
+  // const colors = ['#FFE3B5', '#FFD29D', '#AADFB1', '#6FCF97'];
+  private colorTimers: { [key: number]: any } = {}; // Stores timers for managing color transitions
 
   applyStyles(item_id: number): void {
     const cardElement = this.el.nativeElement.querySelector(`#card-${item_id} .p-card`);
     if (cardElement) {
-      // Add a 1.5-second transition for the background color
+      // Set up the initial transition for the background color
       this.renderer.setStyle(cardElement, 'transition', 'background-color 1s ease');
+      this.renderer.setStyle(cardElement, 'background-color', '#FFD29D');
+
+      // Clear any previous timer for this item, if it exists
+      if (this.colorTimers[item_id]) {
+        clearTimeout(this.colorTimers[item_id]);
+      }
+
+      // Change to the next color (light green) after 400ms
+      this.colorTimers[item_id] = setTimeout(() => {
+        this.renderer.setStyle(cardElement, 'background-color', '#6FCF97');
+      }, 400);
+
+      // Add additional optional styles
       this.renderer.setStyle(cardElement, 'border-radius', '25px');
       this.renderer.setStyle(cardElement, 'border', '2px solid black');
-      this.renderer.setStyle(cardElement, 'background-color', '#FF4D4D'); // Initial color
     }
   }
 
   removeStyles(item_id: number): void {
     const cardElement = this.el.nativeElement.querySelector(`#card-${item_id} .p-card`);
     if (cardElement) {
-      // Here you can restore the styles to their original values.
+      // Stop any ongoing transitions
+      this.renderer.setStyle(cardElement, 'transition', 'none');
+
+      // Reset the background color to the initial state
+      this.renderer.setStyle(cardElement, 'background-color', '#FFF6E7');
+
+      // Remove additional styles to restore the card to its default state
       this.renderer.removeStyle(cardElement, 'border-radius');
       this.renderer.removeStyle(cardElement, 'border');
-      this.renderer.removeStyle(cardElement, 'background-color');
     }
   }
 }
