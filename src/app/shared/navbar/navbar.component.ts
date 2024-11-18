@@ -15,7 +15,6 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { User } from 'src/app/interfaces';
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-navbar',
@@ -41,7 +40,6 @@ export class NavbarComponent implements OnInit {
   private readonly todoService = inject(TodoService);
   private readonly messageService = inject(MessageService);
   private readonly fb = inject(FormBuilder);
-  private readonly router = inject(Router);
   private confirmationService = inject(ConfirmationService);
 
   @Output() sharedLoadEvent = new EventEmitter<void>();
@@ -71,9 +69,9 @@ export class NavbarComponent implements OnInit {
     listName: [' ', Validators.required],
   });
 
-  /**
-   * END FORM CREATE LIST
-   */
+  public shareListWithUserForm = this.fb.group({
+    user: [' ', Validators.required],
+  });
 
   constructor() {
     this.audio = new Audio();
@@ -159,6 +157,7 @@ export class NavbarComponent implements OnInit {
   confirmDeleteList(event: Event, list_id: number, list_name: string) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
+      key: 'cdDelete',
       message: `¿Eliminar la lista "${list_name} "?`,
       icon: 'pi pi-info-circle',
       acceptButtonStyleClass: 'p-button-danger p-button-text',
@@ -213,6 +212,7 @@ export class NavbarComponent implements OnInit {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: `¿Eliminar usuario "${user_name} "?`,
+      key: 'cdDelete',
       icon: 'pi pi-info-circle',
       acceptButtonStyleClass: 'p-button-danger p-button-text',
       rejectButtonStyleClass: 'p-button-text p-button-text',
@@ -243,4 +243,51 @@ export class NavbarComponent implements OnInit {
       summary: `Lista "${user_name} " Eliminada!`,
     });
   }
+
+  shareListWithUser(event: Event, list_id: number) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      key: 'cdWithInput',
+      message: `Compartir lista con el usuari@`,
+      icon: 'pi pi-info-circle',
+      acceptButtonStyleClass: 'p-button-danger p-button-text',
+      rejectButtonStyleClass: 'p-button-text p-button-text',
+      acceptIcon: 'none',
+      rejectIcon: 'none',
+
+      accept: () => {
+        const user = this.shareListWithUserForm.get('user')?.value?.trim().toLocaleLowerCase();
+        if (user) {
+          this.addUserToList(list_id, user);
+          this.shareListWithUserForm.reset();
+        } else {
+          alert('Por favor ingresa un nombre de usuario válido.');
+        }
+      },
+    });
+  }
+
+  /**
+   * Add user to list
+   * @param list_id
+   * @param user
+   */
+  addUserToList(list_id: number, user: string) {
+    this.sidebarVisible = false;
+
+    this.todoService.addUsersToList(list_id, user).subscribe({
+      next: () => {
+        this.audio.play();
+        this.loadLists();
+        setTimeout(() => {
+          location.reload();
+        }, 1700);
+      },
+      error: (err) => {
+        console.error('Error al añadir el usuario:', err);
+        alert('Hubo un error al añadir el usuario. Inténtalo nuevamente.');
+      },
+    });
+  }
+
 }

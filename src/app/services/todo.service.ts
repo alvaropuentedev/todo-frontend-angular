@@ -2,7 +2,7 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { EventEmitter, Injectable, inject, signal } from '@angular/core';
 import {catchError, Observable, of, throwError} from 'rxjs';
 import { enviroment } from 'src/environments/environments';
-import { Item } from '../interfaces';
+import {Item, User} from '../interfaces';
 import { List } from '../interfaces/list.interface';
 
 @Injectable({
@@ -71,6 +71,10 @@ export class TodoService {
 
   deleteList(list_id: number): Observable<unknown> {
     return this.http.delete<Item>(`${this.baseUrl}/list/${list_id}`);
+  }
+
+  addUsersToList(list_id: number, user: string ): Observable<string> {
+    return this.http.post<string>(`${this.baseUrl}/list/${list_id}/user`, user);
   }
 
   onsharedLoad(sharedLoadEventToEmit: EventEmitter<void>) {

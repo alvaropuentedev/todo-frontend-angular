@@ -51,21 +51,39 @@
             <li>
               <div class="mb-2 flex justify-between">
                 <button
-                  class="relative inline cursor-pointer text-xl font-medium before:absolute before:-bottom-1 before:block before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:bg-todo-custom-color before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100"
+                  class="relative inline cursor-pointer text-start text-lg font-medium before:absolute before:-bottom-1 before:block
+                   before:h-[2px] before:w-full before:origin-bottom-right before:scale-x-0 before:bg-todo-custom-color
+                   before:transition before:duration-300 before:ease-in-out hover:before:origin-bottom-left hover:before:scale-x-100"
                   (click)="showItemsFromList(list)">
                   {{ list.listName | uppercase }}
                 </button>
-                <button (click)="confirmDeleteList($event, list.id, list.listName)">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="h-6 w-6 text-red-500">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
-                  </svg>
-                </button>
+                <div class="flex space-x-2">
+                  <button (click)="shareListWithUser($event, list.id)">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="size-6 h-6 w-6 text-[#6F42C1]">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" />
+                    </svg>
+                  </button>
+                  <button (click)="confirmDeleteList($event, list.id, list.listName)">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="h-6 w-6 text-red-500">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                    </svg>
+                  </button>
+                </div>
               </div>
             </li>
           }
@@ -134,7 +152,7 @@
 <!-- !CONFIRMATION MESSAGE DELETED (LIST AND USER)-->
 <div class="card flex justify-center">
   <p-toast></p-toast>
-  <p-confirmDialog #cd>
+  <p-confirmDialog #cdDelete key="cdDelete">
     <ng-template pTemplate="headless" let-message>
       <div class="flex flex-col items-center rounded-lg bg-white p-5 shadow-md">
         <div class="-mt-8 flex h-24 w-24 items-center justify-center rounded-full bg-blue-500">
@@ -146,18 +164,52 @@
           <button
             pButton
             label="Aceptar"
-            (click)="cd.accept()"
-            class="w-32 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"> </button>
+            (click)="cdDelete.accept()"
+            class="w-32 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"></button>
           <button
             pButton
             label="Cancelar"
-            (click)="cd.reject()"
-            class="w-32 rounded border border-gray-300 px-4 py-2 font-bold text-white hover:border-gray-500"> </button>
+            (click)="cdDelete.reject()"
+            class="w-32 rounded border border-gray-300 px-4 py-2 font-bold text-white hover:border-gray-500"></button>
         </div>
       </div>
     </ng-template>
   </p-confirmDialog>
 </div>
+
+<p-confirmDialog #cdWithInput key="cdWithInput">
+  <ng-template pTemplate="headless" let-message>
+    <div class="flex flex-col items-center rounded-lg bg-white p-5 shadow-md">
+      <div class="-mt-8 flex h-24 w-24 items-center justify-center rounded-full bg-blue-500">
+        <i class="pi pi-question text-5xl text-white"></i>
+      </div>
+      <span class="mb-2 mt-4 block text-2xl font-bold">{{ message.header }}</span>
+      <p class="mb-0">{{ message.message }}</p>
+      <!-- input for user with share -->
+      <form [formGroup]="shareListWithUserForm" (ngSubmit)="cdWithInput.accept()">
+        <input
+          pInputText
+          type="text"
+          formControlName="user"
+          class="mt-4 w-full rounded border border-gray-300 px-4 py-2"
+          placeholder="Ingresa el nombre del usuario" />
+      </form>
+      <!-- Botones -->
+      <div class="mt-4 flex items-center gap-2">
+        <button
+          pButton
+          (click)="cdWithInput.accept()"
+          label="Aceptar"
+          class="w-32 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"></button>
+        <button
+          pButton
+          (click)="cdWithInput.reject()"
+          label="Cancelar"
+          class="w-32 rounded border border-gray-300 px-4 py-2 font-bold text-white hover:border-gray-500"></button>
+      </div>
+    </div>
+  </ng-template>
+</p-confirmDialog>
 
 <div class="justify-content-center card flex gap-2">
   <p-toast position="center" key="toastSucces" [style]="{ width: '40vh' }"></p-toast>
