@@ -8,10 +8,11 @@
     @tailwind utilities;
 }
 
+/*Background all app*/
 body {
   margin: 0;
   height: 100vh;
-  background: linear-gradient(45deg, #ff9b9c 0%, #ffd4a7 100%);
+  background: linear-gradient(45deg, #ff4e50 0%, #ffffff 50%, #1db954 100%);
   background-size: cover;
   background-attachment: fixed;
 }

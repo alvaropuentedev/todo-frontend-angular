@@ -53,9 +53,10 @@
 }
 
 .container {
-  width: max-content;
+  max-width: 100%;
   height: 100px;
   right: 0;
+  overflow: hidden;
 
   img {
     display: inline-block;
@@ -92,4 +93,9 @@
     transform: translateX(-100vw); /* Fuera de la pantalla a la izquierda (100% del ancho de la ventana) */
     opacity: 0;
   }
+}
+
+/* Change color when status is "on" */
+::ng-deep .pi.pi-pause {
+  color: #000 !important;
 }

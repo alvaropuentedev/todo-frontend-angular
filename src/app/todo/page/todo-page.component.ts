@@ -9,11 +9,12 @@ import { AuthService } from 'src/app/services/auth.service';
 import { List } from 'src/app/interfaces/list.interface';
 import { NavbarComponent } from 'src/app/shared/navbar/navbar.component';
 import {AutumnComponent} from "../../shared/autumn/autumn.component";
+import {SnowFallComponent} from "../../shared/snow-fall/snow-fall.component";
 
 @Component({
   selector: 'app-todo-page',
   standalone: true,
-  imports: [AddItemComponent, ListItemComponent, NavbarComponent, RouterModule, AutumnComponent],
+  imports: [AddItemComponent, ListItemComponent, NavbarComponent, RouterModule, AutumnComponent, SnowFallComponent],
   templateUrl: './todo-page.component.html',
 })
 export class TodoPageComponent implements OnInit {

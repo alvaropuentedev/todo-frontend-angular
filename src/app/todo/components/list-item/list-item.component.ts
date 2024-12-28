@@ -35,13 +35,13 @@ export class ListItemComponent {
   @ViewChild('editInput') editInput: ElementRef | undefined;
 
   public itemDescription = '';
-  private audioChristmas: HTMLAudioElement;
+  private deleteAudio: HTMLAudioElement;
   public isEditing = false;
   public editingItemId: number | null = null;
 
   constructor() {
-    this.audioChristmas = new Audio();
-    this.audioChristmas.src = 'assets/audio/Christmas_Tree.mp3';
+    this.deleteAudio = new Audio();
+    this.deleteAudio.src = 'assets/audio/LetitgoDeleteSound.mp3';
   }
 
   itemControl = new FormControl('');
@@ -90,8 +90,8 @@ export class ListItemComponent {
   private readonly el = inject(ElementRef);
 
   startPress(item_id: number, description: string): void {
-    this.audioChristmas.play();
-    this.audioChristmas.volume = 0.2;
+    this.deleteAudio.play();
+    this.deleteAudio.volume = 0.2;
     navigator.vibrate(200);
     this.progressMap[item_id] = 0; // Resets the progress for the specific item
     const duration = 800; // Duration in milliseconds (0.5 seconds)
@@ -109,8 +109,8 @@ export class ListItemComponent {
   }
 
   cancelPress(item_id: number): void {
-    this.audioChristmas.pause();
-    this.audioChristmas.currentTime = 0;
+    this.deleteAudio.pause();
+    this.deleteAudio.currentTime = 0;
 
     // Stop the color transition timer
     if (this.colorTimers[item_id]) {
