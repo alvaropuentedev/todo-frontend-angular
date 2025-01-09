@@ -12,9 +12,8 @@
 body {
   margin: 0;
   height: 100vh;
-  background: linear-gradient(45deg, #ff4e50 0%, #ffffff 100%);
   background-size: cover;
-  background-attachment: fixed;
+  background: linear-gradient(45deg, #191970 0%, #ffffff 100%) fixed;
 }
 
 @font-face {
