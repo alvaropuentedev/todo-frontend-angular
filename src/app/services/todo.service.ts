@@ -1,4 +1,4 @@
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { EventEmitter, Injectable, inject, signal } from '@angular/core';
 import {catchError, Observable, of, throwError} from 'rxjs';
 import { enviroment } from 'src/environments/environments';
