@@ -1,5 +1,5 @@
 # Stage 1: Use the official Node image to build the application
-FROM node:20 as builder
+FROM node:22.0.0 as builder
 
 # Set the working directory
 WORKDIR /app
