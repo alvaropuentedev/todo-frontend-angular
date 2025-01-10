@@ -1,7 +1,7 @@
 {
   "name": "ToList",
   "short_name": "ToList",
-  "theme_color": "#1976d2",
+  "theme_color": "#191970",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "./",
