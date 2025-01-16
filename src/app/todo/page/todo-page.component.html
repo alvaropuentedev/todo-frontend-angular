@@ -4,19 +4,28 @@
 <app-todo-add-item (sharedLoadEvent)="loadItems()" />
 @defer {
   @if ($listSelectedTitle()) {
-  <span class="roboto text-4xl p-5 flex justify-center items-center gap-2 z-10">
-    <svg class="h-8 w-8 text-teal-500 z-10" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-    fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path stroke="none" d="M0 0h24v24H0z" />
-    <path d="M9 5H7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2V7a2 2 0 0 0 -2 -2h-2" />
-    <rect x="9" y="3" width="6" height="4" rx="2" />
-    <line x1="9" y1="12" x2="9.01" y2="12" />
-    <line x1="13" y1="12" x2="15" y2="12" />
-    <line x1="9" y1="16" x2="9.01" y2="16" />
-    <line x1="13" y1="16" x2="15" y2="16" />
-  </svg>
-  <h3 class="z-10 roboto">{{ $listSelectedTitle().toLocaleUpperCase() }}</h3>
-</span>
+<!--    <div class="flex justify-center items-center p-6 bg-gradient-to-r from-blue-700 via-indigo-600 to-purple-700 rounded-lg shadow-lg border border-white/30">-->
+<!--      <h3 class="Roboto text-4xl font-extrabold text-gray-100 tracking-tight leading-tight uppercase">{{ $listSelectedTitle() }}</h3>-->
+<!--    </div>-->
+<!--    <div class="flex justify-center items-center p-6 bg-gradient-to-r from-teal-500 via-blue-500 to-purple-600 rounded-lg shadow-lg border border-gray-200/30">-->
+<!--      <h3 class="text-4xl font-bold text-gray-50 tracking-normal leading-snug uppercase">{{ $listSelectedTitle() }}</h3>-->
+<!--    </div>-->
+
+    <div class="flex justify-center items-center p-4 bg-gradient-to-r from-teal-500 via-blue-500 to-purple-600 rounded-lg shadow-lg border border-gray-200/30">
+      <h3 class="Roboto text-4xl font-extrabold text-gray-100 tracking-tight leading-tight uppercase">{{ $listSelectedTitle() }}</h3>
+    </div>
+<!--    <div class="relative pb-4 p-6">-->
+<!--      <h1 class="text-2xl font-extrabold text-center uppercase tracking-wide text-gray-700 dark:text-gray-200 shadow-sm">-->
+<!--        {{ $listSelectedTitle() }}-->
+<!--      </h1>-->
+<!--      <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-700 via-indigo-600 to-purple-700"></div>-->
+<!--    </div>-->
+
+
+
+
+
+
   } @else {
     <h3 class="roboto upper font-bold text-center mt-4">No hay listas creadas</h3>
   }
@@ -60,3 +69,7 @@
   </div>
 </div>
 }
+<footer class="hidden sm:block fixed bottom-0 left-0 w-full text-center text-white py-2 text-sm">
+  © {{ currentDate.getFullYear() }} alvaropuente.dev - All Rights Reserved
+</footer>
+

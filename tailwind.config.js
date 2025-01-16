@@ -5,9 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
-    colors: {
-      'todo-custom-color': '#fc657e'
-    },
+      colors: {
+        'todo-custom-color': '#fc657e'
+      },
     },
   }
 }
