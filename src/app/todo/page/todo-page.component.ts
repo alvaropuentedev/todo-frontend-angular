@@ -6,7 +6,6 @@ import { Item } from 'src/app/interfaces';
 import { interval, startWith, switchMap } from 'rxjs';
 import { TodoService } from 'src/app/services/todo.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { List } from 'src/app/interfaces/list.interface';
 import { NavbarComponent } from 'src/app/shared/navbar/navbar.component';
 import {AutumnComponent} from "../../shared/autumn/autumn.component";
 import {SnowFallComponent} from "../../shared/snow-fall/snow-fall.component";
@@ -25,7 +24,6 @@ export class TodoPageComponent implements OnInit {
   public items: Item[] = [];
   public userID = computed(() => this.authService.currentUserID());
   public currentDate: Date;
-  public list: List[] = [];
 
   public $listSelectedTitle = this.todoService.$listTitle;
 
@@ -35,15 +33,6 @@ export class TodoPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadItems();
-  }
-
-  loadLists() {
-    this.todoService.getListByUserId(this.userID())
-      .subscribe({
-        next: (list: List[]) => {
-          this.list = list;
-        }
-      });
   }
 
   loadItems() {
