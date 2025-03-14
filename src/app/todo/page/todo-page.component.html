@@ -3,29 +3,11 @@
 <app-snowfall />
 <app-todo-add-item (sharedLoadEvent)="loadItems()" />
 @defer {
+<!--  LIST TITLE  -->
   @if ($listSelectedTitle()) {
-<!--    <div class="flex justify-center items-center p-6 bg-gradient-to-r from-blue-700 via-indigo-600 to-purple-700 rounded-lg shadow-lg border border-white/30">-->
-<!--      <h3 class="Roboto text-4xl font-extrabold text-gray-100 tracking-tight leading-tight uppercase">{{ $listSelectedTitle() }}</h3>-->
-<!--    </div>-->
-<!--    <div class="flex justify-center items-center p-6 bg-gradient-to-r from-teal-500 via-blue-500 to-purple-600 rounded-lg shadow-lg border border-gray-200/30">-->
-<!--      <h3 class="text-4xl font-bold text-gray-50 tracking-normal leading-snug uppercase">{{ $listSelectedTitle() }}</h3>-->
-<!--    </div>-->
-
-    <div class="flex justify-center items-center p-4 bg-gradient-to-r from-teal-500 via-blue-500 to-purple-600 rounded-lg shadow-lg border border-gray-200/30">
-      <h3 class="Roboto text-4xl font-extrabold text-gray-100 tracking-tight leading-tight uppercase">{{ $listSelectedTitle() }}</h3>
+    <div class="flex justify-center items-center text-center p-2 bg-gradient-to-r from-teal-500 via-blue-500 shadow-lg border border-gray-200/30">
+      <h3 class="Roboto text-4xl font-extrabold text-gray-100 uppercase [text-shadow:_0_2px_4px_rgba(0,0,0,0.5)]">{{ $listSelectedTitle() }} ({{ items.length }})</h3>
     </div>
-<!--    <div class="relative pb-4 p-6">-->
-<!--      <h1 class="text-2xl font-extrabold text-center uppercase tracking-wide text-gray-700 dark:text-gray-200 shadow-sm">-->
-<!--        {{ $listSelectedTitle() }}-->
-<!--      </h1>-->
-<!--      <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-700 via-indigo-600 to-purple-700"></div>-->
-<!--    </div>-->
-
-
-
-
-
-
   } @else {
     <h3 class="roboto upper font-bold text-center mt-4">No hay listas creadas</h3>
   }
