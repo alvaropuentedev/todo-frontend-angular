@@ -73,6 +73,10 @@ export class NavbarComponent implements OnInit {
     user: [' ', Validators.required],
   });
 
+  public searchList = this.fb.group({
+    filterText: [' ', Validators.required],
+  });
+
   constructor() {
     this.audio = new Audio();
     this.audio.src = 'assets/audio/deleteSound.mp3';
@@ -108,6 +112,19 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.sidebarVisible = false;
     this.authService.logout();
+  }
+
+  // List filter
+  getFilteredLists() {
+    const filterText = this.searchList.get('filterText')?.value?.toLowerCase() || '';
+    return this.lists.filter(list =>
+      list.listName.toLowerCase().includes(filterText)
+    );
+  }
+  // Reset filter
+  resetFilterText() {
+    this.searchList.reset();
+    this.sidebarVisible = true;
   }
 
   showItemsFromList(list: List) {

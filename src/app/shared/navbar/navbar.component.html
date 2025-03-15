@@ -8,7 +8,7 @@
       <!-- <p-menu #menu [model]="menuOptions" [popup]="true"></p-menu> -->
       <strong class="upper text-white">{{ user() }}</strong>
       <p-avatar
-        (click)="sidebarVisible = true"
+        (click)="resetFilterText()"
         image="assets/img/logo1.jpg"
         styleClass="mr-2 cursor-pointer"
         [style]="{ 'background-color': '#000', color: '#ffffff' }"
@@ -23,7 +23,7 @@
             styleClass="mr-2 cursor-pointer"
             [style]="{ 'background-color': '#000', color: '#ffffff' }"
             shape="circle"></p-avatar>
-          <span class="upper text-center font-extrabold text-black">{{ user() }}</span>
+          <span class="upper text-center font-extrabold text-black">{{ user() }} ({{lists.length}})</span>
         </div>
       </ng-template>
       <ng-template pTemplate="content">
@@ -45,10 +45,17 @@
                 <span> Nueva Lista </span>
               </button>
             </div>
+      <!--    search list form    -->
+            <div class="flex items-center justify-center mt-2">
+              <form class="relative" [formGroup]="searchList">
+                <i class="pi pi-search absolute right-3 top-2 text-gray-500"></i>
+                <input pInputText class="h-9 pr-10 border border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-300" type="text" formControlName="filterText">
+              </form>
+            </div>
           </li>
         </ul>
         <ul class="mb-5 ml-8 mt-4 list-disc">
-          @for (list of lists; track list.id) {
+          @for (list of getFilteredLists(); track list.id) {
             <li>
               <div class="mb-2 flex justify-between">
                 <button
