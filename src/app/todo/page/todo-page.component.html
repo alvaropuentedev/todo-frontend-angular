@@ -1,12 +1,14 @@
 <app-navbar (sharedLoadEvent)="loadItems()" />
 <!--<app-autumn />-->
-<app-snowfall />
-<app-todo-add-item (sharedLoadEvent)="loadItems()" />
+<!--<app-snowfall />-->
+<div class="flex justify-center w-full bottom-2 fixed z-50">
+  <app-todo-add-item (sharedLoadEvent)="loadItems()" />
+</div>
 @defer {
 <!--  LIST TITLE  -->
   @if ($listSelectedTitle()) {
-    <div class="flex justify-center items-center text-center p-2 bg-gradient-to-r from-teal-500 via-blue-500 shadow-lg border border-gray-200/30">
-      <h3 class="Roboto text-4xl font-extrabold text-gray-100 uppercase [text-shadow:_0_2px_4px_rgba(0,0,0,0.5)]">{{ $listSelectedTitle() }} ({{ items.length }})</h3>
+    <div class="flex justify-left md:justify-center p-2">
+      <h3 class="font-sans uppercase font-semibold text-4xl ml-4 text-black">{{ $listSelectedTitle() }} ({{ items.length }})</h3>
     </div>
   } @else {
     <h3 class="roboto upper font-bold text-center mt-4">No hay listas creadas</h3>

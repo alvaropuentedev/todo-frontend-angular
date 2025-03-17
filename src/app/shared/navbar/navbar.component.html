@@ -1,20 +1,25 @@
-<!--christmas color-->
-<!--<nav class="flex h-12 w-full items-center justify-end bg-emerald-500">-->
-<!--Autumn color-->
-<!--<nav class="flex h-12 w-full items-center justify-end bg-[#c62828]">-->
-<nav class="flex h-12 w-full items-center justify-end bg-[#191970]">
+<nav class="roboto flex h-12 w-full items-center justify-start md:justify-end bg-gradient-to-b from-emerald-300 to-white h-20">
   @if (userStatus() === 'authenticated') {
     <div class="flex items-center gap-2">
       <!-- <p-menu #menu [model]="menuOptions" [popup]="true"></p-menu> -->
-      <strong class="upper text-white">{{ user() }}</strong>
-      <p-avatar
-        (click)="resetFilterText()"
-        image="assets/img/logo1.jpg"
-        styleClass="mr-2 cursor-pointer"
-        [style]="{ 'background-color': '#000', color: '#ffffff' }"
-        shape="circle"></p-avatar>
+      @if (!mobileView) {
+        <strong class="upper text-black">{{ user() }}</strong>
+        <p-avatar
+          (click)="resetFilterText()"
+          image="assets/img/logo1.jpg"
+          styleClass="mr-2 cursor-pointer"
+          [style]="{ 'background-color': '#000', color: '#ffffff' }"
+          shape="circle">
+        </p-avatar>
+      } @else {
+        <button (click)="resetFilterText()">
+          <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      }
     </div>
-    <p-sidebar [(visible)]="sidebarVisible">
+    <p-sidebar [(visible)]="sidebarVisible" [position]="'left'" [style]="{'width': mobileView ? '100vw' : '30vw'}">
       <ng-template pTemplate="header">
         <div class="flex items-center">
           <p-avatar
@@ -23,7 +28,7 @@
             styleClass="mr-2 cursor-pointer"
             [style]="{ 'background-color': '#000', color: '#ffffff' }"
             shape="circle"></p-avatar>
-          <span class="upper text-center font-extrabold text-black">{{ user() }} ({{lists.length}})</span>
+          <span class="upper text-center font-sans font-bold text-black">{{ user() }} ({{lists.length}})</span>
         </div>
       </ng-template>
       <ng-template pTemplate="content">

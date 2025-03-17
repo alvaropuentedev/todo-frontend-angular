@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output, computed, inject } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, computed, inject, HostListener} from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 
 import { AvatarModule } from 'primeng/avatar';
@@ -55,6 +55,8 @@ export class NavbarComponent implements OnInit {
   public lists: List[] = [];
   public showModal = false;
   private audio: HTMLAudioElement;
+  public mobileView = window.innerWidth <= 768; // check mobil screen
+
 
   /**
    * FORM CREATE LIST
@@ -92,6 +94,11 @@ export class NavbarComponent implements OnInit {
       },
     ];
     this.loadLists();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.mobileView = window.innerWidth <= 768;
   }
 
   loadLists() {

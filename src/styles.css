@@ -13,7 +13,6 @@ body {
   margin: 0;
   height: 100vh;
   background-size: cover;
-  background: linear-gradient(45deg, #191970 0%, #ffffff 100%) fixed;
 }
 
 @font-face {
