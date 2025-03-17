@@ -133,7 +133,7 @@ export class NavbarComponent implements OnInit {
   }
   // Reset filter
   resetFilterText() {
-    navigator.vibrate(200);
+    navigator.vibrate([1000, 500, 2000]);
     this.searchList.reset();
     this.sidebarVisible = true;
   }
