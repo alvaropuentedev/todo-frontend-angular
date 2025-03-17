@@ -139,11 +139,16 @@ export class NavbarComponent implements OnInit {
     this.sidebarVisible = true;
   }
 
+  // Vibrations functions
+  hapticsSelectionStart = async () => {
+    await Haptics.selectionStart();
+  };
   hapticsImpactVibration = async () => {
     await Haptics.impact({ style: ImpactStyle.Heavy });
   };
 
   showItemsFromList(list: List) {
+    this.hapticsSelectionStart();
     this.sidebarVisible = false;
     this.todoService.$showAddButton.set(true);
     this.todoService.setListId(list.id);
