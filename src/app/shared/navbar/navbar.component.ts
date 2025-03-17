@@ -93,6 +93,9 @@ export class NavbarComponent implements OnInit {
         },
       },
     ];
+    if (this.mobileView) {
+      this.sidebarVisible = true;
+    }
     this.loadLists();
   }
 
