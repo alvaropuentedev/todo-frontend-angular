@@ -132,7 +132,7 @@ export class ListItemComponent {
     if (cardElement) {
       // Set up the initial transition for the background color
       this.renderer.setStyle(cardElement, 'transition', 'background-color 1s ease');
-      this.renderer.setStyle(cardElement, 'background-color', '#FFD29D');
+      this.renderer.setStyle(cardElement, 'background-color', '#FFF');
 
       // Clear any previous timer for this item, if it exists
       if (this.colorTimers[item_id]) {
@@ -157,7 +157,7 @@ export class ListItemComponent {
       this.renderer.setStyle(cardElement, 'transition', 'none');
 
       // Reset the background color to the initial state
-      this.renderer.setStyle(cardElement, 'background-color', '#FFF6E7');
+      this.renderer.setStyle(cardElement, 'background-color', '#FFF');
 
       // Remove additional styles to restore the card to its default state
       this.renderer.removeStyle(cardElement, 'border-radius');
