@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, computed, inject } from '@angular/core';
+import { Component, computed, EventEmitter, inject, Output } from '@angular/core';
 import { TodoService } from '../../../services/todo.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Item } from 'src/app/interfaces';
@@ -38,6 +38,7 @@ export class AddItemComponent {
   constructor() {}
 
   showDialog() {
+    this.todoService.hapticsImpactVibration();
     this.showModal = true;
   }
 

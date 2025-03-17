@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {Component, EventEmitter, OnInit, Output, computed, inject, HostListener} from '@angular/core';
+import { Component, computed, EventEmitter, HostListener, inject, OnInit, Output } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 
 import { AvatarModule } from 'primeng/avatar';
@@ -15,7 +15,6 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { User } from 'src/app/interfaces';
-import { Haptics, ImpactStyle } from "@capacitor/haptics";
 
 @Component({
   selector: 'app-navbar',
@@ -101,7 +100,7 @@ export class NavbarComponent implements OnInit {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
+  onResize() {
     this.mobileView = window.innerWidth <= 768;
   }
 
@@ -134,18 +133,13 @@ export class NavbarComponent implements OnInit {
   }
   // Reset filter
   resetFilterText() {
-    this.hapticsImpactVibration();
+    this.todoService.hapticsImpactVibration();
     this.searchList.reset();
     this.sidebarVisible = true;
   }
 
-  // Vibration function
-  hapticsImpactVibration = async () => {
-    await Haptics.impact({ style: ImpactStyle.Heavy });
-  };
-
   showItemsFromList(list: List) {
-    this.hapticsImpactVibration();
+    this.todoService.hapticsImpactVibration();
     this.sidebarVisible = false;
     this.todoService.$showAddButton.set(true);
     this.todoService.setListId(list.id);

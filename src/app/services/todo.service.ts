@@ -1,9 +1,10 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { EventEmitter, Injectable, inject, signal } from '@angular/core';
-import {catchError, Observable, of, throwError} from 'rxjs';
+import { EventEmitter, inject, Injectable, signal } from '@angular/core';
+import { catchError, Observable, of, throwError } from 'rxjs';
 import { enviroment } from 'src/environments/environments';
-import {Item, User} from '../interfaces';
+import { Item } from '../interfaces';
 import { List } from '../interfaces/list.interface';
+import { Haptics, ImpactStyle } from "@capacitor/haptics";
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +24,8 @@ export class TodoService {
   public $list_id = signal(this.listIdAsNumber);
 
 
-  constructor() { }
+  constructor() {
+  }
 
   setListId(listId: number) {
     this.$list_id.set(listId);
@@ -47,6 +49,10 @@ export class TodoService {
     );
   }
 
+  // Vibration function
+  hapticsImpactVibration = async () => {
+    await Haptics.impact({style: ImpactStyle.Heavy});
+  };
 
   addItem(list_id: number, body: Item): Observable<Item> {
     return this.http.post<Item>(`${this.baseUrl}/list/${list_id}/items`, body);
@@ -73,7 +79,7 @@ export class TodoService {
     return this.http.delete<Item>(`${this.baseUrl}/list/${list_id}`);
   }
 
-  addUsersToList(list_id: number, user: string ): Observable<string> {
+  addUsersToList(list_id: number, user: string): Observable<string> {
     return this.http.post<string>(`${this.baseUrl}/list/${list_id}/user`, user);
   }
 
