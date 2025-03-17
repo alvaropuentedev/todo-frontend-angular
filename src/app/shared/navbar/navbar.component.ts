@@ -15,6 +15,7 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { User } from 'src/app/interfaces';
+import {Haptics, ImpactStyle} from "@capacitor/haptics";
 
 @Component({
   selector: 'app-navbar',
@@ -29,7 +30,7 @@ import { User } from 'src/app/interfaces';
     ReactiveFormsModule,
     DialogModule,
     InputTextModule,
-    ConfirmDialogModule,
+    ConfirmDialogModule
   ],
   providers: [MessageService, ConfirmationService],
   templateUrl: './navbar.component.html',
@@ -133,10 +134,14 @@ export class NavbarComponent implements OnInit {
   }
   // Reset filter
   resetFilterText() {
-    navigator.vibrate([1000, 500, 2000]);
+    this.hapticsImpactMedium();
     this.searchList.reset();
     this.sidebarVisible = true;
   }
+
+  hapticsImpactMedium = async () => {
+    await Haptics.impact({ style: ImpactStyle.Medium });
+  };
 
   showItemsFromList(list: List) {
     this.sidebarVisible = false;
