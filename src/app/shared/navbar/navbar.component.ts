@@ -15,7 +15,7 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { User } from 'src/app/interfaces';
-import {Haptics, ImpactStyle} from "@capacitor/haptics";
+import { Haptics, ImpactStyle } from "@capacitor/haptics";
 
 @Component({
   selector: 'app-navbar',
@@ -134,13 +134,13 @@ export class NavbarComponent implements OnInit {
   }
   // Reset filter
   resetFilterText() {
-    this.hapticsImpactMedium();
+    this.hapticsImpactVibration();
     this.searchList.reset();
     this.sidebarVisible = true;
   }
 
-  hapticsImpactMedium = async () => {
-    await Haptics.impact({ style: ImpactStyle.Medium });
+  hapticsImpactVibration = async () => {
+    await Haptics.impact({ style: ImpactStyle.Heavy });
   };
 
   showItemsFromList(list: List) {

@@ -16,6 +16,8 @@ import { MessageService } from 'primeng/api';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Haptics, ImpactStyle } from "@capacitor/haptics";
+
 
 @Component({
   selector: 'app-todo-list-item',
@@ -75,6 +77,10 @@ export class ListItemComponent {
     });
   }
 
+  hapticsImpactVibration = async () => {
+    await Haptics.impact({ style: ImpactStyle.Heavy });
+  };
+
   showSuccessMessage() {
     this.messageService.add({
       key: 'toastSucces',
@@ -92,7 +98,7 @@ export class ListItemComponent {
   startPress(item_id: number, description: string): void {
     this.deleteAudio.play();
     this.deleteAudio.volume = 0.2;
-    navigator.vibrate(200);
+    this.hapticsImpactVibration();
     this.progressMap[item_id] = 0; // Resets the progress for the specific item
     const duration = 800; // Duration in milliseconds (0.5 seconds)
     const startTime = Date.now();
