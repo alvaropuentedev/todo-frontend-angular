@@ -1,12 +1,13 @@
 import {
   Component,
-  EventEmitter,
-  Input,
-  Output,
-  inject,
-  ViewChild,
   ElementRef,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
   Renderer2,
+  ViewChild,
 } from '@angular/core';
 import { TodoService } from '../../../services/todo.service';
 import { Item } from 'src/app/interfaces';
@@ -26,7 +27,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
   templateUrl: './list-item.component.html',
   styleUrls: ['./list-item.component.css'],
 })
-export class ListItemComponent {
+export class ListItemComponent implements OnInit {
   private readonly todoService = inject(TodoService);
   private readonly messageService = inject(MessageService);
 
@@ -43,6 +44,13 @@ export class ListItemComponent {
   constructor() {
     this.deleteAudio = new Audio();
     this.deleteAudio.src = 'assets/audio/LetitgoDeleteSound.mp3';
+  }
+
+  ngOnInit(): void {
+    // avoid return page
+    window.onpopstate = () => {
+      history.pushState(null, '', location.href);
+    };
   }
 
   itemControl = new FormControl('');
