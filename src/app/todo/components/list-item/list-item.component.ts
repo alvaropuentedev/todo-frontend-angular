@@ -47,7 +47,8 @@ export class ListItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // avoid return page
+    // Disable browser back
+    history.pushState(null, '', location.href);
     window.onpopstate = () => {
       history.pushState(null, '', location.href);
     };
