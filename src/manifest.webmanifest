@@ -1,8 +1,8 @@
 {
   "name": "ToList",
   "short_name": "ToList",
-  "theme_color": "#bf39b4",
-  "background_color": "#bf39b4",
+  "theme_color": "#6ee7b7",
+  "background_color": "#fafafa",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
