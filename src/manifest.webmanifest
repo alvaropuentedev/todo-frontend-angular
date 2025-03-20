@@ -2,7 +2,7 @@
   "name": "ToList",
   "short_name": "ToList",
   "theme_color": "#6ee7b7",
-  "background_color": "#6ee7b7",
+  "background_color": "##bf39b4",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
