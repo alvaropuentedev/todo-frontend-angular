@@ -9,15 +9,15 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-    selector: 'app-todo-add-item',
-    imports: [ReactiveFormsModule, ButtonModule, DialogModule, InputTextModule],
-    templateUrl: './add-item.component.html',
-    styleUrls: ['./add-item.component.css']
+  selector: 'app-todo-add-item',
+  imports: [ReactiveFormsModule, ButtonModule, DialogModule, InputTextModule],
+  templateUrl: './add-item.component.html',
+  styleUrls: ['./add-item.component.css']
 })
 export class AddItemComponent {
-  private readonly todoService  = inject(TodoService);
-  private readonly fb           = inject(FormBuilder);
-  private readonly authService  = inject(AuthService);
+  private readonly todoService = inject(TodoService);
+  private readonly fb = inject(FormBuilder);
+  private readonly authService = inject(AuthService);
 
   @Output() sharedLoadEvent = new EventEmitter<void>();
   public userID = computed(() => this.authService.currentUserID());
@@ -34,7 +34,8 @@ export class AddItemComponent {
 
   public showModal = false;
 
-  constructor() {}
+  constructor() {
+  }
 
   showDialog() {
     this.todoService.hapticsImpactVibration();

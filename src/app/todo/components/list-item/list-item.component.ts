@@ -20,11 +20,11 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 
 @Component({
-    selector: 'app-todo-list-item',
-    imports: [ToastModule, CardModule, ReactiveFormsModule, InputTextModule],
-    providers: [MessageService],
-    templateUrl: './list-item.component.html',
-    styleUrls: ['./list-item.component.css']
+  selector: 'app-todo-list-item',
+  imports: [ToastModule, CardModule, ReactiveFormsModule, InputTextModule],
+  providers: [MessageService],
+  templateUrl: './list-item.component.html',
+  styleUrls: ['./list-item.component.css']
 })
 export class ListItemComponent implements OnInit {
   private readonly todoService = inject(TodoService);
@@ -133,6 +133,7 @@ export class ListItemComponent implements OnInit {
     this.progressMap[item_id] = 0; // Reset the progress value for this item
     this.removeStyles(item_id); // Revert the card to its initial styles
   }
+
   // const colors = ['#FFE3B5', '#FFD29D', '#AADFB1', '#6FCF97'];
   private colorTimers: { [key: number]: any } = {}; // Stores timers for managing color transitions
 

@@ -9,9 +9,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { NavbarComponent } from 'src/app/shared/navbar/navbar.component';
 
 @Component({
-    selector: 'app-todo-page',
-    imports: [AddItemComponent, ListItemComponent, NavbarComponent, RouterModule],
-    templateUrl: './todo-page.component.html'
+  selector: 'app-todo-page',
+  imports: [AddItemComponent, ListItemComponent, NavbarComponent, RouterModule],
+  templateUrl: './todo-page.component.html'
 })
 export class TodoPageComponent implements OnInit {
   private readonly todoService = inject(TodoService);
