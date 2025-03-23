@@ -1,9 +1,7 @@
 <app-navbar (sharedLoadEvent)="loadItems()" />
 <!--<app-autumn />-->
 <!--<app-snowfall />-->
-<div class="flex justify-center w-full bottom-5 fixed z-50">
-  <app-todo-add-item (sharedLoadEvent)="loadItems()" />
-</div>
+<app-todo-add-item (sharedLoadEvent)="loadItems()" />
 @defer {
 <!--  LIST TITLE  -->
   @if ($listSelectedTitle()) {
