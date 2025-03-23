@@ -39,6 +39,7 @@ export class ListItemComponent implements OnInit {
   private deleteAudio: HTMLAudioElement;
   public isEditing = false;
   public editingItemId: number | null = null;
+  public drawerVisibleSignal = this.todoService.drawerVisibleSignal;
 
   constructor() {
     this.deleteAudio = new Audio();
@@ -47,8 +48,10 @@ export class ListItemComponent implements OnInit {
 
   ngOnInit(): void {
     // Disable browser back
+    this.drawerVisibleSignal.set(true);
     history.pushState(null, '', location.href);
     window.onpopstate = () => {
+      this.drawerVisibleSignal.set(true);
       history.pushState(null, '', location.href);
     };
   }

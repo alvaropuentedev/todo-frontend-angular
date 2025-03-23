@@ -22,6 +22,7 @@ export class TodoService {
   public listIdFromStorage: string | null = localStorage.getItem('list_id');
   public listIdAsNumber: number = this.listIdFromStorage !== null ? Number(this.listIdFromStorage) : 0;
   public $list_id = signal(this.listIdAsNumber);
+  public drawerVisibleSignal = signal(false);
 
 
   constructor() {

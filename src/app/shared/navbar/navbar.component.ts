@@ -48,7 +48,6 @@ export class NavbarComponent implements OnInit {
   public user_id = computed(() => this.authService.currentUserID());
 
   public menuOptions: MenuItem[] | null = [];
-  public sidebarVisible: boolean = false;
   public settingModalVisible = false;
 
   public lists: List[] = [];
@@ -56,6 +55,7 @@ export class NavbarComponent implements OnInit {
   private audio: HTMLAudioElement;
   public mobileView = window.innerWidth <= 768; // check mobil screen
   public positionSidebar = 'left';
+  public drawerVisibleSignal = this.todoService.drawerVisibleSignal;
 
 
   /**
@@ -95,7 +95,7 @@ export class NavbarComponent implements OnInit {
     ];
     if (this.mobileView) {
       this.positionSidebar = 'full';
-      this.sidebarVisible = true;
+      this.drawerVisibleSignal.set(true);
     }
     this.loadLists();
   }
@@ -121,7 +121,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    this.sidebarVisible = false;
+    this.drawerVisibleSignal.set(false);
     this.authService.logout();
   }
 
@@ -139,16 +139,16 @@ export class NavbarComponent implements OnInit {
     this.searchList.reset();
     if (this.mobileView) {
       this.positionSidebar = 'full';
-      this.sidebarVisible = true;
+      this.drawerVisibleSignal.set(true);
     } else {
       this.positionSidebar = 'left';
-      this.sidebarVisible = true;
+      this.drawerVisibleSignal.set(true);
     }
   }
 
   showItemsFromList(list: List) {
     this.todoService.hapticsImpactVibration();
-    this.sidebarVisible = false;
+    this.drawerVisibleSignal.set(false);
     this.todoService.$showAddButton.set(true);
     this.todoService.setListId(list.id);
     this.todoService.$listTitle.set(list.listName);
@@ -170,7 +170,7 @@ export class NavbarComponent implements OnInit {
         id: 0,
         listName: list_name,
       };
-      this.sidebarVisible = false;
+      this.drawerVisibleSignal.set(false);
       this.todoService.createListForUser(this.user_id(), list).subscribe({
         next: () => {
           this.createNewListForm.reset();
@@ -214,7 +214,7 @@ export class NavbarComponent implements OnInit {
    * @param list_name
    */
   deleteList(list_id: number, list_name: string) {
-    this.sidebarVisible = false;
+    this.drawerVisibleSignal.set(false);
     const list_title_local = localStorage.getItem('list_title');
     this.todoService.deleteList(list_id).subscribe({
       next: () => {
@@ -313,7 +313,7 @@ export class NavbarComponent implements OnInit {
    * @param user
    */
   addUserToList(list_id: number, user: string) {
-    this.sidebarVisible = false;
+    this.drawerVisibleSignal.set(false);
 
     this.todoService.addUsersToList(list_id, user).subscribe({
       next: () => {

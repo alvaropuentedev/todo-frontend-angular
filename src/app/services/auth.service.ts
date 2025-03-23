@@ -37,10 +37,10 @@ export class AuthService {
 
   login(username: string, password: string): Observable<boolean> {
     const url = `${this.baseUrl}/auth/login`;
-    const body = {username, password};
+    const body = { username, password };
 
     return this.http.post<LoginResponse>(url, body).pipe(
-      tap(({id_user, username, token}) => {
+      tap(({ id_user, username, token }) => {
         this.user = username;
         this.userID = id_user;
         this._currentUserID.set(id_user);
