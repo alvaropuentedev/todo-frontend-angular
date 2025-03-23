@@ -5,7 +5,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { AvatarModule } from 'primeng/avatar';
 import { MenuModule } from 'primeng/menu';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
-import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 import { TodoService } from 'src/app/services/todo.service';
 import { List } from 'src/app/interfaces/list.interface';
@@ -15,15 +14,15 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { User } from 'src/app/interfaces';
+import { DrawerModule } from "primeng/drawer";
 
 @Component({
   selector: 'app-navbar',
-  standalone: true,
   imports: [
     CommonModule,
     AvatarModule,
     MenuModule,
-    SidebarModule,
+    DrawerModule,
     ButtonModule,
     ToastModule,
     ReactiveFormsModule,
@@ -33,7 +32,7 @@ import { User } from 'src/app/interfaces';
   ],
   providers: [MessageService, ConfirmationService],
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css'],
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
   private readonly authService = inject(AuthService);
@@ -56,6 +55,7 @@ export class NavbarComponent implements OnInit {
   public showModal = false;
   private audio: HTMLAudioElement;
   public mobileView = window.innerWidth <= 768; // check mobil screen
+  public positionSidebar = 'left';
 
 
   /**
@@ -94,6 +94,7 @@ export class NavbarComponent implements OnInit {
       },
     ];
     if (this.mobileView) {
+      this.positionSidebar = 'full';
       this.sidebarVisible = true;
     }
     this.loadLists();
@@ -131,11 +132,18 @@ export class NavbarComponent implements OnInit {
       list.listName.toLowerCase().includes(filterText)
     );
   }
+
   // Reset filter
   resetFilterText() {
     this.todoService.hapticsImpactVibration();
     this.searchList.reset();
-    this.sidebarVisible = true;
+    if (this.mobileView) {
+      this.positionSidebar = 'full';
+      this.sidebarVisible = true;
+    } else {
+      this.positionSidebar = 'left';
+      this.sidebarVisible = true;
+    }
   }
 
   showItemsFromList(list: List) {

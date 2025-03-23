@@ -5,11 +5,10 @@ import { AuthService } from 'src/app/services/auth.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+    selector: 'app-login',
+    imports: [CommonModule, ReactiveFormsModule, RouterModule],
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
   private readonly fb = inject(FormBuilder);

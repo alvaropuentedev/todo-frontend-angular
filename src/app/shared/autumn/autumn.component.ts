@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 import {ToggleButtonModule} from "primeng/togglebutton";
 
 @Component({
-  selector: 'app-autumn',
-  standalone: true,
-  imports: [ToggleButtonModule],
-  templateUrl: './autumn.component.html',
-  styleUrl: './autumn.component.css'
+    selector: 'app-autumn',
+    imports: [ToggleButtonModule],
+    templateUrl: './autumn.component.html',
+    styleUrl: './autumn.component.css'
 })
 export class AutumnComponent {
   private autumnAudio: HTMLAudioElement;

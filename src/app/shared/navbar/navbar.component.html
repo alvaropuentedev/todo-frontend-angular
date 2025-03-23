@@ -1,4 +1,4 @@
-<nav class="roboto flex h-12 w-full items-center justify-start md:justify-end bg-gradient-to-b from-emerald-300 to-white h-20">
+<nav class="roboto flex h-12 w-full items-center justify-start md:justify-end bg-gradient-to-b from-[#3bbfa1] to-white h-20">
   @if (userStatus() === 'authenticated') {
     <div class="flex items-center gap-2">
       <!-- <p-menu #menu [model]="menuOptions" [popup]="true"></p-menu> -->
@@ -19,7 +19,7 @@
         </button>
       }
     </div>
-    <p-sidebar [(visible)]="sidebarVisible" [position]="'left'" [style]="{'width': mobileView ? '100vw' : '30vw'}">
+    <p-drawer [(visible)]="sidebarVisible" position="{{positionSidebar}}">
       <ng-template pTemplate="header">
         <div class="flex items-center">
           <p-avatar
@@ -120,7 +120,7 @@
           </li>
         </ul>
       </ng-template>
-    </p-sidebar>
+    </p-drawer>
   }
 </nav>
 
@@ -175,12 +175,12 @@
           <button
             pButton
             label="Aceptar"
-            (click)="cdDelete.accept()"
+            (click)="cdDelete.onAccept()"
             class="w-32 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"></button>
           <button
             pButton
             label="Cancelar"
-            (click)="cdDelete.reject()"
+            (click)="cdDelete.onReject()"
             class="w-32 rounded border border-gray-300 px-4 py-2 font-bold text-white hover:border-gray-500"></button>
         </div>
       </div>
@@ -197,7 +197,7 @@
       <span class="mb-2 mt-4 block text-2xl font-bold">{{ message.header }}</span>
       <p class="mb-0">{{ message.message }}</p>
       <!-- input for user with share -->
-      <form [formGroup]="shareListWithUserForm" (ngSubmit)="cdWithInput.accept()">
+      <form [formGroup]="shareListWithUserForm" (ngSubmit)="cdWithInput.onAccept()">
         <input
           pInputText
           type="text"
@@ -209,12 +209,12 @@
       <div class="mt-4 flex items-center gap-2">
         <button
           pButton
-          (click)="cdWithInput.accept()"
+          (click)="cdWithInput.onAccept()"
           label="Aceptar"
           class="w-32 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"></button>
         <button
           pButton
-          (click)="cdWithInput.reject()"
+          (click)="cdWithInput.onReject()"
           label="Cancelar"
           class="w-32 rounded border border-gray-300 px-4 py-2 font-bold text-white hover:border-gray-500"></button>
       </div>

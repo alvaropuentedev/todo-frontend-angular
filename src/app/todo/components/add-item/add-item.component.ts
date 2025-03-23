@@ -9,11 +9,10 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-  selector: 'app-todo-add-item',
-  standalone: true,
-  imports: [ReactiveFormsModule, ButtonModule, DialogModule, InputTextModule],
-  templateUrl: './add-item.component.html',
-  styleUrls: ['./add-item.component.css'],
+    selector: 'app-todo-add-item',
+    imports: [ReactiveFormsModule, ButtonModule, DialogModule, InputTextModule],
+    templateUrl: './add-item.component.html',
+    styleUrls: ['./add-item.component.css']
 })
 export class AddItemComponent {
   private readonly todoService  = inject(TodoService);

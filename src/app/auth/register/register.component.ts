@@ -5,11 +5,10 @@ import { AuthService } from 'src/app/services/auth.service';
 import { LoginRegisterRequest } from '../../interfaces/login-request.interface';
 
 @Component({
-  selector: 'app-register',
-  standalone: true,
-  imports: [RouterModule, ReactiveFormsModule],
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
+    selector: 'app-register',
+    imports: [RouterModule, ReactiveFormsModule],
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
   private readonly fb = inject(FormBuilder);

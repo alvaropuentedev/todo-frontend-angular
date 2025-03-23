@@ -11,10 +11,9 @@ import {AutumnComponent} from "../../shared/autumn/autumn.component";
 import {SnowFallComponent} from "../../shared/snow-fall/snow-fall.component";
 
 @Component({
-  selector: 'app-todo-page',
-  standalone: true,
-  imports: [AddItemComponent, ListItemComponent, NavbarComponent, RouterModule, AutumnComponent, SnowFallComponent],
-  templateUrl: './todo-page.component.html',
+    selector: 'app-todo-page',
+    imports: [AddItemComponent, ListItemComponent, NavbarComponent, RouterModule, AutumnComponent, SnowFallComponent],
+    templateUrl: './todo-page.component.html'
 })
 export class TodoPageComponent implements OnInit {
   private readonly todoService = inject(TodoService);

@@ -2,13 +2,12 @@ import {Component} from '@angular/core';
 import {ToggleButtonModule} from "primeng/togglebutton";
 
 @Component({
-  selector: 'app-snowfall',
-  standalone: true,
-  imports: [
-    ToggleButtonModule
-  ],
-  templateUrl: './snow-fall.component.html',
-  styleUrl: './snow-fall.component.css'
+    selector: 'app-snowfall',
+    imports: [
+        ToggleButtonModule
+    ],
+    templateUrl: './snow-fall.component.html',
+    styleUrl: './snow-fall.component.css'
 })
 export class SnowFallComponent {
   private christmasAudio: HTMLAudioElement;

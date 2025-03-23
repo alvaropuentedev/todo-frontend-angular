@@ -20,12 +20,11 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 
 @Component({
-  selector: 'app-todo-list-item',
-  standalone: true,
-  imports: [ToastModule, CardModule, ReactiveFormsModule, InputTextModule],
-  providers: [MessageService],
-  templateUrl: './list-item.component.html',
-  styleUrls: ['./list-item.component.css'],
+    selector: 'app-todo-list-item',
+    imports: [ToastModule, CardModule, ReactiveFormsModule, InputTextModule],
+    providers: [MessageService],
+    templateUrl: './list-item.component.html',
+    styleUrls: ['./list-item.component.css']
 })
 export class ListItemComponent implements OnInit {
   private readonly todoService = inject(TodoService);
