@@ -7,12 +7,10 @@ import { interval, startWith, switchMap } from 'rxjs';
 import { TodoService } from 'src/app/services/todo.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { NavbarComponent } from 'src/app/shared/navbar/navbar.component';
-import {AutumnComponent} from "../../shared/autumn/autumn.component";
-import {SnowFallComponent} from "../../shared/snow-fall/snow-fall.component";
 
 @Component({
     selector: 'app-todo-page',
-    imports: [AddItemComponent, ListItemComponent, NavbarComponent, RouterModule, AutumnComponent, SnowFallComponent],
+    imports: [AddItemComponent, ListItemComponent, NavbarComponent, RouterModule],
     templateUrl: './todo-page.component.html'
 })
 export class TodoPageComponent implements OnInit {
