@@ -5,12 +5,12 @@ import { Item } from 'src/app/interfaces';
 import { AuthService } from 'src/app/services/auth.service';
 
 import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
+import { Dialog } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-todo-add-item',
-  imports: [ReactiveFormsModule, ButtonModule, DialogModule, InputTextModule],
+  imports: [ReactiveFormsModule, ButtonModule, Dialog, InputTextModule],
   templateUrl: './add-item.component.html',
   styleUrls: ['./add-item.component.css']
 })
@@ -39,6 +39,7 @@ export class AddItemComponent {
 
   showDialog() {
     this.todoService.hapticsImpactVibration();
+    this.addItemForm.reset();
     this.showModal = true;
   }
 
