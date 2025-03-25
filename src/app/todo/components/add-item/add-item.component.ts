@@ -37,6 +37,10 @@ export class AddItemComponent {
   constructor() {
   }
 
+  handleFocus(event: any, inputEl: any) {
+    inputEl.focus();
+  }
+
   showDialog() {
     this.todoService.hapticsImpactVibration();
     this.addItemForm.reset();
