@@ -50,6 +50,10 @@ export class TodoService {
     );
   }
 
+  handleFocus(event: any, inputEl: any) {
+    inputEl.focus();
+  }
+
   // Vibration function
   hapticsImpactVibration = async () => {
     await Haptics.impact({style: ImpactStyle.Heavy});

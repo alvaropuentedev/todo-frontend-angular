@@ -124,19 +124,20 @@
 </nav>
 
 <!-- *MODAL CREATE NEW LIST -->
-<p-dialog
-  header="Nombre de la Lista"
+<p-dialog  header="Nombre de la Lista"
   [(visible)]="showModal"
   [modal]="true"
+  (onShow)="handleFocus($event, inputEl)"
   [draggable]="false"
   [resizable]="false"
   [dismissableMask]="true">
-  <div class="mt-2">
+  <div class="p-5">
     <form [formGroup]="createNewListForm" (ngSubmit)="submitCreateListForm()">
-      <input pInputText type="text" formControlName="listName" placeholder="Nombre para la lista" autofocus />
+      <h2 class="text-2xl font-semibold text-center mb-4">Nombre de la lista</h2>
+      <input #inputEl pInputText type="text" class="caret-black" formControlName="listName" placeholder="Nombre de la lista"/>
     </form>
   </div>
-  <div class="mt-2 flex justify-center">
+  <div class="flex justify-center">
     <p-button (click)="submitCreateListForm()" label="Crear" icon="pi pi-plus" size="small"></p-button>
   </div>
 </p-dialog>

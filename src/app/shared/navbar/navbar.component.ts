@@ -56,7 +56,7 @@ export class NavbarComponent implements OnInit {
   public mobileView = window.innerWidth <= 768; // check mobil screen
   public positionSidebar = 'left';
   public drawerVisibleSignal = this.todoService.drawerVisibleSignal;
-
+  public handleFocus = this.todoService.handleFocus;
 
   /**
    * FORM CREATE LIST
@@ -157,6 +157,7 @@ export class NavbarComponent implements OnInit {
   }
 
   showModalCreateList() {
+    this.createNewListForm.reset();
     this.showModal = true;
   }
 

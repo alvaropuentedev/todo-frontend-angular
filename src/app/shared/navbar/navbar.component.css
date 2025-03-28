@@ -1,1 +1,4 @@
 
+:host ::ng-deep .p-dialog-header {
+  display: none
+}

@@ -22,6 +22,8 @@ export class AddItemComponent {
   @Output() sharedLoadEvent = new EventEmitter<void>();
   public userID = computed(() => this.authService.currentUserID());
   public $showAddButton = this.todoService.$showAddButton;
+  public handleFocus = this.todoService.handleFocus;
+
 
   public item: Item = {
     id: 0,
@@ -35,10 +37,6 @@ export class AddItemComponent {
   public showModal = false;
 
   constructor() {
-  }
-
-  handleFocus(event: any, inputEl: any) {
-    inputEl.focus();
   }
 
   showDialog() {
