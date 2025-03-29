@@ -19,7 +19,7 @@ export const appConfig: ApplicationConfig = {
         preset: Material,
         options: {
           prefix: 'p',
-          darkModeSelector: 'system',
+          darkModeSelector: 'light',
           cssLayer: false
         }
       },
