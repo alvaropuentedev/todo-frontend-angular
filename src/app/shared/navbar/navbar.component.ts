@@ -127,7 +127,7 @@ export class NavbarComponent implements OnInit {
 
   // List filter
   getFilteredLists() {
-    const filterText = this.searchList.get('filterText')?.value?.toLowerCase() || '';
+    const filterText = (this.searchList.get('filterText')?.value?.toLowerCase() || '').trim();
     return this.lists.filter(list =>
       list.listName.toLowerCase().includes(filterText)
     );
