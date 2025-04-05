@@ -64,19 +64,19 @@ export class NavbarComponent implements OnInit {
 
   public list: List = {
     id: 0,
-    listName: ' ',
+    listName: '',
   };
 
   public createNewListForm = this.fb.group({
-    listName: [' ', Validators.required],
+    listName: ['', Validators.required],
   });
 
   public shareListWithUserForm = this.fb.group({
-    user: [' ', Validators.required],
+    user: ['', Validators.required],
   });
 
   public searchList = this.fb.group({
-    filterText: [' ', Validators.required],
+    filterText: ['', Validators.required],
   });
 
   constructor() {
@@ -171,25 +171,27 @@ export class NavbarComponent implements OnInit {
         id: 0,
         listName: list_name,
       };
-      this.drawerVisibleSignal.set(false);
       this.todoService.createListForUser(this.user_id(), list).subscribe({
         next: () => {
           this.createNewListForm.reset();
           this.todoService.onsharedLoad(this.sharedLoadEvent);
           this.showModal = false;
+          this.loadLists();
         },
-        error: () => {
-          console.error('Duplicate description');
-          this.showModal = false;
-        },
+        error: (error) => {
+          console.error('Error creating list:', error);
+          this.messageService.add({
+            key: 'toastError',
+            severity: 'error',
+            summary: 'Error',
+            detail: 'No se pudo crear la lista. Inténtalo nuevamente.',
+          });
+        }
       });
+
     } else {
       console.error('ERROR description is undefined or null');
     }
-    // Add a 2-second delay before reloading the page
-    setTimeout(() => {
-      location.reload();
-    }, 1000);
   }
 
   confirmDeleteList(event: Event, list_id: number, list_name: string) {
@@ -215,7 +217,6 @@ export class NavbarComponent implements OnInit {
    * @param list_name
    */
   deleteList(list_id: number, list_name: string) {
-    this.drawerVisibleSignal.set(false);
     const list_title_local = localStorage.getItem('list_title');
     this.todoService.deleteList(list_id).subscribe({
       next: () => {
@@ -225,11 +226,16 @@ export class NavbarComponent implements OnInit {
         if (list_title_local === list_name) {
           localStorage.setItem('list_title', 'Lista ' + list_name + ' eliminada');
         }
-        // Add a 2-second delay before reloading the page
-        setTimeout(() => {
-          location.reload();
-        }, 1700);
       },
+      error: (err) => {
+        console.error('Error eliminando la lista:', err);
+        this.messageService.add({
+          key: 'toastError',
+          severity: 'error',
+          summary: 'Error',
+          detail: 'No se pudo eliminar la lista. Inténtalo nuevamente.',
+        });
+      }
     });
   }
 
