@@ -6,7 +6,9 @@ WORKDIR /app
 
 # Setting env
 ARG BASE_URL
+ARG WEBSOCKET_URL
 ENV BASE_URL=$BASE_URL
+ENV WEBSOCKET_URL=$WEBSOCKET_URL
 
 # Copy configuration files and project dependencies
 COPY package*.json ./
