@@ -16,7 +16,19 @@ export class WebSocketService implements OnDestroy {
 
   constructor() {
     this.connect();
+    this.startPing();
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        console.log('👁 App volvió a foco');
+        if (!this.socket$ || this.socket$.closed) {
+          console.warn('Reconectando WebSocket tras volver a foco...');
+          this.reconnect();
+        }
+      }
+    });
   }
+
 
   private connect(): void {
     this.socket$ = webSocket({
@@ -53,6 +65,19 @@ export class WebSocketService implements OnDestroy {
     }
     this.reconnectSubscription = timer(this.reconnectDelay).subscribe(() => this.connect());
   }
+  private pingInterval: any;
+
+  private startPing() {
+    this.pingInterval = setInterval(() => {
+      if (!this.socket$ || this.socket$.closed) {
+        console.warn('💀 Socket cerrado. Reintentando...');
+        this.reconnect();
+      } else {
+        this.sendMessage({ type: 'ping' });
+      }
+    }, 5000); // cada 5s
+  }
+
 
   public sendMessage(message: any): void {
     this.socket$?.next(message);
