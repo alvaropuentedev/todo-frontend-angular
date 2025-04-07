@@ -23,19 +23,30 @@
           <strong (click)="editItem(item)" (keyup.enter)="editItem(item)"
                   tabindex="0" class="cursor-pointer"> {{ item.description.toLocaleUpperCase() }} </strong>
           <div class="relative flex items-center justify-center">
-            <button class="z-10 bg-white p-2 rounded-full"
-                    (mousedown)="startPress(item.id, item.description)"
-                    (mouseup)="cancelPress(item.id)"
-                    (mouseleave)="cancelPress(item.id)"
-                    (touchstart)="startPress(item.id, item.description)"
-                    (touchend)="cancelPress(item.id)"
-                    (touchcancel)="cancelPress(item.id)">
-              <svg class="w-6 h-6 text-red-500 dark:text-white" aria-hidden="true"
-                   xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                      stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/>
-              </svg>
-            </button>
+            @if (this.mobileView) {
+              <button class="z-10 bg-white p-2 rounded-full"
+                      (mousedown)="startPress(item.id, item.description)"
+                      (mouseup)="cancelPress(item.id)"
+                      (mouseleave)="cancelPress(item.id)"
+                      (touchstart)="startPress(item.id, item.description)"
+                      (touchend)="cancelPress(item.id)"
+                      (touchcancel)="cancelPress(item.id)">
+                <svg class="w-6 h-6 text-red-500 dark:text-white" aria-hidden="true"
+                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/>
+                </svg>
+              </button>
+            } @else {
+              <button class="z-10 bg-white p-2 rounded-full"
+                  (click)="deleteItem(item.id, item.description)">
+                <svg class="w-6 h-6 text-red-500 dark:text-white" aria-hidden="true"
+                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/>
+                </svg>
+              </button>
+            }
           </div>
         </div>
       }

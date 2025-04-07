@@ -40,6 +40,7 @@ export class ListItemComponent implements OnInit {
   public isEditing = false;
   public editingItemId: number | null = null;
   public drawerVisibleSignal = this.todoService.drawerVisibleSignal;
+  public mobileView = window.innerWidth <= 768; // check mobil screen
 
   constructor() {
     this.deleteAudio = new Audio();
