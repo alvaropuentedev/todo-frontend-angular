@@ -26,14 +26,23 @@ export class TodoPageComponent implements OnInit, OnDestroy {
 
   public $listSelectedTitle = this.todoService.$listTitle;
   private wsSubscription: Subscription | undefined;
+  private focusHandler?: () => void;
 
   constructor() {
     this.currentDate = new Date();
   }
+
   ngOnInit() {
-    // First load items
-    this.loadItems();
-    // Subscribe to WebSocket messages
+    const focusHandler = () => {
+      console.log('🔄 Focus first load');
+      this.loadItems();
+    };
+
+    // Load items when the component is initialized and when the window gains focus
+    window.addEventListener('focus', focusHandler);
+    this.focusHandler = focusHandler;
+
+    // ✅ WebSocket
     this.wsSubscription = this.webSocketService.getMessages().subscribe((message: string) => {
       console.log('WebSocket message received:', message);
       this.loadItems();
@@ -43,6 +52,9 @@ export class TodoPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.wsSubscription) {
       this.wsSubscription.unsubscribe();
+    }
+    if (this.focusHandler) {
+      window.removeEventListener('focus', this.focusHandler);
     }
   }
 
