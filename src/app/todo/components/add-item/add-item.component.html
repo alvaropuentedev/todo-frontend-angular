@@ -16,6 +16,17 @@
   </div>
 </p-dialog>
 @if ($showAddButton()) {
-  <p-button (click)="showDialog()" icon="pi pi-plus" [rounded]="true" class="bottom-5 fixed z-50 left-1/2 transform -translate-x-1/2">
-  </p-button>
+  <button (click)="showDialog()"  class="w-14 h-14 bg-emerald-200 rounded-2xl fixed flex justify-center items-center bottom-5 right-5 shadow-md hover:bg-emerald-300 transition z-50"
+            aria-label="Add">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      stroke-width="2"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+    </svg>
+  </button>
 }

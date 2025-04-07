@@ -37,6 +37,9 @@
                         stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/>
                 </svg>
               </button>
+              <div class="card flex justify-content-center gap-2">
+                <p-toast position="top-center" key="toastSucces" [style]="{ width: '40vh' }"></p-toast>
+              </div>
             } @else {
               <button class="z-10 bg-white p-2 rounded-full"
                   (click)="deleteItem(item.id, item.description)">
@@ -46,6 +49,9 @@
                         stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/>
                 </svg>
               </button>
+              <div class="card flex justify-content-center gap-2">
+                <p-toast position="top-right" key="toastSucces" [style]="{ width: '40vh' }"></p-toast>
+              </div>
             }
           </div>
         </div>
@@ -53,6 +59,3 @@
     </p-card>
   </div>
 }
-<div class="card flex justify-content-center gap-2">
-  <p-toast position="center" key="toastSucces" [style]="{ width: '40vh' }"></p-toast>
-</div>

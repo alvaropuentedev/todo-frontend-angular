@@ -91,7 +91,8 @@ export class ListItemComponent implements OnInit {
   showSuccessMessage() {
     this.messageService.add({
       key: 'toastSucces',
-      severity: 'success',
+      severity: 'info',
+      icon: 'pi pi-check',
       summary: 'Completado!',
       detail: this.itemDescription,
     });
