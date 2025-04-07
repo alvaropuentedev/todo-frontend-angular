@@ -13,10 +13,18 @@ export class WebSocketService implements OnDestroy {
   private reconnectSubscription?: Subscription;
 
   private readonly webSocketUrl: string = enviroment.websocket_url;
+  private pingInterval: any;
 
   constructor() {
     this.connect();
     this.startPing();
+
+    window.addEventListener('focus', () => {
+      console.log('🔄 Ventana recibió foco');
+      if (!this.socket$ || this.socket$.closed) {
+        this.reconnect();
+      }
+    });
 
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible') {
@@ -28,7 +36,6 @@ export class WebSocketService implements OnDestroy {
       }
     });
   }
-
 
   private connect(): void {
     this.socket$ = webSocket({
@@ -59,14 +66,6 @@ export class WebSocketService implements OnDestroy {
     });
   }
 
-  private reconnect(): void {
-    if (this.reconnectSubscription) {
-      this.reconnectSubscription.unsubscribe();
-    }
-    this.reconnectSubscription = timer(this.reconnectDelay).subscribe(() => this.connect());
-  }
-  private pingInterval: any;
-
   private startPing() {
     this.pingInterval = setInterval(() => {
       if (!this.socket$ || this.socket$.closed) {
@@ -75,9 +74,15 @@ export class WebSocketService implements OnDestroy {
       } else {
         this.sendMessage({ type: 'ping' });
       }
-    }, 5000); // cada 5s
+    }, 5000); // every 5 seconds
   }
 
+  private reconnect(): void {
+    if (this.reconnectSubscription) {
+      this.reconnectSubscription.unsubscribe();
+    }
+    this.reconnectSubscription = timer(this.reconnectDelay).subscribe(() => this.connect());
+  }
 
   public sendMessage(message: any): void {
     this.socket$?.next(message);
