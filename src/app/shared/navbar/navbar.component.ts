@@ -15,6 +15,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { User } from 'src/app/interfaces';
 import { DrawerModule } from "primeng/drawer";
+import { OverlayBadge } from "primeng/overlaybadge";
 
 @Component({
   selector: 'app-navbar',
@@ -28,7 +29,8 @@ import { DrawerModule } from "primeng/drawer";
     ReactiveFormsModule,
     DialogModule,
     InputTextModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    OverlayBadge
   ],
   providers: [MessageService, ConfirmationService],
   templateUrl: './navbar.component.html',
@@ -291,26 +293,42 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  shareListWithUser(event: Event, list_id: number) {
-    this.confirmationService.confirm({
-      target: event.target as EventTarget,
-      key: 'cdWithInput',
-      message: `Compartir lista con el usuari@`,
-      icon: 'pi pi-info-circle',
-      acceptButtonStyleClass: 'p-button-danger p-button-text',
-      rejectButtonStyleClass: 'p-button-text p-button-text',
-      acceptIcon: 'none',
-      rejectIcon: 'none',
+  shareListWithUser(event: Event) {
+    const list_id = localStorage.getItem('list_id');
+    if (list_id) {
+      // Parse the list_id to an integer
+      const parsedListId = parseInt(list_id, 10);
+      this.confirmationService.confirm({
+        target: event.target as EventTarget,
+        key: 'cdWithInput',
+        message: `Compartir lista con el usuari@`,
+        icon: 'pi pi-info-circle',
+        acceptButtonStyleClass: 'p-button-danger p-button-text',
+        rejectButtonStyleClass: 'p-button-text p-button-text',
+        acceptIcon: 'none',
+        rejectIcon: 'none',
 
-      accept: () => {
-        const user = this.shareListWithUserForm.get('user')?.value?.trim().toLocaleLowerCase();
-        if (user) {
-          this.addUserToList(list_id, user);
-          this.shareListWithUserForm.reset();
-        } else {
-          alert('Por favor ingresa un nombre de usuario válido.');
-        }
-      },
+        accept: () => {
+          const user = this.shareListWithUserForm.get('user')?.value?.trim().toLocaleLowerCase();
+          if (user) {
+            this.addUserToList(parsedListId, user);
+            this.showSuccessMessage(user);
+            this.shareListWithUserForm.reset();
+          } else {
+            alert('Por favor ingresa un nombre de usuario válido.');
+          }
+        },
+      });
+    }
+  }
+
+  showSuccessMessage(user: string) {
+    this.messageService.add({
+      key: 'toastSucces',
+      severity: 'info',
+      icon: 'pi pi-check',
+      summary: 'Compartido con el usuari@',
+      detail: user.toUpperCase(),
     });
   }
 
@@ -336,5 +354,4 @@ export class NavbarComponent implements OnInit {
       },
     });
   }
-
 }

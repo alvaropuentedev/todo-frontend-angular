@@ -1,32 +1,31 @@
-import { Component, OnInit, computed, inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, inject, OnDestroy } from '@angular/core';
 import { AddItemComponent } from '../components/add-item/add-item.component';
 import { ListItemComponent } from '../components/list-item/list-item.component';
 import { RouterModule } from '@angular/router';
 import { Item } from 'src/app/interfaces';
 import { Subscription } from 'rxjs';
 import { TodoService } from 'src/app/services/todo.service';
-import { AuthService } from 'src/app/services/auth.service';
 import { NavbarComponent } from 'src/app/shared/navbar/navbar.component';
 import { WebSocketService } from "../../services/websocket.service";
+import { OverlayBadgeModule } from "primeng/overlaybadge";
 
 @Component({
   selector: 'app-todo-page',
-  imports: [AddItemComponent, ListItemComponent, NavbarComponent, RouterModule],
+  imports: [AddItemComponent, ListItemComponent, NavbarComponent, RouterModule, OverlayBadgeModule],
   templateUrl: './todo-page.component.html'
 })
 export class TodoPageComponent implements OnInit, OnDestroy {
   private readonly todoService = inject(TodoService);
-  private readonly authService = inject(AuthService);
   private readonly webSocketService = inject(WebSocketService);
 
   public loading = true;
   public items: Item[] = [];
-  public userID = computed(() => this.authService.currentUserID());
   public currentDate: Date;
 
   public $listSelectedTitle = this.todoService.$listTitle;
   private wsSubscription: Subscription | undefined;
   private focusHandler?: () => void;
+  public mobileView = window.innerWidth <= 768; // check mobil screen
 
   constructor() {
     this.currentDate = new Date();
@@ -48,6 +47,23 @@ export class TodoPageComponent implements OnInit, OnDestroy {
       this.loadItems();
     });
   }
+
+  // Change the badge color based on the number of items
+  getBadgeSeverity(): 'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' {
+    const count = this.items.length;
+
+    if (count <= 3) {
+      return 'success'; // verde
+    } else if (count <= 6) {
+      return 'info'; // azul
+    } else if (count <= 10) {
+      return 'warn'; // naranja
+    } else {
+      return 'danger'; // rojo
+    }
+  }
+
+
 
   ngOnDestroy(): void {
     if (this.wsSubscription) {

@@ -3,32 +3,56 @@
     <div class="flex items-center gap-2">
       <!-- <p-menu #menu [model]="menuOptions" [popup]="true"></p-menu> -->
       @if (!mobileView) {
+        <button (click)="shareListWithUser($event)" class="flex items-center bg-gray-200 text-gray-800 font-medium rounded-full px-4 py-2 shadow-inner hover:bg-gray-200 transition fixed left-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-black-500 mr-1" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7a3.01 3.01 0 000-1.4l7.02-4.11a2.996 2.996 0 10-.97-1.72L7.93 9.58a3 3 0 100 4.83l7.1 4.14a2.996 2.996 0 101.96-2.47z"/>
+          </svg>
+          <span>Share</span>
+        </button>
         <strong class="upper text-black">{{ user() }}</strong>
         <p-avatar
           (click)="resetFilterText()"
-          image="assets/img/logo1.jpg"
-          styleClass="mr-2 cursor-pointer"
-          [style]="{ 'background-color': '#000', color: '#ffffff' }"
+          icon="pi pi-user"
+          size="normal"
+          styleClass="mr-2"
+          [style]="{ 'background-color': '#fff', color: '#000' }"
           shape="circle">
         </p-avatar>
+        <div class="card flex justify-content-center gap-2">
+          <p-toast position="top-right" key="toastSucces" [style]="{ width: '40vh' }"></p-toast>
+        </div>
       } @else {
         <button (click)="resetFilterText()" class="translate-y-[-8px] translate-x-[10px]">
           <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
+        <button (click)="shareListWithUser($event)" class="flex items-center bg-gray-200 text-gray-800 font-medium rounded-full px-4 py-2 shadow-inner hover:bg-gray-200 transition fixed right-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-black-500 mr-1" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7a3.01 3.01 0 000-1.4l7.02-4.11a2.996 2.996 0 10-.97-1.72L7.93 9.58a3 3 0 100 4.83l7.1 4.14a2.996 2.996 0 101.96-2.47z"/>
+          </svg>
+          <span>Share</span>
+        </button>
+        <div class="card flex justify-content-center gap-2">
+          <p-toast position="top-center" key="toastSucces" [style]="{ width: '40vh' }"></p-toast>
+        </div>
       }
     </div>
     <p-drawer [(visible)]="drawerVisibleSignal" position="{{positionSidebar}}">
       <ng-template pTemplate="header">
         <div class="flex items-center">
           <p-avatar
-            image="assets/img/logo1.jpg"
-            styleClass="mr-2 cursor-pointer"
-            [style]="{ 'background-color': '#000', color: '#ffffff' }"
+            icon="pi pi-user"
+            size="normal"
+            styleClass="mr-2"
             shape="circle"></p-avatar>
-          <span class="upper text-center font-sans font-bold text-black">{{ user() }} ({{lists.length}})</span>
+          <p-overlay-badge
+            value="{{ lists.length }}"
+            severity="info"
+            class="inline-flex ml-0 md:ml-4 text-sm md:text-base mb-3">
+          </p-overlay-badge>
         </div>
+        <span class="upper text-center font-sans font-bold text-black">{{ user() }}</span>
       </ng-template>
       <ng-template pTemplate="content">
         <!-- LIST OF ITEMS -->
@@ -70,20 +94,6 @@
                   {{ list.listName | uppercase }}
                 </button>
                 <div class="flex space-x-2">
-                  <button (click)="shareListWithUser($event, list.id)">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      class="size-6 h-6 w-6 text-[#6F42C1]">
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" />
-                    </svg>
-                  </button>
                   <button (click)="confirmDeleteList($event, list.id, list.listName)">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -162,7 +172,6 @@
 
 <!-- !CONFIRMATION MESSAGE DELETED (LIST AND USER)-->
 <div class="card flex justify-center">
-  <p-toast></p-toast>
   <p-confirmDialog #cdDelete key="cdDelete">
     <ng-template pTemplate="headless" let-message>
       <div class="flex flex-col items-center rounded-lg bg-white p-5 shadow-md">
@@ -221,7 +230,3 @@
     </div>
   </ng-template>
 </p-confirmDialog>
-
-<div class="justify-content-center card flex gap-2">
-  <p-toast position="center" key="toastSucces" [style]="{ width: '40vh' }"></p-toast>
-</div>
