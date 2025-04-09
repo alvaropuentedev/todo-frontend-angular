@@ -1,6 +1,6 @@
 <nav class="roboto flex h-20 w-full items-center justify-start md:justify-end bg-gradient-to-b from-[#3bbfa1] to-white">
   @if (userStatus() === 'authenticated') {
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2 w-full">
       <!-- <p-menu #menu [model]="menuOptions" [popup]="true"></p-menu> -->
       @if (!mobileView) {
         <button (click)="shareListWithUser($event)" class="flex items-center bg-gray-200 text-gray-800 font-medium rounded-full px-4 py-2 shadow-inner hover:bg-gray-200 transition fixed left-3">
@@ -22,17 +22,19 @@
           <p-toast position="top-right" key="toastSucces" [style]="{ width: '40vh' }"></p-toast>
         </div>
       } @else {
-        <button (click)="resetFilterText()" class="translate-y-[1px] translate-x-[10px]">
-          <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-        <button (click)="shareListWithUser($event)" class="flex items-center bg-gray-200 text-gray-800 font-medium rounded-full px-4 py-2 shadow-inner hover:bg-gray-200 transition fixed right-3">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-black-500 mr-1" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7a3.01 3.01 0 000-1.4l7.02-4.11a2.996 2.996 0 10-.97-1.72L7.93 9.58a3 3 0 100 4.83l7.1 4.14a2.996 2.996 0 101.96-2.47z"/>
-          </svg>
-          <span>Share</span>
-        </button>
+        <div class="flex justify-between w-full">
+          <button (click)="resetFilterText()" class="ml-2">
+            <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button (click)="shareListWithUser($event)" class="flex items-center bg-gray-200 text-gray-800 font-medium rounded-full px-4 py-2 shadow-inner hover:bg-gray-200 transition mr-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-black-500 mr-1" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7a3.01 3.01 0 000-1.4l7.02-4.11a2.996 2.996 0 10-.97-1.72L7.93 9.58a3 3 0 100 4.83l7.1 4.14a2.996 2.996 0 101.96-2.47z"/>
+            </svg>
+            <span>Share</span>
+          </button>
+        </div>
         <div class="card flex justify-content-center gap-2">
           <p-toast position="top-center" key="toastSucces" [style]="{ width: '40vh' }"></p-toast>
         </div>
