@@ -220,7 +220,7 @@ export class NavbarComponent implements OnInit {
    */
   deleteList(list_id: number, list_name: string) {
     const list_title_local = localStorage.getItem('list_title');
-    this.todoService.deleteList(list_id).subscribe({
+    this.todoService.deleteList(this.authService.currentUserID(), list_id).subscribe({
       next: () => {
         this.showListSuccessMessageDeleted(list_name);
         this.audio.play();
@@ -230,7 +230,7 @@ export class NavbarComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.error('Error eliminando la lista:', err);
+        console.error('Error deleting the list:', err);
         this.messageService.add({
           key: 'toastError',
           severity: 'error',
@@ -312,7 +312,6 @@ export class NavbarComponent implements OnInit {
           const user = this.shareListWithUserForm.get('user')?.value?.trim().toLocaleLowerCase();
           if (user) {
             this.addUserToList(parsedListId, user);
-            this.showSuccessMessage(user);
             this.shareListWithUserForm.reset();
           } else {
             alert('Por favor ingresa un nombre de usuario válido.');
@@ -332,6 +331,16 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  showErrorMessage(msg: string) {
+    this.messageService.add({
+      key: 'toastSucces',
+      severity: 'info',
+      icon: 'pi pi-exclamation-triangle',
+      summary: 'Error',
+      detail: msg,
+    });
+  }
+
   /**
    * Add user to list
    * @param list_id
@@ -344,13 +353,10 @@ export class NavbarComponent implements OnInit {
       next: () => {
         this.audio.play();
         this.loadLists();
-        setTimeout(() => {
-          location.reload();
-        }, 1700);
+        this.showSuccessMessage(user);
       },
       error: (err) => {
-        console.error('Error al añadir el usuario:', err);
-        alert('Hubo un error al añadir el usuario. Inténtalo nuevamente.');
+        this.showErrorMessage(err.error);
       },
     });
   }

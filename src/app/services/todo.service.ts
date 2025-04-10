@@ -12,7 +12,6 @@ import { Haptics, ImpactStyle } from "@capacitor/haptics";
 export class TodoService {
   private readonly http = inject(HttpClient);
   private readonly baseUrl: string = enviroment.base_url;
-  // private readonly baseUrl: string = 'http://localhost:8080/apitodo';
 
   public $showAddButton = signal(false);
 
@@ -59,6 +58,7 @@ export class TodoService {
     await Haptics.impact({style: ImpactStyle.Heavy});
   };
 
+  // ITEMS
   addItem(list_id: number, body: Item): Observable<Item> {
     return this.http.post<Item>(`${this.baseUrl}/list/${list_id}/items`, body);
   }
@@ -71,7 +71,7 @@ export class TodoService {
     return this.http.delete<Item>(`${this.baseUrl}/item/${item_id}`);
   }
 
-  // GET lists
+  // LISTS
   getListByUserId(userID: number): Observable<List[]> {
     return this.http.get<List[]>(`${this.baseUrl}/user/${userID}/lists`);
   }
@@ -80,8 +80,8 @@ export class TodoService {
     return this.http.post<List>(`${this.baseUrl}/user/${user_id}/list`, body);
   }
 
-  deleteList(list_id: number): Observable<unknown> {
-    return this.http.delete<Item>(`${this.baseUrl}/list/${list_id}`);
+  deleteList(user_id: number, list_id: number): Observable<unknown> {
+    return this.http.delete<Item>(`${this.baseUrl}/user/${user_id}/list/${list_id}`);
   }
 
   addUsersToList(list_id: number, user: string): Observable<string> {
