@@ -30,8 +30,11 @@
   }
 } @else {
     <h3 class="roboto upper font-bold text-center mt-4">No hay listas creadas</h3>
-  }
-<app-todo-list-item [loading]="loading" [items]="items" (sharedLoadEvent)="loadItems()"/>
+}
+<!--  ITEMS LISTS  -->
+  <div class="max-h-[72vh] overflow-y-auto">
+    <app-todo-list-item [loading]="loading" [items]="items" (sharedLoadEvent)="loadItems()" />
+  </div>
 } @placeholder (minimum 700ms) {
 <!-- component SPINNER-->
 <div class="inset-0 fixed flex w-full h-full items-center justify-center duration-300 transition-opacity" style="z-index: 6000">
