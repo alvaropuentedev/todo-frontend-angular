@@ -49,7 +49,7 @@ export class ListItemComponent implements OnInit {
 
   ngOnInit(): void {
     // Disable browser back
-    this.drawerVisibleSignal.set(true);
+    this.drawerVisibleSignal.set(false);
     history.pushState(null, '', location.href);
     window.onpopstate = () => {
       this.drawerVisibleSignal.set(true);

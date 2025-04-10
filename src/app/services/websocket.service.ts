@@ -12,6 +12,7 @@ export class WebSocketService implements OnDestroy {
   private reconnectDelay = 3000;
   private reconnectSubscription?: Subscription;
 
+  // WebSocket URL
   private readonly webSocketUrl: string = enviroment.websocket_url;
   private pingInterval: any;
 
@@ -20,7 +21,7 @@ export class WebSocketService implements OnDestroy {
     this.startPing();
 
     window.addEventListener('focus', () => {
-      console.log('🔄 Ventana recibió foco');
+      console.log('🔄 Window received focus');
       if (!this.socket$ || this.socket$.closed) {
         this.reconnect();
       }
@@ -28,7 +29,7 @@ export class WebSocketService implements OnDestroy {
 
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'visible') {
-        console.log('👁 App volvió a foco');
+        console.log('👁 App regained focus');
         if (!this.socket$ || this.socket$.closed) {
           console.warn('Reconectando WebSocket tras volver a foco...');
           this.reconnect();

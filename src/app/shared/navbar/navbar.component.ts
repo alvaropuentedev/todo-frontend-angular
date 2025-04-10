@@ -97,7 +97,7 @@ export class NavbarComponent implements OnInit {
     ];
     if (this.mobileView) {
       this.positionSidebar = 'full';
-      this.drawerVisibleSignal.set(true);
+      this.drawerVisibleSignal.set(false);
     }
     this.loadLists();
   }
