@@ -32,7 +32,7 @@
     <h3 class="roboto upper font-bold text-center mt-4">No hay listas creadas</h3>
 }
 <!--  ITEMS LISTS  -->
-  <div class="max-h-[72vh] overflow-y-auto">
+  <div class="max-h-[72vh] overflow-y-auto pb-1">
     <app-todo-list-item [loading]="loading" [items]="items" (sharedLoadEvent)="loadItems()" />
   </div>
 } @placeholder (minimum 700ms) {
