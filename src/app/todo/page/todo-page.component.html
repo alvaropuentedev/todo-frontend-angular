@@ -2,7 +2,7 @@
 <!--<app-autumn />-->
 <!--<app-snowfall />-->
 <app-todo-add-item (sharedLoadEvent)="loadItems()" />
-@defer {
+@defer (when authStatus === 'authenticated') {
 <!--  LIST TITLE  -->
   @if ($listSelectedTitle()) {
   @if (this.mobileView) {
@@ -35,7 +35,7 @@
   <div class="max-h-[72vh] overflow-y-auto pb-1">
     <app-todo-list-item [loading]="loading" [items]="items" (sharedLoadEvent)="loadItems()" />
   </div>
-} @placeholder (minimum 700ms) {
+} @placeholder {
 <!-- component SPINNER-->
 <div class="inset-0 fixed flex w-full h-full items-center justify-center duration-300 transition-opacity" style="z-index: 6000">
   <div class="flex-col">

@@ -8,6 +8,7 @@ import { TodoService } from 'src/app/services/todo.service';
 import { NavbarComponent } from 'src/app/shared/navbar/navbar.component';
 import { WebSocketService } from "../../services/websocket.service";
 import { OverlayBadgeModule } from "primeng/overlaybadge";
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-todo-page',
@@ -17,6 +18,7 @@ import { OverlayBadgeModule } from "primeng/overlaybadge";
 export class TodoPageComponent implements OnInit, OnDestroy {
   private readonly todoService = inject(TodoService);
   private readonly webSocketService = inject(WebSocketService);
+  private readonly authService = inject(AuthService);
 
   public loading = true;
   public items: Item[] = [];
@@ -26,10 +28,12 @@ export class TodoPageComponent implements OnInit, OnDestroy {
   private wsSubscription: Subscription | undefined;
   private focusHandler?: () => void;
   public mobileView = window.innerWidth <= 768; // check mobil screen
-
+  public authStatus= this.authService.authStatus();
+  
   constructor() {
     this.currentDate = new Date();
     this.loadItems();
+    console.log(this.authStatus);
   }
 
   ngOnInit() {
