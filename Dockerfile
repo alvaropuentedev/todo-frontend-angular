@@ -1,5 +1,6 @@
-# Stage 1: Use the official Node image to build the application
-FROM node:22.0.0 as builder
+# Stage 1: 
+#Use the official Node image to build the application
+FROM node:22.14.0-alpine AS builder
 
 # Set the working directory
 WORKDIR /app
@@ -12,7 +13,7 @@ ENV WEBSOCKET_URL=$WEBSOCKET_URL
 
 # Copy configuration files and project dependencies
 COPY package*.json ./
-RUN npm install
+RUN npm ci --omit=dev
 
 # Copy the application source code
 COPY . .
@@ -20,7 +21,8 @@ COPY . .
 # Build the application
 RUN npm run build --prod
 
-# Stage 2: Use Nginx to serve the built application
+# Stage 2:     
+#Use Nginx to serve the built application
 FROM nginx:alpine
 
 # Copy the built application from the 'builder' to the Nginx directory

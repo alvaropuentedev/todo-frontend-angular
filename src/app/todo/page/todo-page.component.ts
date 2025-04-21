@@ -54,13 +54,13 @@ export class TodoPageComponent implements OnInit, OnDestroy {
     const count = this.items.length;
 
     if (count <= 3) {
-      return 'success'; // verde
+      return 'success'; // green
     } else if (count <= 6) {
-      return 'info'; // azul
+      return 'info'; // blue
     } else if (count <= 10) {
-      return 'warn'; // naranja
+      return 'warn'; // orange
     } else {
-      return 'danger'; // rojo
+      return 'danger'; // red
     }
   }
 
