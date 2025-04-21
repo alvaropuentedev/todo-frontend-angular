@@ -33,7 +33,6 @@ export class TodoPageComponent implements OnInit, OnDestroy {
   constructor() {
     this.currentDate = new Date();
     this.loadItems();
-    console.log(this.authStatus);
   }
 
   ngOnInit() {
