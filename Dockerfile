@@ -13,7 +13,7 @@ ENV WEBSOCKET_URL=$WEBSOCKET_URL
 
 # Copy configuration files and project dependencies
 COPY package*.json ./
-RUN npm ci --omit=dev
+RUN npm ci
 
 # Copy the application source code
 COPY . .
