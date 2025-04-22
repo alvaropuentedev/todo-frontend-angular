@@ -62,7 +62,7 @@ export class ListItemComponent implements OnInit {
   editItem(item: Item) {
     this.isEditing = true;
     this.editingItemId = item.id;
-    this.itemControl.patchValue(item.description.toLocaleUpperCase());
+    this.itemControl.patchValue(item.description);
   }
 
   updateItemDescription(item: Item) {
@@ -70,7 +70,7 @@ export class ListItemComponent implements OnInit {
       item.description.trim().toLocaleLowerCase() != this.itemControl.value!.trim().toLocaleLowerCase() &&
       this.itemControl.value!.trim().toLocaleLowerCase() != ''
     ) {
-      item.description = this.itemControl.value?.trim().toLocaleLowerCase() ?? '';
+      item.description = this.itemControl.value?.trim() ?? '';
       this.todoService.updateItemDescription(this.todoService.$list_id(), item.id, item).subscribe({
         next: () => {
           this.isEditing = false;

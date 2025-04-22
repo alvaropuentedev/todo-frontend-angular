@@ -21,7 +21,7 @@
       } @else {
         <div class="flex justify-between items-center">
           <strong (click)="editItem(item)" (keyup.enter)="editItem(item)"
-                  tabindex="0" class="cursor-pointer"> {{ item.description.toLocaleUpperCase() }} </strong>
+                  tabindex="0" class="cursor-pointer"> {{ item.description }} </strong>
           <div class="relative flex items-center justify-center">
             @if (this.mobileView) {
               <button class="z-10 bg-white p-2 rounded-full"
