@@ -67,8 +67,8 @@ export class ListItemComponent implements OnInit {
 
   updateItemDescription(item: Item) {
     if (
-      item.description.trim().toLocaleLowerCase() != this.itemControl.value!.trim().toLocaleLowerCase() &&
-      this.itemControl.value!.trim().toLocaleLowerCase() != ''
+      item.description.trim() != this.itemControl.value!.trim() &&
+      this.itemControl.value!.trim() != ''
     ) {
       item.description = this.itemControl.value?.trim() ?? '';
       this.todoService.updateItemDescription(this.todoService.$list_id(), item.id, item).subscribe({
