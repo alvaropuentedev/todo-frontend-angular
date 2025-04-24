@@ -98,6 +98,7 @@ export class ListItemComponent implements OnInit {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private pressTimers: { [key: number]: any } = {}; // Stores timers for each item ID
   public progressMap: { [key: number]: number } = {}; // Stores progress for each item ID
   private readonly renderer = inject(Renderer2);
@@ -140,6 +141,7 @@ export class ListItemComponent implements OnInit {
   }
 
   // const colors = ['#FFE3B5', '#FFD29D', '#AADFB1', '#6FCF97'];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private colorTimers: { [key: number]: any } = {}; // Stores timers for managing color transitions
 
   applyStyles(item_id: number): void {

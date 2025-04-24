@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 @import "primeicons/primeicons.css";
 @layer tailwind-base, primeng, tailwind-utilities;
 @layer tailwind-base {
@@ -9,23 +10,18 @@
     @tailwind utilities;
 }
 
+:root {
+  --font-inter: 'Inter', sans-serif;
+}
+
 /*Background all app*/
 body {
   margin: 0;
   height: 100vh;
   background-size: cover;
+  font-family: var(--font-inter);
 }
 
-@font-face {
-  font-family: 'Roboto-regular';
-  src: url('./assets/fonts/Roboto/Roboto-Regular.ttf') format('truetype');
-  font-style: normal;
-  font-weight: normal;
-}
-
-.roboto  {
-  font-family: 'Roboto-regular', sans-serif;
-}
 
 @media screen and ( max-width: 768px) {
   .customCard {

@@ -1,6 +1,3 @@
-#editInput {
-  font-family: Roboto, sans-serif;
-}
 
 button:focus {
   outline: none; /* Removes the focus outline (default blue border) */

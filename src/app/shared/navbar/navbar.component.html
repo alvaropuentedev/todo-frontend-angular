@@ -1,4 +1,4 @@
-<nav class="roboto flex h-20 w-full items-center justify-start md:justify-end bg-gradient-to-b from-[#3bbfa1] to-white">
+<nav class="flex h-20 w-full items-center justify-start md:justify-end bg-gradient-to-b from-[#3bbfa1] to-white">
   @if (userStatus() === 'authenticated') {
     <div class="flex items-center gap-2 w-full">
       <!-- <p-menu #menu [model]="menuOptions" [popup]="true"></p-menu> -->
@@ -57,7 +57,7 @@
             class="inline-flex ml-0 md:ml-4 text-sm md:text-base mb-3">
           </p-overlay-badge>
         </div>
-        <span class="upper text-center font-sans font-bold text-black">{{ user() }}</span>
+        <span class="upper text-center font-bold text-black">{{ user() }}</span>
       </ng-template>
       <ng-template pTemplate="content">
         <!-- LIST OF ITEMS -->
