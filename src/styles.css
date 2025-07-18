@@ -30,10 +30,23 @@ body {
   }
 }
 
-@media only screen and (min-width: 768px) and (max-width: 1023px) {
-  /* Tablets pequeños (iPads en modo vertical) */
+/* iPhone en modo horizontal */
+@media only screen and (min-width: 481px) and (max-width: 900px) and (orientation: landscape) {
   .customCard {
-    width: 55vh; /* Ajusta según tus necesidades */
+    width: 120vh;
+  }
+}
+
+/* iPads pequeños en vertical (como iPad Mini) */
+@media only screen and (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+  .customCard {
+    width: 55vh;
+  }
+}
+
+@media only screen and (min-width: 900px) and (max-width: 940px) and (orientation: landscape) {
+  .customCard {
+    width: 120vh; /* o lo que necesites */
   }
 }
 
