@@ -53,16 +53,18 @@
   >
     <div class="mb-5">
       <label for="editInput" class="block text-sm text-gray-600 mb-2">Update item information.</label>
-      <input 
+      <textarea 
         #editInput 
         type="text" 
+        rows="5"cols="30" pTextarea autoResize="true"
         id="editInput" 
         class="w-full p-2 border border-gray-300 rounded-md font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-400"
         [formControl]="itemControl" 
         pInputText 
         (keydown.enter)="updateItemDescription()" 
         autofocus
-      />
+      >
+      </textarea >
     </div>
     <div class="flex justify-end gap-2 mt-6">
       <p-button 
