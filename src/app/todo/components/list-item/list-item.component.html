@@ -2,8 +2,8 @@
   <div class="card flex justify-center items-center mt-4">
     <p-card styleClass="customCard" class="z-10 w-max border border-gray-100 rounded" id="card-{{ item.id }}">
         <div class="flex justify-between items-center">
-          <strong (click)="editItem(item)" (keyup.enter)="editItem(item)"
-                  tabindex="0" class="cursor-pointer"> {{ item.description }} 
+          <strong (click)="editItem(item)" (keyup.enter)="editItem(item)" tabindex="0" class="cursor-pointer"
+                  style="overflow-wrap: anywhere; word-break: break-word;"> {{ item.description }} 
           </strong>
           <div class="relative flex items-center justify-center">
             @if (this.mobileView) {
