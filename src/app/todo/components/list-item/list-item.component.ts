@@ -19,11 +19,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
+import { FloatLabel } from 'primeng/floatlabel';
 
 
 @Component({
   selector: 'app-todo-list-item',
-  imports: [ToastModule, CardModule, ReactiveFormsModule, InputTextModule, Dialog, ButtonModule],
+  imports: [ToastModule, CardModule, ReactiveFormsModule, InputTextModule, Dialog, ButtonModule, FloatLabel],
   providers: [MessageService],
   templateUrl: './list-item.component.html',
   styleUrls: ['./list-item.component.css']

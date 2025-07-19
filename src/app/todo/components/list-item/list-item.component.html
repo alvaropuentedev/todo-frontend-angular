@@ -51,7 +51,7 @@
     (onHide)="onDialogCancel()"
     [dismissableMask]="true"
   >
-    <div class="mb-5">
+    <p-floatlabel variant="on" class="mt-1 mb-5">
       <label for="editInput" class="block text-sm text-gray-600 mb-2">Update item information.</label>
       <textarea 
         #editInput 
@@ -65,7 +65,7 @@
         autofocus
       >
       </textarea >
-    </div>
+    </p-floatlabel>
     <div class="flex justify-end gap-2 mt-6">
       <p-button 
         label="Cancel" 
