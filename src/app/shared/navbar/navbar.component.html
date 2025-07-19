@@ -75,7 +75,7 @@
                   class="mr-2 h-6 w-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
-                <span> Nueva Lista </span>
+                <span> New List </span>
               </button>
             </div>
       <!--    search list form    -->
@@ -188,14 +188,14 @@
         <div class="mt-4 flex items-center gap-2">
           <button
             pButton
-            label="Aceptar"
-            (click)="cdDelete.onAccept()"
-            class="w-32 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"></button>
-          <button
-            pButton
-            label="Cancelar"
+            label="Cancel"
             (click)="cdDelete.onReject()"
             class="w-32 rounded border border-gray-300 px-4 py-2 font-bold text-white hover:border-gray-500"></button>
+          <button
+            pButton
+            label="Accept"
+            (click)="cdDelete.onAccept()"
+            class="w-32 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"></button>
         </div>
       </div>
     </ng-template>
@@ -223,14 +223,14 @@
       <div class="mt-4 flex items-center gap-2">
         <button
           pButton
-          (click)="cdWithInput.onAccept()"
-          label="Aceptar"
-          class="w-32 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"></button>
+          (click)="cdWithInput.onReject()"
+          label="Cancel"
+          class="w-32 rounded border border-gray-300 px-4 py-2 font-bold text-white hover:border-gray-500"></button>
         <button
           pButton
-          (click)="cdWithInput.onReject()"
-          label="Cancelar"
-          class="w-32 rounded border border-gray-300 px-4 py-2 font-bold text-white hover:border-gray-500"></button>
+          (click)="cdWithInput.onAccept()"
+          label="Accept"
+          class="w-32 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"></button>
       </div>
     </div>
   </ng-template>
