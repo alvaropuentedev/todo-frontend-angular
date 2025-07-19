@@ -1,27 +1,10 @@
 @for (item of items; track item.id) {
   <div class="card flex justify-center items-center mt-4">
     <p-card styleClass="customCard" class="z-10 w-max border border-gray-100 rounded" id="card-{{ item.id }}">
-      @if (isEditing && editingItemId === item.id) {
-        <div class="flex justify-between items-center">
-          <strong>
-            <input #editInput type="text" id="editInput" class="font-bold" [formControl]="itemControl" pInputText
-                   (blur)="updateItemDescription(item)" (keydown.enter)="updateItemDescription(item)" autofocus/>
-          </strong>
-          <button (click)="updateItemDescription(item)">
-            <svg class="hidden md:block w-6 h-6 text-emerald-500 dark:text-white" aria-hidden="true"
-                 xmlns="http://www.w3.org/2000/svg"
-                 width="24" height="24" fill="none" viewBox="0 0 24 24">
-              <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
-                    d="M11 16h2m6.707-9.293-2.414-2.414A1 1 0 0 0 16.586
-                    4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V7.414a1 1 0 0 0-.293-.707ZM16
-                    20v-6a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v6h8ZM9 4h6v3a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V4Z"/>
-            </svg>
-          </button>
-        </div>
-      } @else {
         <div class="flex justify-between items-center">
           <strong (click)="editItem(item)" (keyup.enter)="editItem(item)"
-                  tabindex="0" class="cursor-pointer"> {{ item.description }} </strong>
+                  tabindex="0" class="cursor-pointer"> {{ item.description }} 
+          </strong>
           <div class="relative flex items-center justify-center">
             @if (this.mobileView) {
               <button class="z-10 bg-white p-2 rounded-full"
@@ -54,8 +37,45 @@
               </div>
             }
           </div>
-        </div>
-      }
+        </div>      
     </p-card>
   </div>
 }
+<!-- EDIT ITEM DIALOG -->
+<div class="card flex justify-center">
+  <p-dialog 
+    header="Edit Item"
+    [modal]="true" 
+    [(visible)]="visible" 
+    [style]="{ width: '22rem' }" 
+    (onHide)="onDialogCancel()"
+    [dismissableMask]="true"
+  >
+    <div class="mb-5">
+      <label for="editInput" class="block text-sm text-gray-600 mb-2">Update item information.</label>
+      <input 
+        #editInput 
+        type="text" 
+        id="editInput" 
+        class="w-full p-2 border border-gray-300 rounded-md font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-400"
+        [formControl]="itemControl" 
+        pInputText 
+        (keydown.enter)="updateItemDescription()" 
+        autofocus
+      />
+    </div>
+    <div class="flex justify-end gap-2 mt-6">
+      <p-button 
+        label="Cancel" 
+        severity="secondary" 
+        (click)="visible = false"
+        styleClass="p-button-outlined"
+      ></p-button>
+      <p-button 
+        label="Update" 
+        (click)="updateItemDescription()"
+      ></p-button>
+    </div>
+  </p-dialog>
+</div>
+

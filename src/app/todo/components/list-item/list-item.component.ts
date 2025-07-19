@@ -17,11 +17,13 @@ import { MessageService } from 'primeng/api';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Dialog } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
 
 
 @Component({
   selector: 'app-todo-list-item',
-  imports: [ToastModule, CardModule, ReactiveFormsModule, InputTextModule],
+  imports: [ToastModule, CardModule, ReactiveFormsModule, InputTextModule, Dialog, ButtonModule],
   providers: [MessageService],
   templateUrl: './list-item.component.html',
   styleUrls: ['./list-item.component.css']
@@ -58,26 +60,36 @@ export class ListItemComponent implements OnInit {
   }
 
   itemControl = new FormControl('');
-
+  visible: boolean = false;
   editItem(item: Item) {
-    this.isEditing = true;
+    // this.isEditing = true;
+    this.visible = true;
     this.editingItemId = item.id;
     this.itemControl.patchValue(item.description);
   }
 
-  updateItemDescription(item: Item) {
-    if (
-      item.description.trim() != this.itemControl.value!.trim() &&
-      this.itemControl.value!.trim() != ''
-    ) {
-      item.description = this.itemControl.value?.trim() ?? '';
+  updateItemDescription() {
+    const item = this.items.find(i => i.id === this.editingItemId);
+    if (!item) return;
+  
+    const newValue = this.itemControl.value?.trim() ?? '';
+    if (newValue !== '' && newValue !== item.description.trim()) {
+      item.description = newValue;
       this.todoService.updateItemDescription(this.todoService.$list_id(), item.id, item).subscribe({
         next: () => {
-          this.isEditing = false;
+          this.visible = false;
+          this.editingItemId = null;
         },
       });
+    } else {
+      this.visible = false;
+      this.editingItemId = null;
     }
-    this.isEditing = false;
+  }
+
+  onDialogCancel() {
+    this.visible = false;
+    this.editingItemId = null;
   }
 
   deleteItem(item_id: number, description: string) {
