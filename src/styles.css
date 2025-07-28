@@ -20,6 +20,12 @@ body {
   height: 100vh;
   background-size: cover;
   font-family: var(--font-inter);
+
+  overscroll-behavior-y: contain; /* Prevents overscroll on mobile devices */
+  overscroll-behavior-x: contain; /* Prevents overscroll on mobile devices */
+  -webkit-user-select: none; /* Prevents text selection on mobile devices */
+  -webkit-tap-highlight-color: transparent; /* Removes the tap highlight on touch devices */
+  -webkit-touch-callout: none; /* Prevents callout on touch devices */
 }
 
 
@@ -75,4 +81,5 @@ body {
 .upper{
   text-transform: uppercase;
 }
+
 

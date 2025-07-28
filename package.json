@@ -5,6 +5,7 @@
     "ng": "ng",
     "envs": "node ./scripts/set-envs.js",
     "start": "npm run envs && ng serve",
+    "mobile": "npm run envs && ng serve --host 0.0.0.0",
     "build": "npm run envs && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
