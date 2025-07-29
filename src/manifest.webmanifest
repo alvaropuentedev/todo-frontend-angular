@@ -1,7 +1,6 @@
 {
   "name": "Termin",
   "short_name": "Termin",
-  "theme_color": "#3bbfa1",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "./",
