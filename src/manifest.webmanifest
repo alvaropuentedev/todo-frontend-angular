@@ -1,11 +1,13 @@
 {
   "name": "Termin",
   "short_name": "Termin",
-  "theme_color": "#3bbfa1",
-  "background_color": "#3bbfa1",
+  "description": "Termin - Your app for easy task management",
+  "theme_color": "#fafafa",
+  "background_color": "#fafafa",
   "display": "standalone",
-  "scope": "./",
-  "start_url": "./",
+  "scope": "/",
+  "start_url": "/?source=pwa",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "assets/icons/android-chrome-192x192.png",
@@ -18,6 +20,16 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable any"
+    },
+    {
+      "src": "assets/icons/android-chrome-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/android-chrome-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
     }
   ]
 }
