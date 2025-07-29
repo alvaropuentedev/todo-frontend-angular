@@ -1,13 +1,11 @@
 {
   "name": "Termin",
   "short_name": "Termin",
-  "description": "Termin - Your app for easy task management",
-  "theme_color": "#fafafa",
-  "background_color": "#fafafa",
+  "theme_color": "#3bbfa1",
+  "background_color": "#3bbfa1",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
-  "orientation": "portrait",
   "icons": [
     {
       "src": "assets/icons/android-chrome-192x192.png",
