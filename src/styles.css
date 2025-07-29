@@ -20,7 +20,6 @@ body {
   height: 100vh;
   background-size: cover;
   font-family: var(--font-inter);
-  background-color: #ffffff;
 
   overscroll-behavior-y: contain; /* Prevents overscroll on mobile devices */
   overscroll-behavior-x: contain; /* Prevents overscroll on mobile devices */
