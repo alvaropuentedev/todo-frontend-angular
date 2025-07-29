@@ -1,9 +1,10 @@
 {
   "name": "Termin",
   "short_name": "Termin",
-  "theme_color": "#3bbfa1",
-  "background_color": "#3bbfa1",
+  "theme_color": "#fafafa",
+  "background_color": "#fafafa",
   "display": "standalone",
+  "orientation": "portrait",
   "scope": "./",
   "start_url": "./",
   "icons": [
