@@ -97,19 +97,20 @@ export class ListItemComponent implements OnInit {
     this.todoService.deleteItem(item_id).subscribe(() => {
       this.itemDescription = description;
       this.todoService.onsharedLoad(this.sharedLoadEvent);
-      this.showSuccessMessage();
+      this.showSuccessMessage(this.mobileView);
     });
   }
 
-  showSuccessMessage() {
+  showSuccessMessage(isMobile: boolean) {
     this.messageService.add({
-      key: 'toastSucces',
+      key: isMobile ? 'mobileToast' : 'desktopToast',
       severity: 'info',
       icon: 'pi pi-check',
       summary: 'Completado!',
       detail: this.itemDescription,
     });
   }
+  
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private pressTimers: { [key: number]: any } = {}; // Stores timers for each item ID

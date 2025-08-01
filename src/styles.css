@@ -28,52 +28,20 @@ body {
   -webkit-touch-callout: none; /* Prevents callout on touch devices */
 }
 
+.customCard {
+  width: 90vw;
+  max-width: 480px;
+}
 
-@media screen and (max-width: 767px) {
-  /* Estilos para móviles pequeños */
+@media screen and (min-width: 768px) {
   .customCard {
-    width: 40vh; /* Ajusta según tus necesidades */
+    max-width: 600px;
   }
 }
 
-/* iPhone en modo horizontal */
-@media only screen and (min-width: 481px) and (max-width: 900px) and (orientation: landscape) {
+@media screen and (min-width: 1200px) {
   .customCard {
-    width: 120vh;
-  }
-}
-
-/* iPads pequeños en vertical (como iPad Mini) */
-@media only screen and (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
-  .customCard {
-    width: 55vh;
-  }
-}
-
-@media only screen and (min-width: 900px) and (max-width: 940px) and (orientation: landscape) {
-  .customCard {
-    width: 120vh; /* o lo que necesites */
-  }
-}
-
-@media only screen and (min-width: 1024px) and (max-width: 1199px) {
-  /* Tablets grandes (iPads en modo horizontal) */
-  .customCard {
-    width: 65vh; /* Ajusta según tus necesidades */
-  }
-}
-
-@media only screen and (min-width: 1200px) and (max-width: 1439px) {
-  /* Pantallas Full HD (1080px) */
-  .customCard {
-    width: 70vh; /* Ajusta según tus necesidades */
-  }
-}
-
-@media only screen and (min-width: 1440px) {
-  /* Pantallas WQHD (1440px y superiores) */
-  .customCard {
-    width: 75vh; /* Ajusta según tus necesidades */
+    max-width: 700px;
   }
 }
 

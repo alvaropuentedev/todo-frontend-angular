@@ -1,3 +1,7 @@
+
+<p-toast key="mobileToast" position="top-center" [styleClass]="'z-50'" [style]="{ width: '40vh' }"></p-toast>
+<p-toast key="desktopToast" position="top-right" [styleClass]="'z-50'" [style]="{ width: '40vh' }"></p-toast>
+
 @for (item of items; track item.id) {
   <div class="card flex justify-center items-center mt-4">
     <p-card styleClass="customCard" class="z-10 w-max border border-gray-100 rounded" id="card-{{ item.id }}">
@@ -6,36 +10,20 @@
                   style="overflow-wrap: anywhere; word-break: break-word;"> {{ item.description }} 
           </strong>
           <div class="relative flex items-center justify-center">
-            @if (this.mobileView) {
               <button class="z-10 bg-white p-2 rounded-full"
-                      (mousedown)="startPress(item.id, item.description)"
-                      (mouseup)="cancelPress(item.id)"
-                      (mouseleave)="cancelPress(item.id)"
-                      (touchstart)="startPress(item.id, item.description)"
-                      (touchend)="cancelPress(item.id)"
-                      (touchcancel)="cancelPress(item.id)">
+                (click)="mobileView ? null : deleteItem(item.id, item.description)"
+                (mousedown)="mobileView && startPress(item.id, item.description)"
+                (mouseup)="mobileView && cancelPress(item.id)"
+                (mouseleave)="mobileView && cancelPress(item.id)"
+                (touchstart)="mobileView && startPress(item.id, item.description)"
+                (touchend)="mobileView && cancelPress(item.id)"
+                (touchcancel)="mobileView && cancelPress(item.id)">
                 <svg class="w-6 h-6 text-red-500 dark:text-white" aria-hidden="true"
                      xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                         stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/>
                 </svg>
               </button>
-              <div class="card flex justify-content-center gap-2">
-                <p-toast position="top-center" key="toastSucces" [style]="{ width: '40vh' }"></p-toast>
-              </div>
-            } @else {
-              <button class="z-10 bg-white p-2 rounded-full"
-                  (click)="deleteItem(item.id, item.description)">
-                <svg class="w-6 h-6 text-red-500 dark:text-white" aria-hidden="true"
-                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                        stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/>
-                </svg>
-              </button>
-              <div class="card flex justify-content-center gap-2">
-                <p-toast position="top-right" key="toastSucces" [style]="{ width: '40vh' }"></p-toast>
-              </div>
-            }
           </div>
         </div>      
     </p-card>
