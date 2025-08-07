@@ -28,7 +28,7 @@ export class LoginComponent {
   submitFormLogin() {
     this.buttonLogin = true;
     const { username, password } = this.loginForm.value;
-    this.authService.login(username.toLowerCase(), password).subscribe({
+    this.authService.login(username.toLowerCase().trim(), password).subscribe({
       next: () => {
         this.router.navigateByUrl('/todo/list');
         this.buttonLogin = false;

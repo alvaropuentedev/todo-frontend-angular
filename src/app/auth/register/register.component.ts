@@ -30,7 +30,7 @@ export class RegisterComponent {
     const passwordConfirm = this.registerForm.get('confirmPassword');
 
     // Transform the value of the username field to lowercase.
-    const username = this.registerForm.get('username')!.value.toLowerCase();
+    const username = this.registerForm.get('username')!.value.toLowerCase().trim();
 
     if (
       password!.value !== '' &&
