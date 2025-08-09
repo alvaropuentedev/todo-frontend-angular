@@ -3,27 +3,31 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { CommonModule } from '@angular/common';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
-    selector: 'app-login',
-    imports: [CommonModule, ReactiveFormsModule, RouterModule],
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+  selector: 'app-login',
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, ToastModule],
+  providers: [MessageService],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
   private readonly fb = inject(FormBuilder);
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly messageService = inject(MessageService);
 
   public buttonLogin = false;
-  public showAlert = false;
+  public mobileView = window.innerWidth <= 768; // check mobil screen
 
   public loginForm: FormGroup = this.fb.group({
     username: ['', Validators.required],
     password: ['', Validators.required],
   });
 
-  constructor() { }
+  constructor() {}
 
   submitFormLogin() {
     this.buttonLogin = true;
@@ -35,14 +39,17 @@ export class LoginComponent {
       },
       error: () => {
         this.buttonLogin = false;
-        this.showAlert = true;
-        setTimeout(() => {
-          this.showAlert = false;
-        }, 3000);
+        this.showSuccessMessage(this.mobileView);
+      },
+    });
+  }
 
-      }
-    }
-
-    );
+  showSuccessMessage(isMobile: boolean) {
+    this.messageService.add({
+      key: isMobile ? 'mobileToast' : 'desktopToast',
+      severity: 'error',
+      icon: 'pi pi-check',
+      summary: 'Not valid credentials',
+    });
   }
 }

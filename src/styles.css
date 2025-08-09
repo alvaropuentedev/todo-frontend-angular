@@ -50,4 +50,16 @@ body {
   text-transform: uppercase;
 }
 
+/* Base style for mobile in portrait orientation */
+::ng-deep p-toast.mobile-toast {
+  width: 40vh !important;
+}
+
+/* When the mobile device is in landscape orientation */
+@media (orientation: landscape) {
+  ::ng-deep p-toast.mobile-toast {
+    width: 70vh !important;
+  }
+}
+
 
