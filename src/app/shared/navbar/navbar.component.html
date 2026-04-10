@@ -1,4 +1,4 @@
-<nav class="flex h-20 w-full items-center justify-start md:justify-end bg-gradient-to-b from-[#3bbfa1] to-white">
+<nav class="flex h-20 w-full items-center justify-start md:justify-end bg-white">
   @if (userStatus() === 'authenticated') {
     <div class="flex items-center gap-2 w-full">
       <!-- <p-menu #menu [model]="menuOptions" [popup]="true"></p-menu> -->
@@ -9,11 +9,14 @@
               <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
-          <button (click)="shareListWithUser($event)" class="flex items-center bg-gray-200 text-gray-800 font-medium rounded-full px-4 py-2 shadow-inner hover:bg-gray-200 transition mr-3">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-black-500 mr-1" fill="currentColor" viewBox="0 0 24 24">
+          <button (click)="shareListWithUser($event)" 
+            class="flex items-center bg-slate-100 text-slate-700 font-semibold rounded-full px-4 py-1.5 border border-slate-200 shadow-sm hover:bg-white hover:border-slate-300 transition-all duration-200 active:scale-95 mr-3">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-600 mr-2" fill="currentColor" viewBox="0 0 24 24">
               <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7a3.01 3.01 0 000-1.4l7.02-4.11a2.996 2.996 0 10-.97-1.72L7.93 9.58a3 3 0 100 4.83l7.1 4.14a2.996 2.996 0 101.96-2.47z"/>
             </svg>
-            <span>Share</span>
+
+            <span class="text-sm tracking-tight">Share</span>
           </button>
         </div>
         <div class="card flex justify-content-center gap-2">
