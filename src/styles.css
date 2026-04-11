@@ -27,6 +27,8 @@ body {
   -webkit-user-select: none; /* Prevents text selection on mobile devices */
   -webkit-tap-highlight-color: transparent; /* Removes the tap highlight on touch devices */
   -webkit-touch-callout: none; /* Prevents callout on touch devices */
+  -webkit-font-smoothing: antialiased; /* Improves font rendering on WebKit browsers */
+  -moz-osx-font-smoothing: grayscale; /* Improves font rendering on Firefox for macOS */
 }
 
 .customCard {
