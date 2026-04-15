@@ -6,7 +6,7 @@
   <div class="card flex justify-center items-center mt-4">
     <p-card styleClass="customCard" class="z-10 w-max border border-gray-100 rounded" id="card-{{ item.id }}">
         <div class="flex justify-between items-center">
-          <a (click)="editItem(item)" (keyup.enter)="editItem(item)" tabindex="0" class="text-slate-800 cursor-pointer"
+          <a (click)="editItem(item)" (keyup.enter)="editItem(item)" tabindex="0" class="text-slate-800 font-medium cursor-pointer"
                   style="overflow-wrap: anywhere; word-break: break-word;"> {{ item.description }} 
           </a>
           <div class="relative flex items-center justify-center">
