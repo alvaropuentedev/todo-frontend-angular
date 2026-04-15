@@ -6,9 +6,9 @@
   <div class="card flex justify-center items-center mt-4">
     <p-card styleClass="customCard" class="z-10 w-max border border-gray-100 rounded" id="card-{{ item.id }}">
         <div class="flex justify-between items-center">
-          <strong (click)="editItem(item)" (keyup.enter)="editItem(item)" tabindex="0" class="cursor-pointer"
+          <a (click)="editItem(item)" (keyup.enter)="editItem(item)" tabindex="0" class="text-slate-800 cursor-pointer"
                   style="overflow-wrap: anywhere; word-break: break-word;"> {{ item.description }} 
-          </strong>
+          </a>
           <div class="relative flex items-center justify-center">
               <button class="z-10 bg-white p-2 rounded-full"
                 (click)="mobileView ? null : deleteItem(item.id, item.description)"
@@ -18,7 +18,7 @@
                 (touchstart)="mobileView && startPress(item.id, item.description)"
                 (touchend)="mobileView && cancelPress(item.id)"
                 (touchcancel)="mobileView && cancelPress(item.id)">
-                <svg class="w-8 h-8 p-2 rounded-lg bg-red-300 text-gray-600 dark:text-white" aria-hidden="true" 
+                <svg class="w-8 h-8 p-2 rounded-lg bg-red-300 text-slate-600 dark:text-white" aria-hidden="true" 
                   xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
                         d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
