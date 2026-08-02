@@ -4,7 +4,6 @@
   "navigationUrls": [
     "/**",
     "!/apitodo/**",
-    "!/apitodo",
     "!/**/*.*"
   ],
   "assetGroups": [
@@ -30,6 +29,20 @@
           "/assets/**",
           "/media/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
         ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "api-data",
+      "urls": [
+        "/apitodo/**"
+      ],
+      "cacheConfig": {
+        "maxSize": 100,
+        "maxAge": "1h",
+        "strategy": "freshness",
+        "timeout": "10s"
       }
     }
   ]
