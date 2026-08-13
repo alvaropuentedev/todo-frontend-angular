@@ -12,7 +12,13 @@
     </form>
   </div>
   <div class="flex justify-center">
-    <p-button (click)="submitForm()" label="Add" icon="pi pi-plus" size="small"></p-button>
+    <p-button (click)="submitForm()"
+      [label]="isSubmitting ? 'Adding...' : 'Add'"
+      icon="pi pi-plus"
+      size="small"
+      [disabled]="isSubmitting"
+      [loading]="isSubmitting">
+    </p-button>
   </div>
 </p-dialog>
 @if ($showAddButton()) {

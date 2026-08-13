@@ -24,6 +24,8 @@ export class AddItemComponent {
   public $showAddButton = this.todoService.$showAddButton;
   public handleFocus = this.todoService.handleFocus;
 
+  // Avoid duplicate items while the form is being submitted
+  public isSubmitting = false;
 
   public item: Item = {
     id: 0,
@@ -46,8 +48,12 @@ export class AddItemComponent {
   }
 
   submitForm() {
+    // Prevent multiple submissions
+    if (this.isSubmitting) return;
+
     const description = this.addItemForm.value.description;
     if (description && description.trim() !== '') {
+      this.isSubmitting = true; // Set the flag to true to indicate submission in progress
       const item: Item = {
         id: 0,
         description: description.trim(),
@@ -57,9 +63,15 @@ export class AddItemComponent {
           this.addItemForm.reset();
           this.todoService.onsharedLoad(this.sharedLoadEvent);
           this.showModal = false;
+          this.isSubmitting = false;
         },
-        error: () => {
-          console.error('Duplicate description');
+        error: (error) => {
+          this.isSubmitting = false;
+          if (error.status === 429) {
+            console.error('Please wait before adding another item');
+          } else {
+            console.error('Error adding item:', error);
+          }
           this.showModal = false;
         },
       });
