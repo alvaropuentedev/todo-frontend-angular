@@ -78,7 +78,7 @@
                   class="mr-2 h-6 w-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
-                <span> New List </span>
+                <span> Nueva Lista </span>
               </button>
             </div>
       <!--    search list form    -->
@@ -125,14 +125,14 @@
             <button (click)="settingModalVisible = true">
               <a class="cursor-pointer">
                 <i class="pi pi-cog"></i>
-                <span> Settings </span>
+                <span> Opciones </span>
               </a>
             </button>
           </li>
           <li>
             <button (click)="logout()" class="cursor-pointer text-black">
               <i class="pi pi-sign-out"></i>
-              <span> Sign out </span>
+              <span> Cerrar sesión </span>
             </button>
           </li>
         </ul>
@@ -191,12 +191,12 @@
         <div class="mt-4 flex items-center gap-2">
           <button
             pButton
-            label="Cancel"
+            label="Cancelar"
             (click)="cdDelete.onReject()"
             class="w-32 rounded border border-gray-300 px-4 py-2 font-bold text-white hover:border-gray-500"></button>
           <button
             pButton
-            label="Accept"
+            label="Aceptar"
             (click)="cdDelete.onAccept()"
             class="w-32 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"></button>
         </div>
@@ -227,12 +227,12 @@
         <button
           pButton
           (click)="cdWithInput.onReject()"
-          label="Cancel"
+          label="Cancelar"
           class="w-32 rounded border border-gray-300 px-4 py-2 font-bold text-white hover:border-gray-500"></button>
         <button
           pButton
           (click)="cdWithInput.onAccept()"
-          label="Accept"
+          label="Aceptar"
           class="w-32 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"></button>
       </div>
     </div>

@@ -8,7 +8,7 @@
       class="w-full rounded-lg bg-white shadow dark:border dark:border-gray-700 dark:bg-gray-800 sm:max-w-md md:mt-0 xl:p-0">
       <div class="space-y-4 p-6 sm:p-8 md:space-y-6">
         <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white md:text-2xl">
-          Sign in to your account
+          Inicia sesión en tu cuenta
         </h1>
         <form [formGroup]="loginForm" (submit)="submitFormLogin()" class="space-y-4 md:space-y-6">
           <div>
@@ -27,7 +27,7 @@
           </div>
           <div>
             <label for="password" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-              >Password</label
+              >Contraseña</label
             >
             <input
               formControlName="password"
@@ -46,16 +46,16 @@
               @if (buttonLogin) {
                 <span class="loading loading-spinner loading-sm"></span>
               } @else {
-                Sign in
+                Iniciar sesión
               }
             </button>
           </div>
           <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-            Don’t have an account yet?
+            No tienes una cuenta?
             <a
               routerLink="/auth/register"
               class="text-primary-600 dark:text-primary-500 font-medium underline hover:cursor-pointer"
-              >Sign up</a
+              >Regístrate</a
             >
           </p>
         </form>

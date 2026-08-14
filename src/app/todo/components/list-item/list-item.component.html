@@ -5,12 +5,12 @@
     [class.undo-message-exit]="isExiting"
     [class.undo-message]="!isExiting">
     
-    <span class="text-sm font-semibold">Item Deleted</span>
+    <!-- <span class="text-sm font-semibold">Item Deleted</span> -->
     
     <button 
       (click)="undoDelete()"
       class="relative overflow-hidden bg-white text-[#4E81A3] hover:bg-slate-100 px-4 py-1 rounded-lg text-sm font-bold transition">
-      Undo
+      Deshacer
     </button>
     <span class="timer-bar"></span>
   </div>
