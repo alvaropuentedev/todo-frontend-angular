@@ -22,7 +22,6 @@ export class AddItemComponent {
   @Output() sharedLoadEvent = new EventEmitter<void>();
   public userID = computed(() => this.authService.currentUserID());
   public $showAddButton = this.todoService.$showAddButton;
-  public handleFocus = (event: any, inputEl: any) => this.todoService.handleFocus(event, inputEl);
 
   // Avoid duplicate items while the form is being submitted
   public isSubmitting = false;
@@ -45,6 +44,12 @@ export class AddItemComponent {
     this.todoService.hapticsImpactVibration();
     this.addItemForm.reset();
     this.showModal = true;
+
+    // Focus withdelay for iOS
+    setTimeout(() => {
+      const input = document.querySelector('input[formControlName="description"]') as HTMLInputElement;
+      input?.focus();
+    }, 100);
   }
 
   submitForm() {

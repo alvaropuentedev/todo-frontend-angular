@@ -49,17 +49,17 @@ export class TodoService {
     );
   }
 
-  handleFocus(event: any, inputEl: any) {
-    const el = inputEl?.nativeElement || inputEl;
-    if (el && typeof el.focus === 'function') {
-      el.focus();
+  // Vibration function with fallback
+  async hapticsImpactVibration() {
+    try {
+      await Haptics.impact({ style: ImpactStyle.Heavy });
+    } catch (error) {
+      // Fallback for iOS if Capacitor doesn't work
+      if (navigator.vibrate) {
+        navigator.vibrate([20, 10, 20]);
+      }
     }
   }
-
-  // Vibration function
-  hapticsImpactVibration = async () => {
-    await Haptics.impact({style: ImpactStyle.Heavy});
-  };
 
   // ITEMS
   addItem(list_id: number, body: Item): Observable<Item> {

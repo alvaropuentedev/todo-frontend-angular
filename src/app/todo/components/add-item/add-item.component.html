@@ -1,7 +1,6 @@
 <p-dialog header="Añadir Item"
           [(visible)]="showModal"
           [modal]="true"
-          (onShow)="handleFocus($event, inputEl)"
           [draggable]="false" [resizable]="false"
           [dismissableMask]="true"
           [transitionOptions]="'0ms'"
@@ -10,12 +9,12 @@
   <div class="p-5">
     <form [formGroup]="addItemForm" (ngSubmit)="submitForm()">
       <h2 class="text-2xl font-semibold text-center mb-4">Añadir Item</h2>
-      <input #inputEl pInputText type="text" class="caret-black" formControlName="description" placeholder="Añadir Item"/>
+      <input #inputEl pInputText type="text" class="caret-black" formControlName="description" placeholder="Añadir Item" autofocus/>
     </form>
   </div>
   <div class="flex justify-center">
     <p-button (click)="submitForm()"
-      [label]="isSubmitting ? 'Adding...' : 'Añadir'"
+      [label]="isSubmitting ? 'Añadiendo...' : 'Añadir'"
       icon="pi pi-plus"
       size="small"
       [disabled]="isSubmitting"

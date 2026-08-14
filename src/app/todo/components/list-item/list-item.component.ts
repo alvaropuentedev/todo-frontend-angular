@@ -50,8 +50,8 @@ export class ListItemComponent implements OnInit {
   public showUndoMessage = false;
   public undoTimeLeft = 5;
   private deletedItemId: number | null = null;
-  private undoTimeout: any;
-  private countdownInterval: any;
+  private undoTimeout: NodeJS.Timeout | null = null;
+  private countdownInterval: NodeJS.Timeout | null = null;
   private deletedItemData: Item | null = null;
   private deletedItemIndex: number = -1;
   public isExiting = false;
@@ -132,8 +132,8 @@ export class ListItemComponent implements OnInit {
   undoDelete() {
     this.isExiting = true;
 
-    clearTimeout(this.undoTimeout);
-    clearInterval(this.countdownInterval);
+    this.undoTimeout && clearTimeout(this.undoTimeout);
+    this.countdownInterval && clearInterval(this.countdownInterval);
 
     setTimeout(() => {
       this.showUndoMessage = false;
@@ -147,7 +147,7 @@ export class ListItemComponent implements OnInit {
   }
 
   private confirmDelete(item_id: number) {
-    clearInterval(this.countdownInterval);
+    this.countdownInterval && clearInterval(this.countdownInterval);
     
     this.todoService.deleteItem(item_id).subscribe(() => {
       this.showUndoMessage = false;
