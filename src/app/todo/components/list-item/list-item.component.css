@@ -4,6 +4,35 @@ button:focus {
   -webkit-tap-highlight-color: transparent; /* Removes the tap highlight on touch devices (like mobile) */
 }
 
+@keyframes slideUp {
+  from {
+    transform: translateY(100px) translateX(-50%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) translateX(-50%);
+    opacity: 1;
+  }
+}
+
+.undo-message {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateY(0) translateX(-50%);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100px) translateX(-50%);
+    opacity: 0;
+  }
+}
+
+.undo-message-exit {
+  animation: slideOut 0.3s ease-in;
+}
 /*:host ::ng-deep .p-card {*/
 /*  border-radius: 25px;*/
 /*  border: 2px solid black;*/

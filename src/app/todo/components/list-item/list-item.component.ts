@@ -45,6 +45,17 @@ export class ListItemComponent implements OnInit {
   public drawerVisibleSignal = this.todoService.drawerVisibleSignal;
   public mobileView = window.innerWidth <= 768; // check mobil screen
 
+  // Undo variables
+  public isDeleting = false;
+  public showUndoMessage = false;
+  public undoTimeLeft = 5;
+  private deletedItemId: number | null = null;
+  private undoTimeout: any;
+  private countdownInterval: any;
+  private deletedItemData: Item | null = null;
+  private deletedItemIndex: number = -1;
+  public isExiting = false;
+
   constructor() {
     this.deleteAudio = new Audio();
     this.deleteAudio.src = 'assets/audio/LetitgoDeleteSound.mp3';
@@ -92,22 +103,70 @@ export class ListItemComponent implements OnInit {
     this.visible = false;
     this.editingItemId = null;
   }
-
+  
   deleteItem(item_id: number, description: string) {
+    this.isDeleting = true;
+    this.deletedItemId = item_id;
+    
+    // Save the item before removing it
+    this.deletedItemIndex = this.items.findIndex(i => i.id === item_id);
+    if (this.deletedItemIndex > -1) {
+      this.deletedItemData = { ...this.items[this.deletedItemIndex] };
+      // Remove visually immediately
+      this.items.splice(this.deletedItemIndex, 1);
+    }
+
+    this.showUndoMessage = true;
+    this.undoTimeLeft = 5;
+    this.itemDescription = description;
+
+    // Countdown visual
+    this.countdownInterval = setInterval(() => {
+      this.undoTimeLeft--;
+    }, 1000);
+
+    // Delete after 5 seconds
+    this.undoTimeout = setTimeout(() => {
+      this.confirmDelete(item_id);
+    }, 5000);
+
+    this.showSuccessMessage(this.itemDescription, 'info', this.mobileView, '✓ Deleted');
+  }
+  undoDelete() {
+    this.isExiting = true;
+
+    clearTimeout(this.undoTimeout);
+    clearInterval(this.countdownInterval);
+
+    setTimeout(() => {
+      this.showUndoMessage = false;
+      this.isDeleting = false;
+      this.deletedItemId = null;
+      this.isExiting = false;
+    }, 300);
+    
+    this.todoService.onsharedLoad(this.sharedLoadEvent);
+    this.showSuccessMessage('Deletion cancelled', 'success', this.mobileView, '↩ Restored');
+  }
+
+  private confirmDelete(item_id: number) {
+    clearInterval(this.countdownInterval);
+    
     this.todoService.deleteItem(item_id).subscribe(() => {
-      this.itemDescription = description;
-      this.todoService.onsharedLoad(this.sharedLoadEvent);
-      this.showSuccessMessage(this.mobileView);
+      this.showUndoMessage = false;
+      this.isDeleting = false;
+      this.deletedItemId = null;
+      this.showSuccessMessage('Item deleted permanently', 'success', this.mobileView, '✓ Confirmed');
     });
   }
 
-  showSuccessMessage(isMobile: boolean) {
+  showSuccessMessage(message: string, severity: string = 'info', isMobile: boolean, summary: string) {
     this.messageService.add({
       key: isMobile ? 'mobileToast' : 'desktopToast',
-      severity: 'info',
+      severity: severity,
       icon: 'pi pi-check',
-      summary: 'Completado!',
-      detail: this.itemDescription,
+      summary: summary,
+      detail: message,
     });
   }
   
