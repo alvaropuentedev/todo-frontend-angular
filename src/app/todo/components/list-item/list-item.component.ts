@@ -50,8 +50,8 @@ export class ListItemComponent implements OnInit {
   public showUndoMessage = false;
   public undoTimeLeft = 5;
   private deletedItemId: number | null = null;
-  private undoTimeout: NodeJS.Timeout | null = null;
-  private countdownInterval: NodeJS.Timeout | null = null;
+  private undoTimeout: number | null = null;
+  private countdownInterval: number | null = null;
   private deletedItemData: Item | null = null;
   private deletedItemIndex: number = -1;
   public isExiting = false;
