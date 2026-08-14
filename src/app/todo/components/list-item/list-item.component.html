@@ -1,12 +1,17 @@
 <!-- UNDO MESSAGE -->
 @if (showUndoMessage) {
   <div 
-    [class]="isExiting ? 'fixed bottom-4 left-1/2 -translate-x-1/2 bg-blue-500 text-white px-5 py-3 rounded-xl flex items-center gap-3 shadow-lg z-50 undo-message-exit' : 'fixed bottom-4 left-1/2 -translate-x-1/2 bg-blue-500 text-white px-5 py-3 rounded-xl flex items-center gap-3 shadow-lg z-50 undo-message'">
-    <span class="text-sm font-semibold">Item deleted ({{ undoTimeLeft }}s)</span>
+    class="fixed bottom-4 left-1/2 -translate-x-1/2 bg-[#4E81A3] text-white px-5 py-3 rounded-xl flex items-center gap-3 shadow-lg z-50"
+    [class.undo-message-exit]="isExiting"
+    [class.undo-message]="!isExiting">
+    
+    <span class="text-sm font-semibold">Item deleted</span>
+    
     <button 
       (click)="undoDelete()"
-      class="bg-white text-blue-500 hover:bg-blue-50 px-4 py-1 rounded-lg text-sm font-bold transition">
+      class="relative overflow-hidden bg-white text-[#4E81A3] hover:bg-slate-100 px-4 py-1 rounded-lg text-sm font-bold transition">
       Undo
+      <span class="timer-bar"></span>
     </button>
   </div>
 }

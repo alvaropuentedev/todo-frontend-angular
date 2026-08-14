@@ -4,6 +4,8 @@
           (onShow)="handleFocus($event, inputEl)"
           [draggable]="false" [resizable]="false"
           [dismissableMask]="true"
+          [transitionOptions]="'0ms'"
+          [focusOnShow]="false"
           class="add-modal">
   <div class="p-5">
     <form [formGroup]="addItemForm" (ngSubmit)="submitForm()">

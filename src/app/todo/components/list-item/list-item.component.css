@@ -33,6 +33,22 @@ button:focus {
 .undo-message-exit {
   animation: slideOut 0.3s ease-in;
 }
+
+/* La barra que se vacía al ritmo del Toast */
+.timer-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  animation: countdown 5s linear forwards; /* Debe coincidir con 'life' */
+}
+
+@keyframes countdown {
+  from { width: 100%; }
+  to { width: 0%; }
+}
 /*:host ::ng-deep .p-card {*/
 /*  border-radius: 25px;*/
 /*  border: 2px solid black;*/

@@ -22,7 +22,7 @@ export class AddItemComponent {
   @Output() sharedLoadEvent = new EventEmitter<void>();
   public userID = computed(() => this.authService.currentUserID());
   public $showAddButton = this.todoService.$showAddButton;
-  public handleFocus = this.todoService.handleFocus;
+  public handleFocus = (event: any, inputEl: any) => this.todoService.handleFocus(event, inputEl);
 
   // Avoid duplicate items while the form is being submitted
   public isSubmitting = false;

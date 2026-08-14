@@ -50,7 +50,10 @@ export class TodoService {
   }
 
   handleFocus(event: any, inputEl: any) {
-    inputEl.focus();
+    const el = inputEl?.nativeElement || inputEl;
+    if (el && typeof el.focus === 'function') {
+      el.focus();
+    }
   }
 
   // Vibration function
