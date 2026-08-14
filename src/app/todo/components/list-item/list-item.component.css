@@ -42,7 +42,7 @@ button:focus {
   height: 3px;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.7);
-  animation: countdown 5s linear forwards; /* Debe coincidir con 'life' */
+  animation: countdown 5s linear forwards;
 }
 
 @keyframes countdown {

@@ -107,9 +107,9 @@ export class ListItemComponent implements OnInit {
   deleteItem(item_id: number, description: string) {
     this.isDeleting = true;
     this.deletedItemId = item_id;
-    this.deleteAudio.play();
-    this.deleteAudio.volume = 0.2;
     this.todoService.hapticsImpactVibration();
+    this.deleteAudio.volume = 0.2;
+    this.deleteAudio.play();
     
     // Save the item before removing it
     this.deletedItemIndex = this.items.findIndex(i => i.id === item_id);
@@ -120,13 +120,7 @@ export class ListItemComponent implements OnInit {
     }
 
     this.showUndoMessage = true;
-    // this.undoTimeLeft = 5;
     this.itemDescription = description;
-
-    // Countdown visual
-    // this.countdownInterval = setInterval(() => {
-    //   this.undoTimeLeft--;
-    // }, 1000);
 
     // Delete after 5 seconds
     this.undoTimeout = setTimeout(() => {
