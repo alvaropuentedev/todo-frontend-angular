@@ -107,6 +107,9 @@ export class ListItemComponent implements OnInit {
   deleteItem(item_id: number, description: string) {
     this.isDeleting = true;
     this.deletedItemId = item_id;
+    this.deleteAudio.play();
+    this.deleteAudio.volume = 0.2;
+    this.todoService.hapticsImpactVibration();
     
     // Save the item before removing it
     this.deletedItemIndex = this.items.findIndex(i => i.id === item_id);
