@@ -127,7 +127,7 @@ export class ListItemComponent implements OnInit {
       this.confirmDelete(item_id);
     }, 5000);
 
-    this.showSuccessMessage('✓ Eliminado', 'info', this.mobileView, this.itemDescription);
+    // this.showSuccessMessage('✓ Eliminado', 'info', this.mobileView, this.itemDescription);
   }
   undoDelete() {
     this.isExiting = true;
@@ -143,7 +143,7 @@ export class ListItemComponent implements OnInit {
     }, 300);
     
     this.todoService.onsharedLoad(this.sharedLoadEvent);
-    this.showSuccessMessage('↩ Elemento restaurado', 'success', this.mobileView, this.itemDescription);
+    this.showSuccessMessage('Elemento restaurado', 'success', this.mobileView, this.itemDescription);
   }
 
   private confirmDelete(item_id: number) {
@@ -153,7 +153,7 @@ export class ListItemComponent implements OnInit {
       this.showUndoMessage = false;
       this.isDeleting = false;
       this.deletedItemId = null;
-      this.showSuccessMessage('✓ Eliminado permanentemente', 'success', this.mobileView, this.itemDescription);
+      this.showSuccessMessage('Eliminado permanentemente', 'error', this.mobileView, this.itemDescription);
     });
   }
 
