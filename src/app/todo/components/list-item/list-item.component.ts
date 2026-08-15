@@ -19,7 +19,6 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabel } from 'primeng/floatlabel';
-import { Haptics } from '@capacitor/haptics';
 
 
 @Component({
@@ -39,7 +38,6 @@ export class ListItemComponent implements OnInit {
   @ViewChild('editInput') editInput: ElementRef | undefined;
 
   public itemDescription = '';
-  private deleteAudio: HTMLAudioElement;
   public isEditing = false;
   public editingItemId: number | null = null;
   public drawerVisibleSignal = this.todoService.drawerVisibleSignal;
@@ -57,8 +55,7 @@ export class ListItemComponent implements OnInit {
   public isExiting = false;
 
   constructor() {
-    this.deleteAudio = new Audio();
-    this.deleteAudio.src = 'assets/audio/LetitgoDeleteSound.mp3';
+    this.initAudioContext();
   }
 
   ngOnInit(): void {
@@ -69,6 +66,20 @@ export class ListItemComponent implements OnInit {
       this.drawerVisibleSignal.set(true);
       history.pushState(null, '', location.href);
     };
+  }
+
+  initAudioContext() {
+    try {
+      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+      if (audioContext.state === 'suspended') {
+        // Resume after user interaction
+        document.addEventListener('click', () => {
+          audioContext.resume();
+        }, { once: true });
+      }
+    } catch (e) {
+      console.log('AudioContext not available');
+    }
   }
 
   itemControl = new FormControl('');
