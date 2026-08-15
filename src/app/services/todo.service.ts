@@ -85,9 +85,16 @@ export class TodoService {
   // Vibration function with fallback
   async hapticsImpactVibration() {
     try {
+      // Capacitor native
       await Haptics.notification();
-    } catch (error) {
-      console.log('Haptics not available');
+      return;
+    } catch {
+      // PWA / browser
+    }
+
+    // Browser vibration fallback
+    if ('vibrate' in navigator) {
+      navigator.vibrate(50);
     }
   }
 
