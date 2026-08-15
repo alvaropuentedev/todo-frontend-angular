@@ -52,12 +52,46 @@ export class TodoService {
   // Vibration function with fallback
   async hapticsImpactVibration() {
     try {
-      await Haptics.impact({ style: ImpactStyle.Heavy });
+      await Haptics.notification();
     } catch (error) {
-      // Fallback for iOS if Capacitor doesn't work
-      if (navigator.vibrate) {
-        navigator.vibrate([20, 10, 20]);
-      }
+      console.log('Haptics not available');
+    }
+  }
+
+  async hapticsDeleteSound() {
+    try {
+      await Haptics.notification();
+      
+      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+      
+      // RUSTLE - fricción del papel (sonido suave descendente)
+      const osc1 = audioContext.createOscillator();
+      const gain1 = audioContext.createGain();
+      osc1.connect(gain1);
+      gain1.connect(audioContext.destination);
+      osc1.type = 'sine';
+      osc1.frequency.setValueAtTime(600, audioContext.currentTime);
+      osc1.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.25);
+      gain1.gain.setValueAtTime(0.15, audioContext.currentTime);
+      gain1.gain.exponentialRampToValueAtTime(0.02, audioContext.currentTime + 0.25);
+      osc1.start(audioContext.currentTime);
+      osc1.stop(audioContext.currentTime + 0.25);
+      
+      // THUD PROFUNDO - cae en papelera (sonido muy grave)
+      const osc2 = audioContext.createOscillator();
+      const gain2 = audioContext.createGain();
+      osc2.connect(gain2);
+      gain2.connect(audioContext.destination);
+      osc2.type = 'sine';
+      osc2.frequency.setValueAtTime(200, audioContext.currentTime + 0.27);
+      osc2.frequency.exponentialRampToValueAtTime(80, audioContext.currentTime + 0.38);
+      gain2.gain.setValueAtTime(0.4, audioContext.currentTime + 0.27);
+      gain2.gain.exponentialRampToValueAtTime(0, audioContext.currentTime + 0.38);
+      osc2.start(audioContext.currentTime + 0.27);
+      osc2.stop(audioContext.currentTime + 0.38);
+      
+    } catch (error) {
+      console.log('Audio no disponible');
     }
   }
 

@@ -6,7 +6,6 @@ import {
   Input,
   OnInit,
   Output,
-  Renderer2,
   ViewChild,
 } from '@angular/core';
 import { TodoService } from '../../../services/todo.service';
@@ -20,6 +19,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabel } from 'primeng/floatlabel';
+import { Haptics } from '@capacitor/haptics';
 
 
 @Component({
@@ -50,7 +50,7 @@ export class ListItemComponent implements OnInit {
   public showUndoMessage = false;
   public undoTimeLeft = 5;
   private deletedItemId: number | null = null;
-  private undoTimeout: number | null = null;
+  private undoTimeout: ReturnType<typeof setTimeout> | null = null;
   private countdownInterval: number | null = null;
   private deletedItemData: Item | null = null;
   private deletedItemIndex: number = -1;
@@ -107,9 +107,7 @@ export class ListItemComponent implements OnInit {
   deleteItem(item_id: number, description: string) {
     this.isDeleting = true;
     this.deletedItemId = item_id;
-    this.todoService.hapticsImpactVibration();
-    this.deleteAudio.volume = 0.2;
-    this.deleteAudio.play();
+    this.todoService.hapticsDeleteSound();
     
     // Save the item before removing it
     this.deletedItemIndex = this.items.findIndex(i => i.id === item_id);
