@@ -55,7 +55,12 @@ export class ListItemComponent implements OnInit {
   public isExiting = false;
 
   constructor() {
-    this.initAudioContext();
+    const unlockAudio = () => {
+      this.todoService.initAudio();
+    };
+
+    document.addEventListener('touchstart', unlockAudio, { once: true });
+    document.addEventListener('click', unlockAudio, { once: true });
   }
 
   ngOnInit(): void {
@@ -66,20 +71,6 @@ export class ListItemComponent implements OnInit {
       this.drawerVisibleSignal.set(true);
       history.pushState(null, '', location.href);
     };
-  }
-
-  initAudioContext() {
-    try {
-      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-      if (audioContext.state === 'suspended') {
-        // Resume after user interaction
-        document.addEventListener('click', () => {
-          audioContext.resume();
-        }, { once: true });
-      }
-    } catch (e) {
-      console.log('AudioContext not available');
-    }
   }
 
   itemControl = new FormControl('');
@@ -136,8 +127,8 @@ export class ListItemComponent implements OnInit {
       this.confirmDelete(item_id);
     }, 5000);
 
-    // this.showSuccessMessage('✓ Eliminado', 'info', this.mobileView, this.itemDescription);
   }
+
   undoDelete() {
     this.isExiting = true;
 

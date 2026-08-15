@@ -26,6 +26,39 @@ export class TodoService {
 
   constructor() {
   }
+  private audioContext: AudioContext | null = null;
+
+  private getAudioContext(): AudioContext | null {
+    try {
+      if (!this.audioContext) {
+        this.audioContext = new (
+          window.AudioContext ||
+          (window as any).webkitAudioContext
+        )();
+      }
+
+      return this.audioContext;
+    } catch {
+      return null;
+    }
+  }
+
+  initAudio() {
+    try {
+      if (!this.audioContext) {
+        this.audioContext = new (
+          window.AudioContext ||
+          (window as any).webkitAudioContext
+        )();
+      }
+
+      if (this.audioContext.state === 'suspended') {
+        this.audioContext.resume();
+      }
+    } catch {
+      console.log('AudioContext not available');
+    }
+  }
 
   setListId(listId: number) {
     this.$list_id.set(listId);
@@ -59,39 +92,85 @@ export class TodoService {
   }
 
   async hapticsDeleteSound() {
+
+    // HAPTICS
     try {
       await Haptics.notification();
-      
-      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-      
-      // RUSTLE - fricción del papel (sonido suave descendente)
+    } catch {
+      // Haptics unavailable in PWA iOS
+    }
+
+    // AUDIO
+    try {
+      const audioContext = this.getAudioContext();
+
+      if (!audioContext) {
+        return;
+      }
+
+      // Make sure iOS has resumed the context
+      if (audioContext.state === 'suspended') {
+        await audioContext.resume();
+      }
+
+      const now = audioContext.currentTime;
+
+      // =========================
+      // RUSTLE
+      // =========================
+
       const osc1 = audioContext.createOscillator();
       const gain1 = audioContext.createGain();
+
       osc1.connect(gain1);
       gain1.connect(audioContext.destination);
+
       osc1.type = 'sine';
-      osc1.frequency.setValueAtTime(600, audioContext.currentTime);
-      osc1.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.25);
-      gain1.gain.setValueAtTime(0.15, audioContext.currentTime);
-      gain1.gain.exponentialRampToValueAtTime(0.02, audioContext.currentTime + 0.25);
-      osc1.start(audioContext.currentTime);
-      osc1.stop(audioContext.currentTime + 0.25);
-      
-      // THUD PROFUNDO - cae en papelera (sonido muy grave)
+
+      osc1.frequency.setValueAtTime(600, now);
+      osc1.frequency.exponentialRampToValueAtTime(
+        200,
+        now + 0.25
+      );
+
+      gain1.gain.setValueAtTime(0.15, now);
+      gain1.gain.exponentialRampToValueAtTime(
+        0.02,
+        now + 0.25
+      );
+
+      osc1.start(now);
+      osc1.stop(now + 0.25);
+
+      // =========================
+      // THUD
+      // =========================
+
       const osc2 = audioContext.createOscillator();
       const gain2 = audioContext.createGain();
+
       osc2.connect(gain2);
       gain2.connect(audioContext.destination);
+
       osc2.type = 'sine';
-      osc2.frequency.setValueAtTime(200, audioContext.currentTime + 0.27);
-      osc2.frequency.exponentialRampToValueAtTime(80, audioContext.currentTime + 0.38);
-      gain2.gain.setValueAtTime(0.4, audioContext.currentTime + 0.27);
-      gain2.gain.exponentialRampToValueAtTime(0, audioContext.currentTime + 0.38);
-      osc2.start(audioContext.currentTime + 0.27);
-      osc2.stop(audioContext.currentTime + 0.38);
-      
+
+      osc2.frequency.setValueAtTime(200, now + 0.27);
+      osc2.frequency.exponentialRampToValueAtTime(
+        80,
+        now + 0.38
+      );
+
+      gain2.gain.setValueAtTime(0.4, now + 0.27);
+      gain2.gain.exponentialRampToValueAtTime(
+        0,
+        now + 0.38
+      );
+
+      osc2.start(now + 0.27);
+      osc2.stop(now + 0.38);
+
     } catch (error) {
-      console.log('Audio no disponible');
+      console.log('Audio not available', error);
     }
   }
 
