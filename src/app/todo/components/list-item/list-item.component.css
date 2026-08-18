@@ -34,7 +34,7 @@ button:focus {
   animation: slideOut 0.3s ease-in;
 }
 
-/* La barra que se vacía al ritmo del Toast */
+/* The bar that empties in sync with the toas */
 .timer-bar {
   position: absolute;
   bottom: 0;
@@ -42,7 +42,7 @@ button:focus {
   height: 3px;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.7);
-  animation: countdown 5s linear forwards;
+  animation: countdown 3s linear forwards; /* This time should match the duration of the Toast message */
 }
 
 @keyframes countdown {
