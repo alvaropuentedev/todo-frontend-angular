@@ -125,7 +125,7 @@ export class ListItemComponent implements OnInit {
     // Delete after 3 seconds
     this.undoTimeout = setTimeout(() => {
       this.confirmDelete(item_id);
-    }, 3000);
+    }, 2000);
 
   }
 
