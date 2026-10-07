@@ -122,10 +122,10 @@ export class ListItemComponent implements OnInit {
     this.showUndoMessage = true;
     this.itemDescription = description;
 
-    // Delete after 3 seconds
+    // Delete after 1 seconds
     this.undoTimeout = setTimeout(() => {
       this.confirmDelete(item_id);
-    }, 2000);
+    }, 1000);
 
   }
 

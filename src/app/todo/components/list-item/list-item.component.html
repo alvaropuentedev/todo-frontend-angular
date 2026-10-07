@@ -24,6 +24,7 @@
                   style="overflow-wrap: anywhere; word-break: break-word;"> {{ item.description }} 
           </a>
           <div class="relative flex items-center justify-center">
+            <!-- Delete button -->
               <button class="z-10 bg-white p-2 rounded-full"
                 (click)="deleteItem(item.id, item.description)"
                 [disabled]="isDeleting">
